@@ -3,6 +3,7 @@ import { ApiError } from '../utils/ApiError.js';
 import { asyncHandler } from '../utils/asyncHandler.js'
 import { fileuploder } from '../utils/cloudinary.js';
 import { ApiResponse } from "../utils/ApiResponse.js"
+import jwt from 'jsonwebtoken'
 
 const genrateAccessAndRefreshToken=async(userid)=>{
     const user=await User.findOne(userid)
@@ -75,10 +76,127 @@ const login=asyncHandler(async(req,res)=>{
     return res.status(200)
               .cookie("AccessToken",accessToken,option)
               .cookie("RefreshToken",refreshToken,option)
-              .json(new ApiResponse(200,loginuser,"User LoggedIn SuccessFully"))       
+              .json(new ApiResponse(200,{
+                user:loginuser,refreshToken,accessToken}
+                ,"User LoggedIn SuccessFully"))       
+})
+
+const logout=asyncHandler(async(req,res)=>{
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {$set:{refreshToken:undefined}},
+        {new:true}
+    )
+    const option={
+        httpOnly:true,
+        secure:true
+    }
+    res.status(200)
+       .cookie("accessToken",option)
+       .cookie("refreshToken",option)
+       .json(new ApiResponse(200,{},"LogOut SuccessFullly"))  
+})
+
+const refreshTokenGenrate=asyncHandler(async(req,res)=>{
+    const incomingToken=req.cookie.refreshToken;
+
+    if(!incomingToken){
+        throw new ApiError(401,"Refresh Token Expired")
+    }
+
+    const decodedToken=jwt.verify(incomingToken,process.env.REFRESH_TOKEN_SECRET)
+    const user=await User.findById(decodedToken._id)
+
+    if(incomingToken !== user.refreshToken){
+        throw new ApiError(401,"Invalid Refresh Token")
+    }
+
+    const { refreshToken, accessToken }=genrateAccessAndRefreshToken(user._id)
+    const option={
+        httpOnly:true,
+        secure:true
+    }
+
+    res.status(200)
+       .cookie("accessToken",accessToken,option)
+       .cookie("refreshToken",refreshToken,option)
+       .json(new ApiResponse(200,
+        {
+            newrefreshToken:refreshToken,accessToken
+        },"RefreshToken Genrated Successfully"
+       ))
+})
+
+const changePassword=asyncHandler(async(req,res)=>{
+    const { oldpassword, newpassword } = req.body;
+    if(oldpassword === ""){ throw new ApiError(402,"Old PassWord Is Required") }
+    if(newpassword === ""){ throw new ApiError(402,"New Password Is Required") }
+    
+    const user=await User.findById(req.user._id)
+
+    const checkpassword=user.isPasswordCorrect(oldpassword)
+    if(!checkpassword){
+        throw new ApiError(402,"Invalid Password")
+    }
+
+    user.password=newpassword;
+    await user.save({validateBeforeSave:false})
+
+    res.status(200)
+        .json(200,{},"Password Changed Successfully")
+})
+
+const  changeAccountDetails=asyncHandler(async(req,res)=>{
+    const { email, bio }=req.body
+    if(!email || !bio){
+        throw new ApiError(402,"Email And Bio Is Required To Change")
+    }
+
+    const user=await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set:{
+                email,
+                bio
+            }
+        },
+        {new:true}
+    ).select("-password -refreshToken")
+
+    res.status(200)
+        .json(new ApiResponse(
+            200,user,"Data Changed SuccessFully"
+        ))
+})
+
+const changeProfilePhoto=asyncHandler(async(req,res)=>{
+    const profilePhotopath=req.file.path;
+    if(!profilePhotopath){
+        throw new ApiError(403,"Profile Photo Is Required")
+    }
+    const profilePhoto=await fileuploder(profilePhotopath)
+    if(!profilePhoto.url){
+        throw new ApiError(501,"Can't Upload On Cloudinary")
+    }
+    const user=await User.findByIdAndUpdate(req.user._id,
+        {
+            $set:{
+                profilePhoto:profilePhoto.url
+            }
+        },
+        { new: true }
+    ).select("-password -refreshToken")
+
+    res.status(200)
+        .json(new ApiResponse(200,user,"Profile Photo Changed Successfully"))
 })
 
 export {
     register,
     login,
+    logout,
+    refreshTokenGenrate,
+    changePassword,
+    changeAccountDetails,
+    changeProfilePhoto,
 }
