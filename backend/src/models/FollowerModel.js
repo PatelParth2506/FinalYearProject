@@ -5,7 +5,7 @@ const followerSchema=new mongoose.Schema({
         type:Number,
         default:0,
     },
-    following:{
+    profile:{
         type:Number,
         default:0
     }
