@@ -6,13 +6,13 @@ import { User } from "../models/UserModel.js";
 
 export const auth=asyncHandler(async(req,res,next)=>{
     try {
-        const token=req.cookie.accessToken || req.header("auth").replace("Bearer","");
+        const token=req.cookies.AccessToken || req.header("auth").replace("Bearer","");
         if(!token){
             throw new ApiError(402,"Unauthorized Token")
         }
 
         const decodedToken=jwt.verify(token,process.env.ACCESS_TOKEN_SECRET)
-
+        console.log(decodedToken)
         const user=await User.findById(decodedToken._id).select("-password -refreshToken")
         if(!user){
             throw new ApiError(402,"Invalid Token")
@@ -20,6 +20,6 @@ export const auth=asyncHandler(async(req,res,next)=>{
         req.user=user;
         next()
     } catch (error) {
-        throw new ApiError(404,error.message)
+        throw new ApiError(404,error)
     }
 })

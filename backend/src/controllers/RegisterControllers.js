@@ -7,12 +7,10 @@ import jwt from 'jsonwebtoken'
 
 const genrateAccessAndRefreshToken=async(userid)=>{
     const user=await User.findOne(userid)
-    const accessToken=user.genrateAccessToken()
-    const refreshToken=user.genrateRefreshToken()
+    const accessToken=await     user.genrateAccessToken()
+    const refreshToken=await user.genrateRefreshToken()
     user.refreshToken=refreshToken;
     await user.save({validateBeforeSave:false})
-    console.log("accessToken===",accessToken)
-    console.log("RefreshToken===",refreshToken)
     return { accessToken, refreshToken }
 }
 
@@ -26,16 +24,16 @@ const register=asyncHandler(async(req,res)=>{
     const usercheck=await User.findOne({
         $or:[ { email } , { username } ]
     })
-
-    if(!usercheck){
+    if(usercheck){
         throw new ApiError(402,"User Already Exists")   
     }
 
-    const profilePhotoPath=req.file.profilePhoto[0].path;
+    const profilePhotoPath=req.files?.profilePhoto[0]?.path;
     if(!profilePhotoPath) throw new ApiError(401,"Profile Photo Is Required")
     
     const profilePhoto=await fileuploder(profilePhotoPath)
-    if(!profilePhoto) throw new ApiError(501,"Profile Photo Is Required")
+
+    if(!profilePhoto) throw new ApiError(401,"Profile Photo Is Required")
     
     const user=await User.create({
         username,
@@ -45,28 +43,27 @@ const register=asyncHandler(async(req,res)=>{
         profilePhoto:profilePhoto.url
     })
 
-    const createdUser=await User.findOne(user._id).select("-password -refreshToken")
+    const createdUser=await User.findById(user._id).select("-password -refreshToken")
 
     return res.status(200).json(new ApiResponse(200,createdUser,"User Registred Successfully"))
 })
 
 const login=asyncHandler(async(req,res)=>{
     const { username, password } = req.body;
-    if(username === "") throw new ApiError("UserName Is Empty")
-    if(password === "") throw new ApiError("Password Is Empty")
-
+    if(!username) throw new ApiError(404,"UserName Is Empty")
+    if(!password) throw new ApiError(404,"Password Is Empty")
     const usercheck=await User.findOne({
         $or:[{username}]
     })
-
-    if(!usercheck) throw new ApiError("Username Or Password Is Incorrect")
+    console.log(usercheck)
+    if(!usercheck) throw new ApiError(402,"Username Or Password Is Incorrect")
     
     const passcheck=await usercheck.isPasswordCorrect(password)
 
-    if(!passcheck){ throw new ApiError("Password Is Incorrect") }
+    if(!passcheck){ throw new ApiError(402,"Password Is Incorrect") }
 
     const {refreshToken, accessToken}=await genrateAccessAndRefreshToken(usercheck._id)
-
+    console.log(accessToken)
     const loginuser=await User.findOne(usercheck._id).select("-password -refreshToken")
 
     const option={
@@ -81,7 +78,7 @@ const login=asyncHandler(async(req,res)=>{
                 ,"User LoggedIn SuccessFully"))       
 })
 
-const logout=asyncHandler(async(req,res)=>{
+const logout=asyncHandler(async(req,res)=>{+
     await User.findByIdAndUpdate(
         req.user._id,
         {$set:{refreshToken:undefined}},
@@ -200,7 +197,7 @@ const getProfile=asyncHandler(async(req,res)=>{
 
     const profile=await User.aggregate([
         {
-            $mathch:{
+            $match:{
                 username:username.toLowerCase()
             }
         },
@@ -229,12 +226,14 @@ const getProfile=asyncHandler(async(req,res)=>{
                     followingCount:{
                         $size:"$following"
                     },
-                    isFollowed:{
-                        $cond:{
-                            if:{$in:[req.user._id,"$followers.followers"]},
-                            then:true,
-                            else:false
-                        }   
+                    isFollowed: {
+                        $cond: {
+                            if: {
+                                $in: [req.user._id, { $ifNull: ["$followers.followers", []] }] // ✅ Ensures array exists
+                            },
+                            then: true,
+                            else: false
+                        }
                     }
                 }
             }
