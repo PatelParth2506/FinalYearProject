@@ -26,7 +26,7 @@ router.route("/logout").post(auth,logout)
 router.route("/genrateToken").post(refreshTokenGenrate)
 router.route("/passwordchnge").patch(auth,changePassword)
 router.route("/accountdetailchange").patch(auth,changeAccountDetails)
-router.route("/avatarchange").patch(auth,upload.single("profilePhoto"),changeProfilePhoto)
-router.route("/getChannelProfile/:username").get(auth,getProfile)
+router.route("/profilePhotochange").patch(auth,upload.single("profilePhoto"),changeProfilePhoto)
+router.route("/getUserProfile/:username").get(auth,getProfile)
 
 export default router

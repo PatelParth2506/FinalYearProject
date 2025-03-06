@@ -5,13 +5,9 @@ const commentSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
-    commentfrom:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    },
     commentdata:{
         type:String,
-        require:true
+        required:true
     }
 },{
     timestamps:true

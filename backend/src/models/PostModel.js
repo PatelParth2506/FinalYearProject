@@ -7,10 +7,11 @@ const postSchema=new mongoose.Schema({
     },
     photo:{
         type:String,
-        require:true
+        required:true
     },
     description:{
         type:String,
+        trim:true
     },
     comments:[
         {
@@ -18,10 +19,10 @@ const postSchema=new mongoose.Schema({
             ref:"Comment"
         }
     ],
-    like:{
-        type:Number,
-        default:0,
-    }
+    likes:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    }]
 },{
     timestamps:true
 })

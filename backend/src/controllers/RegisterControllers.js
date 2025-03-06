@@ -4,6 +4,7 @@ import { asyncHandler } from '../utils/asyncHandler.js'
 import { fileuploder } from '../utils/cloudinary.js';
 import { ApiResponse } from "../utils/ApiResponse.js"
 import jwt from 'jsonwebtoken'
+import { upload } from '../middelwares/multer.js';
 
 const genrateAccessAndRefreshToken=async(userid)=>{
     const user=await User.findOne(userid)
@@ -20,14 +21,12 @@ const register=asyncHandler(async(req,res)=>{
     if(username === "") throw new ApiError(401,"Username Can't Be Happy")
     if(email === "") throw new ApiError(401,"Email Can't Be Happy")
     if(password === "") throw new ApiError(401,"Password Can't Be Empty")
-
     const usercheck=await User.findOne({
         $or:[ { email } , { username } ]
     })
     if(usercheck){
         throw new ApiError(402,"User Already Exists")   
     }
-
     const profilePhotoPath=req.files?.profilePhoto[0]?.path;
     if(!profilePhotoPath) throw new ApiError(401,"Profile Photo Is Required")
     
@@ -50,11 +49,10 @@ const register=asyncHandler(async(req,res)=>{
 
 const login=asyncHandler(async(req,res)=>{
     const { username, password } = req.body;
+    console.log(req.body)
     if(!username) throw new ApiError(404,"UserName Is Empty")
     if(!password) throw new ApiError(404,"Password Is Empty")
-    const usercheck=await User.findOne({
-        $or:[{username}]
-    })
+    const usercheck=await User.findOne({username})
     console.log(usercheck)
     if(!usercheck) throw new ApiError(402,"Username Or Password Is Incorrect")
     
@@ -64,7 +62,7 @@ const login=asyncHandler(async(req,res)=>{
 
     const {refreshToken, accessToken}=await genrateAccessAndRefreshToken(usercheck._id)
     console.log(accessToken)
-    const loginuser=await User.findOne(usercheck._id).select("-password -refreshToken")
+    const loginuser=await User.findById(usercheck._id).select("-password -refreshToken")
 
     const option={
         httpOnly:true,
@@ -77,8 +75,9 @@ const login=asyncHandler(async(req,res)=>{
                 user:loginuser,refreshToken,accessToken}
                 ,"User LoggedIn SuccessFully"))       
 })
+const loginWithFormData = [upload.none(), login];
 
-const logout=asyncHandler(async(req,res)=>{+
+const logout=asyncHandler(async(req,res)=>{
     await User.findByIdAndUpdate(
         req.user._id,
         {$set:{refreshToken:undefined}},
@@ -229,7 +228,7 @@ const getProfile=asyncHandler(async(req,res)=>{
                     isFollowed: {
                         $cond: {
                             if: {
-                                $in: [req.user._id, { $ifNull: ["$followers.followers", []] }] // ✅ Ensures array exists
+                                $in: [req.user._id, { $ifNull: ["$followers.followers", []] }]
                             },
                             then: true,
                             else: false
@@ -260,7 +259,7 @@ const getProfile=asyncHandler(async(req,res)=>{
 
 export {
     register,
-    login,
+    loginWithFormData as login,
     logout,
     refreshTokenGenrate,
     changePassword,
