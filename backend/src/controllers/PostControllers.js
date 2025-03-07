@@ -3,6 +3,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { Post } from "../models/PostModel.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { fileuploder } from "../utils/cloudinary.js";
+import { Comment } from "../models/CommentModel.js";
 
 const createPost=asyncHandler(async(req,res)=>{
     const { description } = req.body;
@@ -12,7 +13,7 @@ const createPost=asyncHandler(async(req,res)=>{
     const image=await fileuploder(imagepath)
 
     const post=await Post.create({
-        user:req.user._id,
+        owner:req.user._id,
         description,
         photo:image.url
     })
@@ -49,8 +50,9 @@ const deletepost=asyncHandler(async(req,res)=>{
     if(!post_id){ throw new ApiError(401,"Id Require To Delete") }
     const post=await Post.findById(post_id)
     if(!post){ throw new ApiError(404,"Post Not Found") }
-
-    if(post.owner !== req.user._id){
+    console.log(req.user._id)
+    console.log(post.owner)
+    if(post.owner.toString() !== req.user._id.toString()){
         throw new ApiError(402,"only owner can delete this post")
     }
 
@@ -60,9 +62,45 @@ const deletepost=asyncHandler(async(req,res)=>{
     )
 })
 
+const addcomment=asyncHandler(async(req,res)=>{
+    const { postid } = req.params;
+    const { comment } = req.body;
+    if(!postid){ throw new ApiError(401,"Post Id Is Required")}
+    if(!comment){ throw new ApiError(401,"Comment Is Required")}    
+    const post=await Post.findById(postid)
+    post.comments.push({
+        commentby:req.user._id,
+        comment
+    })
+    await post.save()
+    res.status(200).json(
+        new ApiResponse(200,post,"Comment Added Successfully")
+    )
+})
+
+const deletecomment=asyncHandler(async(req,res)=>{
+    const { postid,commentid } = req.params
+    if(!postid){ throw new ApiError(402,"Post ID Is Required") }
+    if(!commentid){ throw new ApiError(402,"Comment Id Is Required") }
+    const post= await Post.findById(postid)
+    if(!post){ throw new ApiError(404,"Post Not Found") }
+    const commentindex=post.comments.find((c)=>{
+        c._id.toString()===commentid.toString()
+    })
+    if(commentindex === -1){ throw new ApiError(404,"Comment Not Found") }
+    post.comments.splice(commentindex,1)
+    await post.save()
+
+    res.status(200).json(
+        new ApiResponse(200,post,"Comment Deleted Successfully")
+    )
+})
+
 export {
     createPost,
     getAllPost,
     getSinglePost,
     deletepost,
+    addcomment,
+    deletecomment,
 }

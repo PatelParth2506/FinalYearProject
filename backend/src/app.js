@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import UserRoutes from './routes/UserRoutes.js'
 import PostRoutes from './routes/PostRoutes.js'
+import { Comment } from './models/CommentModel.js';
 
 const app=express();
 
