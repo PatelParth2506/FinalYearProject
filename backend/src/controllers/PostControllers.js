@@ -4,6 +4,7 @@ import { Post } from "../models/PostModel.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { fileuploder } from "../utils/cloudinary.js";
 import { Comment } from "../models/CommentModel.js";
+import mongoose from "mongoose";
 
 const createPost=asyncHandler(async(req,res)=>{
     const { description } = req.body;
@@ -65,21 +66,25 @@ const deletepost=asyncHandler(async(req,res)=>{
 const addcomment=asyncHandler(async(req,res)=>{
     const { postid } = req.params;
     const { comment } = req.body;
-    if(!postid){ throw new ApiError(401,"Post Id Is Required")}
-    if(!comment){ throw new ApiError(401,"Comment Is Required")}    
-    const post=await Post.findById(postid)
-    post.comments.push({
-        commentby:req.user._id,
+    const userID=req.user._id;
+    if(!postid){ throw new ApiError(401,"Post Id Is Required"); }
+    if(!comment){ throw new ApiError(401,"Comment Is Required"); }   
+    const post = await Post.findById(postid);
+    if (!post) { throw new ApiError(404, "Post Not Found"); }
+    const newcomment = await Comment.create({
+        commentby: userID,
         comment
     })
-    await post.save()
+    post.comments.push(newcomment._id);
+    await post.save();
     res.status(200).json(
-        new ApiResponse(200,post,"Comment Added Successfully")
-    )
-})
+        new ApiResponse(200, post, "Comment Added Successfully")
+    );
+});
 
 const deletecomment=asyncHandler(async(req,res)=>{
-    const { postid,commentid } = req.params
+    const { postid , commentid } = req.params
+    console.log(req.params)
     if(!postid){ throw new ApiError(402,"Post ID Is Required") }
     if(!commentid){ throw new ApiError(402,"Comment Id Is Required") }
     const post= await Post.findById(postid)
@@ -96,6 +101,44 @@ const deletecomment=asyncHandler(async(req,res)=>{
     )
 })
 
+const updateComment=asyncHandler(async(req,res)=>{
+    const { postid , commentid } = req.params;
+    const { comment } = req.body;
+    if(!postid){ throw new ApiError(401,"Post Id Is Required") }
+    if(!commentid){ throw new ApiError(401,"Comment Id Is Required") }  
+    if(!comment){ throw new ApiError(401,"Comment Is Required") }
+    const post= await Post.findById(postid)
+    if(!post){ throw new ApiError(404,"Post Not Found") }
+    const commentindex=post.comments.findIndex((c)=>{
+        console.log(c._id.toString())
+        return c._id.toString() === commentid.toString()
+    })
+    if(commentindex === -1){ throw new ApiError(404,"Comment Not Found") }
+    post.comments[commentindex].comment=comment
+    await post.save()
+    res.status(200).json(
+        new ApiResponse(200,post,"Comment Updated Successfully")
+    )
+})
+
+const likePost=asyncHandler(async(req,res)=>{
+    const { postid } = req.params;
+    if(!postid){ throw new ApiError(401,"Post Id Is Required") }
+    const post=await Post.findById(postid)
+    if(!post){ throw new ApiError(404,"Post Not Found") }
+    const isLiked=post.likes.find((like)=>like.toString()===req.user._id.toString())
+    if(isLiked){
+        post.likes.pull(req.user._id)   
+    }
+    else{
+        post.likes.push(req.user._id)
+    }
+    await post.save()
+    res.status(200).json(
+        new ApiResponse(200,post,"Post Liked Successfully")
+    )   
+})
+
 export {
     createPost,
     getAllPost,
@@ -103,4 +146,5 @@ export {
     deletepost,
     addcomment,
     deletecomment,
+    updateComment,
 }
