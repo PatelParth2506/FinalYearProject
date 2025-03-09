@@ -5,6 +5,7 @@ import { fileuploder } from '../utils/cloudinary.js';
 import { ApiResponse } from "../utils/ApiResponse.js"
 import jwt from 'jsonwebtoken'
 import { upload } from '../middelwares/multer.js';
+import { Follower } from '../models/FollowerModel.js';
 
 const genrateAccessAndRefreshToken=async(userid)=>{
     const user=await User.findOne(userid)
@@ -204,7 +205,7 @@ const getProfile=asyncHandler(async(req,res)=>{
             $lookup:{
                 from:"followers",
                 localField:"_id",
-                foreignField:"profile",
+                foreignField:"following",
                 as:"follower"
             }
         },
@@ -257,6 +258,40 @@ const getProfile=asyncHandler(async(req,res)=>{
         .json(new ApiResponse(200,profile[0],"Profile Fetched Successfully"))
 })
 
+const FollowUser=asyncHandler(async(req,res)=>{
+    const { userid } = req.params;
+    if(!userid){ throw new ApiError(401,"User Not Found") }
+    const user=await User.findById(userid)
+    if(!user){ throw new ApiError(401,"User Not Found") }
+    const follower=await Follower.findOne({
+        followers:req.user._id,
+        following:userid
+    })
+    if(follower){
+        throw new ApiError(401,"Already Following")
+    }
+    await Follower.create({
+        followers:req.user._id,
+        following:userid
+    })
+    res.status(200)
+        .json(new ApiResponse(200,{},"Followed Successfully"))
+})
+
+const unfollowUser=asyncHandler(async(req,res)=>{
+    const { userid } = req.params;
+    if(!userid){ throw new ApiError(401,"User Not Found") }
+    const user=await User.findById(userid)
+    if(!user){ throw new ApiError(401,"User Not Found") }
+    const follower= await Follower.findOneAndDelete({
+        followers:req.user._id,
+        following:userid
+    })
+    if(!follower){ throw new ApiError(401,"Not Following") }
+    res.status(200)
+        .json(new ApiResponse(200,{},"UnFollowed Successfully"))
+})
+
 export {
     register,
     loginWithFormData as login,
@@ -266,4 +301,6 @@ export {
     changeAccountDetails,
     changeProfilePhoto,
     getProfile,
+    FollowUser,
+    unfollowUser,
 }

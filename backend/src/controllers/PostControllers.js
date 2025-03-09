@@ -139,6 +139,8 @@ const likePost=asyncHandler(async(req,res)=>{
     )   
 })
 
+
+
 export {
     createPost,
     getAllPost,
@@ -147,4 +149,5 @@ export {
     addcomment,
     deletecomment,
     updateComment,
+    likePost,
 }

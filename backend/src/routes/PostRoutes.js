@@ -5,7 +5,8 @@ import {
     deletepost,
     addcomment,
     deletecomment,
-    updateComment
+    updateComment,
+    likePost
 } from '../controllers/PostControllers.js'
 import { auth } from "../middelwares/auth.js"
 import { Router } from 'express'
@@ -21,5 +22,7 @@ router.route("/deletePost/:post_id").delete(auth,deletepost)
 router.route("/addcomment/:postid").post(auth,addcomment)
 router.route("/deletecomment/:postid/:commentid").delete(auth,deletecomment)
 router.route("/updatecomment/:postid/:commentid").patch(auth,updateComment)
+
+router.route("/likepost/:postid").post(auth,likePost)
 
 export default router

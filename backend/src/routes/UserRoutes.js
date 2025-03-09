@@ -7,7 +7,9 @@ import { register,
          changePassword,
          changeAccountDetails,
          changeProfilePhoto,
-         getProfile,       
+         getProfile,
+         FollowUser,       
+         unfollowUser
  } from '../controllers/RegisterControllers.js';
 import { auth } from "../middelwares/auth.js"
 
@@ -28,5 +30,8 @@ router.route("/passwordchnge").patch(auth,changePassword)
 router.route("/accountdetailchange").patch(auth,changeAccountDetails)
 router.route("/profilePhotochange").patch(auth,upload.single("profilePhoto"),changeProfilePhoto)
 router.route("/getUserProfile/:username").get(auth,getProfile)
+
+router.route("/follow/:userid").post(auth,FollowUser)
+router.route("/unfollow/:userid").post(auth,unfollowUser)
 
 export default router
