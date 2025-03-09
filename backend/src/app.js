@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import UserRoutes from './routes/UserRoutes.js'
 import PostRoutes from './routes/PostRoutes.js'
+import StoryRoutes from './routes/StoryRoutes.js'
 import { Comment } from './models/CommentModel.js';
 
 const app=express();
@@ -19,5 +20,6 @@ app.use(cookieParser())
 
 app.use("/api/user",UserRoutes)
 app.use("/api/post",PostRoutes)
+app.use("/api/story",StoryRoutes)
 
 export { app }

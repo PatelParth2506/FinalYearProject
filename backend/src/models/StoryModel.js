@@ -13,8 +13,11 @@ const storySchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
-},{
-    timestamps:true
-})
+    createdAt:{
+        type:Date,
+        default:Date.now(),
+        expires: "24h"
+    }
+},)
 
 export const Story=mongoose.model("Story",storySchema)
