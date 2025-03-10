@@ -37,7 +37,15 @@ const userSchema=new mongoose.Schema({
     },
     refreshToken:{
         type:String,
-    }
+    },
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 },{
     timestamps:true
 })

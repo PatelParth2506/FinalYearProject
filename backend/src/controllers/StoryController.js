@@ -3,14 +3,16 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../models/UserModel.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { Story } from "../models/StoryModel.js";
+import { fileuploder } from "../utils/cloudinary.js";
 
 const createStory=asyncHandler(async(req,res)=>{
     console.log(req.file.path)
-    const photo = req.file.path;
-    console.log(photo)
-    if(!photo){ throw new ApiError(401,"Photo Is Required") }
+    const photopath = req.file.path;
+    if(!photopath){ throw new ApiError(401,"Photo Is Required") }
+    const photo=await fileuploder(photopath)
+    if(!photo){ throw new ApiError(501,"Photo Can't Upload To Cloudinary") }
     const story=await Story.create({
-        photo,
+        photo:photo.url,
         owner:req.user._id
     })
     res.status(200)
@@ -26,7 +28,6 @@ const getFolloingStory=asyncHandler(async(req,res)=>{
     const followingStory= await Story.find({owner:{$in:following}})
     .populate("owner","username profilePhoto")
     .sort({createdAt:-1})   
-    
     for (let story of followingStory) {
         if (story.owner._id.toString() !== req.user._id.toString()) {
             if (!story.view.includes(req.user._id)) {

@@ -5,7 +5,6 @@ import { fileuploder } from '../utils/cloudinary.js';
 import { ApiResponse } from "../utils/ApiResponse.js"
 import jwt from 'jsonwebtoken'
 import { upload } from '../middelwares/multer.js';
-import { Follower } from '../models/FollowerModel.js';
 
 const genrateAccessAndRefreshToken=async(userid)=>{
     const user=await User.findOne(userid)
@@ -263,17 +262,17 @@ const FollowUser=asyncHandler(async(req,res)=>{
     if(!userid){ throw new ApiError(401,"User Not Found") }
     const user=await User.findById(userid)
     if(!user){ throw new ApiError(401,"User Not Found") }
-    const follower=await Follower.findOne({
-        followers:req.user._id,
-        following:userid
-    })
-    if(follower){
+    const currentUser=await User.findById(req.user._id)
+
+    if(currentUser.following.includes(userid)){
         throw new ApiError(401,"Already Following")
     }
-    await Follower.create({
-        followers:req.user._id,
-        following:userid
-    })
+
+    currentUser.following.push(userid)
+    await currentUser.save()
+
+    user.followers.push(req.user._id)
+    user.save()
     res.status(200)
         .json(new ApiResponse(200,{},"Followed Successfully"))
 })
@@ -283,11 +282,14 @@ const unfollowUser=asyncHandler(async(req,res)=>{
     if(!userid){ throw new ApiError(401,"User Not Found") }
     const user=await User.findById(userid)
     if(!user){ throw new ApiError(401,"User Not Found") }
-    const follower= await Follower.findOneAndDelete({
-        followers:req.user._id,
-        following:userid
-    })
-    if(!follower){ throw new ApiError(401,"Not Following") }
+    const currentUser=await User.findById(req.user._id)
+    if(!currentUser.following.includes(userid)){
+        throw new ApiError(401,"Already UnFollowing")
+    }
+    currentUser.following.pull(userid)
+    currentUser.save()
+    user.followers.pull(req.user._id)
+    user.save()
     res.status(200)
         .json(new ApiResponse(200,{},"UnFollowed Successfully"))
 })

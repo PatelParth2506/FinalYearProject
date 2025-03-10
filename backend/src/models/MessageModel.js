@@ -5,13 +5,13 @@ const messageSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
-    reciver:{
+    receiver:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
     message:{
         type:String,
-        require:true,
+        required:true,
     }
 },{
     timestamps:true
