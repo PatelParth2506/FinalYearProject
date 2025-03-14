@@ -20,6 +20,6 @@ export const auth=asyncHandler(async(req,res,next)=>{
         req.user=user;
         next()
     } catch (error) {
-        throw new ApiError(404,error)
+        next(new ApiError(404, error.message));
     }
 })

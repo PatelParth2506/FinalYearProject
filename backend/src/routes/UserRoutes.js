@@ -9,7 +9,8 @@ import { register,
          changeProfilePhoto,
          getProfile,
          FollowUser,       
-         unfollowUser
+         unfollowUser,
+         getUserByID
  } from '../controllers/RegisterControllers.js';
 import { auth } from "../middelwares/auth.js"
 
@@ -29,8 +30,8 @@ router.route("/genrateToken").post(refreshTokenGenrate)
 router.route("/passwordchnge").patch(auth,changePassword)
 router.route("/accountdetailchange").patch(auth,changeAccountDetails)
 router.route("/profilePhotochange").patch(auth,upload.single("profilePhoto"),changeProfilePhoto)
-router.route("/getUserProfile/:username").get(auth,getProfile)
-
+router.route("/getUserProfile").get(auth,getProfile)
+router.route("/getuser/:userid").get(auth,getUserByID)
 router.route("/follow/:userid").post(auth,FollowUser)
 router.route("/unfollow/:userid").post(auth,unfollowUser)
 
