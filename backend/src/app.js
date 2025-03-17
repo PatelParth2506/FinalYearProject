@@ -7,13 +7,14 @@ import StoryRoutes from './routes/StoryRoutes.js';
 import MessageRoutes from './routes/MessageRoutes.js';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { addUser, removeUser } from './utils/Scokets.js';
+import { addUser, removeUser, getReceiverSocketId } from './utils/Scokets.js';
+import { Message } from './models/MessageModel.js';
 
 const app = express();
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin:"*",
+        origin:"http://localhost:5173",
         credentials: true
     }
 });
@@ -36,9 +37,22 @@ app.use("/api/message", MessageRoutes);
 
 io.on('connection', (socket) => {
     console.log('a user connected',socket.id);
-    socket.on('adduser',(userid)=>{
+    socket.on('addUser',(userid)=>{
         addUser(userid,socket.id)
     })
+
+    socket.on('sendMessage', async({ senderId, receiverId, text }) => {
+        const user = getReceiverSocketId(receiverId);
+        const newMessage= new Message({senderId,receiverId,text})
+        await newMessage.save();
+        if (user) {
+          io.to(user).emit('getMessage', {
+            senderId,
+            text,
+          });
+        }
+      });
+      
     socket.on('disconnect', () => {
         console.log('user disconnected');
         removeUser(socket.id)

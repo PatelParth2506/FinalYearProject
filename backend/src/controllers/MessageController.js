@@ -33,35 +33,31 @@ const getMessage = asyncHandler(async(req,res)=>{
     )
 })
 
-const sendMessage = asyncHandler(async(req,res)=>{
-    const { text } = req.body;
-    console.log(req.body)
-    const { recieverid } = req.params;
-    const userid=req.user._id;
-    const image=req.file;
-    console.log(image)
-    if(!userid){ throw new ApiError(403,"Unauthorized User") }
-    // if(!text || !image){ throw new ApiError(400,"Please Provide Text or Image") }
-    
-    const imageurl=await fileuploder(image.path);
-    console.log(imageurl)
-    const message=new Message({
-        sender:userid,
-        receiver:recieverid,
-        text,
-        image:imageurl.url || ""
-    })
+const sendMessage = asyncHandler(async (req, res) => {
+    const { text, sender, receiver } = req.body;
+    console.log(req.body);
+
+    if (!sender || !receiver) {
+        throw new ApiError(400, "Sender and Receiver are required");
+    }
+
+    const message = new Message({
+        sender,
+        receiver,
+        text
+    });
+
     await message.save();
-    
-    const receiverSocketid=getReceiverSocketId(recieverid)
-    if(receiverSocketid){
-        io.to(receiverSocketid).emit("message",message)
+
+    const receiverSocketid = getReceiverSocketId(receiver);
+    if (receiverSocketid) {
+        io.to(receiverSocketid).emit("message", message);
     }
 
     res.status(200).json(
-        new ApiResponse(200,message,"Message Sent Successfully")
-    )
-})
+        new ApiResponse(200, message, "Message Sent Successfully")
+    );
+});
 
 const deleteMessage = asyncHandler(async (req, res) => {
     const { messageId } = req.params;

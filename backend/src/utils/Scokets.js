@@ -1,18 +1,24 @@
-const users = new Map();
+let users = [];
 
-export const addUser = (userId, socketId) => {
-    users.set(userId, socketId);
+const addUser = (userId, socketId) => {
+  if (!users.some((user) => user.userId === userId)) {
+    users.push({ userId, socketId });
+    console.log(`User added: ${userId}, Socket ID: ${socketId}`);
+    console.log('Current users:', users);
+  }
 };
 
-export const removeUser = (socketId) => {
-    for (let [userId, id] of users.entries()) {
-        if (id === socketId) {
-            users.delete(userId);
-            break;
-        }
-    }
+const removeUser = (socketId) => {
+  users = users.filter((user) => user.socketId !== socketId);
+  console.log(`User removed: Socket ID: ${socketId}`);
+  console.log('Current users:', users);
 };
 
-export const getReceiverSocketId = (userId) => {
-    return users.get(userId);
+const getReceiverSocketId = (userId) => {
+  console.log('Getting receiver socket ID for user:', userId);
+  console.log('Current users:', users);
+  const user = users.find((user) => user.userId === userId);
+  return user ? user.socketId : null;
 };
+
+export { addUser, removeUser, getReceiverSocketId };

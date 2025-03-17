@@ -9,7 +9,7 @@ dotenv.config({
 dbconnect()
 .then(()=>{
     server.listen(process.env.PORT || 8000,()=>{
-        console.log("App Is Running On POrt",process.env.PORT)
+        console.log("App Is Running On Port",process.env.PORT)
     })
 }).catch((err)=>{
     console.log("Something Went Wrong",err)
