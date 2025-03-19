@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const postSchema=new mongoose.Schema({
     owner:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
+        ref:"User",
+        required:true
     },
     photo:{
         type:String,
@@ -15,8 +16,14 @@ const postSchema=new mongoose.Schema({
     },
     comments:[
         {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"Comment"
+            commentby:{
+                type:mongoose.Schema.Types.ObjectId,
+                ref:"User"
+            },
+            comment:{
+                type:String,
+                required:true
+            }
         }
     ],
     likes:[{

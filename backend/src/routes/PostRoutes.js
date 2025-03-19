@@ -6,7 +6,9 @@ import {
     addcomment,
     deletecomment,
     updateComment,
-    likePost
+    likePost,
+    getAllComment,
+    getusersAllPost
 } from '../controllers/PostControllers.js'
 import { auth } from "../middelwares/auth.js"
 import { Router } from 'express'
@@ -22,6 +24,8 @@ router.route("/deletePost/:post_id").delete(auth,deletepost)
 router.route("/addcomment/:postid").post(auth,addcomment)
 router.route("/deletecomment/:postid/:commentid").delete(auth,deletecomment)
 router.route("/updatecomment/:postid/:commentid").patch(auth,updateComment)
+router.route('/getallcomment/:postid').get(auth,getAllComment)
+router.route('/getuserAllpost/:userid').get(auth,getusersAllPost)
 
 router.route("/likepost/:postid").post(auth,likePost)
 

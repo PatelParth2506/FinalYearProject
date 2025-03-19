@@ -3,7 +3,6 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { Post } from "../models/PostModel.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { fileuploder } from "../utils/cloudinary.js";
-import { Comment } from "../models/CommentModel.js";
 import mongoose from "mongoose";
 
 const createPost=asyncHandler(async(req,res)=>{
@@ -28,6 +27,18 @@ const getAllPost=asyncHandler(async(req,res)=>{
     const posts=await Post.find()
                           .populate("owner","username profilePhoto")
                           .sort({createdAt:-1})
+    if(!posts){ throw new ApiError(404,"No Post Found") }
+    res.status(200).json(
+        new ApiResponse(200,posts,"All Post Fetched Successfully")
+    )
+})
+
+const getusersAllPost=asyncHandler(async(req,res)=>{
+    const { userid } = req.params;
+    if(!userid){ throw new ApiError(401,"User Id Is Required") }
+    const posts=await Post.find({owner:userid})
+                            .populate("owner","username profilePhoto")
+                            .sort({createdAt:-1})
     if(!posts){ throw new ApiError(404,"No Post Found") }
     res.status(200).json(
         new ApiResponse(200,posts,"All Post Fetched Successfully")
@@ -71,11 +82,7 @@ const addcomment=asyncHandler(async(req,res)=>{
     if(!comment){ throw new ApiError(401,"Comment Is Required"); }   
     const post = await Post.findById(postid);
     if (!post) { throw new ApiError(404, "Post Not Found"); }
-    const newcomment = await Comment.create({
-        commentby: userID,
-        comment
-    })
-    post.comments.push(newcomment._id);
+    post.comments.push({commentby:userID,comment});
     await post.save();
     res.status(200).json(
         new ApiResponse(200, post, "Comment Added Successfully")
@@ -89,7 +96,7 @@ const deletecomment=asyncHandler(async(req,res)=>{
     if(!commentid){ throw new ApiError(402,"Comment Id Is Required") }
     const post= await Post.findById(postid)
     if(!post){ throw new ApiError(404,"Post Not Found") }
-    const commentindex=post.comments.find((c)=>{
+    const commentindex=post.comments.findIndex((c)=>{
         c._id.toString()===commentid.toString()
     })
     if(commentindex === -1){ throw new ApiError(404,"Comment Not Found") }
@@ -139,6 +146,15 @@ const likePost=asyncHandler(async(req,res)=>{
     )   
 })
 
+const getAllComment=asyncHandler(async(req,res)=>{
+    const { postid } = req.params;
+    if(!postid){ throw new ApiError(404,"PostID Is Required") }
+    const posts=await Post.findById(postid)
+    if(!posts){ throw new ApiError(505,"Cant Find Post") }
+    res.status(200).json(
+        new ApiResponse(200,posts.comments,"Comment Fetched Successfully")
+    )
+})
 
 export {
     createPost,
@@ -149,4 +165,6 @@ export {
     deletecomment,
     updateComment,
     likePost,
+    getAllComment,
+    getusersAllPost
 }

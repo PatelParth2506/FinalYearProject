@@ -22,7 +22,20 @@ const productSchema=new mongoose.Schema({
     seller:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
-    }
+    },
+    category:{
+        type:String,
+        require:true
+    },
+    reviews:[{
+        reviewBy:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"User"
+        },
+        review:{
+            type:String,
+        }
+    }]
 },{
     timestamps:true
 })
