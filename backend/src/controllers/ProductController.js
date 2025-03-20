@@ -7,6 +7,7 @@ import { Cart } from "../models/CartModel.js";
 
 const createProduct = asyncHandler(async(req,res)=>{
     const { quentity, price, description, category } = req.body;
+    if(req.user.isBussiness === false){ throw new ApiError(402,"Account Must Be Business To Create Product") }
     const imagepath=req.file.path;
     if(!imagepath){ throw new ApiError(401,"Image Is Require To Post") }
     const image=await fileuploder(imagepath)
@@ -133,6 +134,7 @@ const addProductReview = asyncHandler(async(req,res)=>{
     const { productid } = req.params;
     if(!productid){ throw new ApiError(401,"Product Id Is Required") }
     const { review } = req.body;
+    console.log(req.body)
     if(!review){ throw new ApiError(401,"Review Is Required") }
     const product = await Product.findById(productid)
     if(!product){ throw new ApiError(404,"Product Not Found") }
@@ -173,6 +175,24 @@ const removeProductFromCart = asyncHandler(async(req,res)=>{
     )
 })
 
+const calculateTotalPrice = asyncHandler(async(req,res)=>{
+    const { productid } = req.params;
+    if(!productid){ throw new ApiError(401,"Product Id Is Required") }
+    const product = await Product.findById(productid)
+    const cart=await Cart.findOne({productinfo:productid,buyer:req.user._id})
+    if(!cart){ throw new ApiError(404,"Product Not Found In Cart") }
+    const totalPrice=product.price*cart.quentity;
+    res.status(200).json(
+        new ApiResponse(200,totalPrice,"Total Price Calculated Successfully")
+    )
+})
+
+const emptyCart = asyncHandler(async(req,res)=>{
+    const cart=await Cart.deleteMany({buyer:req.user._id})
+    res.status(200).json(
+        new ApiResponse(200,cart,"Cart Emptied Successfully")
+    )
+})
 
 export {
     createProduct,
@@ -187,4 +207,6 @@ export {
     addProductReview,
     addProductToCart,
     removeProductFromCart,
+    calculateTotalPrice,
+    emptyCart,
 }

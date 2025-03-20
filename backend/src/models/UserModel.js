@@ -32,7 +32,6 @@ const userSchema=new mongoose.Schema({
     },
     isBussiness:{
         type:Boolean,
-        default:false,
         require:true
     },
     refreshToken:{

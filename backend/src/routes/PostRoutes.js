@@ -8,7 +8,8 @@ import {
     updateComment,
     likePost,
     getAllComment,
-    getusersAllPost
+    getusersAllPost,
+    ToggleLike
 } from '../controllers/PostControllers.js'
 import { auth } from "../middelwares/auth.js"
 import { Router } from 'express'
@@ -28,5 +29,6 @@ router.route('/getallcomment/:postid').get(auth,getAllComment)
 router.route('/getuserAllpost/:userid').get(auth,getusersAllPost)
 
 router.route("/likepost/:postid").post(auth,likePost)
+router.route("/togglelike/:postid").post(auth,ToggleLike)
 
 export default router

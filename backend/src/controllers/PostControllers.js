@@ -146,6 +146,25 @@ const likePost=asyncHandler(async(req,res)=>{
     )   
 })
 
+const ToggleLike = asyncHandler(async(req,res)=>{
+    const { postid } = req.params;
+    if(!postid){ throw new ApiError(401,"Post Not Found") }
+    const post = await Post.findById(postid)
+    const currentUser = await User.findById(req.user._id)
+    if(post.likes.includes(req.user._id)){
+        post.likes.pull(req.user._id)
+        currentUser.likes.pull(postid)
+    }
+    else{
+        post.likes.push(req.user._id)
+        currentUser.likes.push(postid)
+    } 
+    await post.save()
+    await currentUser.save()
+    res.status(200)
+        .json(new ApiResponse(200,{},"Toggle Like Successfully"))
+})
+
 const getAllComment=asyncHandler(async(req,res)=>{
     const { postid } = req.params;
     if(!postid){ throw new ApiError(404,"PostID Is Required") }
@@ -166,5 +185,6 @@ export {
     updateComment,
     likePost,
     getAllComment,
-    getusersAllPost
+    getusersAllPost,
+    ToggleLike
 }

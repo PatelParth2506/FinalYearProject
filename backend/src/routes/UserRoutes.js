@@ -10,7 +10,8 @@ import { register,
          getProfile,
          FollowUser,       
          unfollowUser,
-         getUserByID
+         getUserByID,
+         ToggleFollow,
  } from '../controllers/RegisterControllers.js';
 import { auth } from "../middelwares/auth.js"
 
@@ -34,5 +35,6 @@ router.route("/getUserProfile").get(auth,getProfile)
 router.route("/getuser/:userid").get(auth,getUserByID)
 router.route("/follow/:userid").post(auth,FollowUser)
 router.route("/unfollow/:userid").post(auth,unfollowUser)
+router.route("/togglefollow/:userid").post(auth,ToggleFollow)
 
 export default router

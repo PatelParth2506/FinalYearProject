@@ -16,7 +16,7 @@ const genrateAccessAndRefreshToken=async(userid)=>{
 }
 
 const register=asyncHandler(async(req,res)=>{
-    const { username, email, password, bio } = req.body;
+    const { username, email, password, bio, isBussiness } = req.body;
     
     if(username === "") throw new ApiError(401,"Username Can't Be Happy")
     if(email === "") throw new ApiError(401,"Email Can't Be Happy")
@@ -39,7 +39,8 @@ const register=asyncHandler(async(req,res)=>{
         email,
         password,
         bio: bio || "",
-        profilePhoto:profilePhoto.url
+        profilePhoto:profilePhoto.url,
+        isBussiness
     })
 
     const createdUser=await User.findById(user._id).select("-password -refreshToken")
@@ -188,76 +189,6 @@ const changeProfilePhoto=asyncHandler(async(req,res)=>{
         .json(new ApiResponse(200,user,"Profile Photo Changed Successfully"))
 })
 
-// const getProfile=asyncHandler(async(req,res)=>{
-//     const { username }= req.params
-
-//     if(!username){
-//         throw new ApiError(402,"Username Is Required")
-//     }
-
-//     const profile=await User.aggregate([
-//         {
-//             $match:{
-//                 username:username.toLowerCase()
-//             }
-//         },
-//         {
-//             $lookup:{
-//                 from:"followers",
-//                 localField:"_id",
-//                 foreignField:"following",
-//                 as:"follower"
-//             }
-//         },
-//         {
-//             $lookup:{
-//                 from:"followers",
-//                 localField:"_id",
-//                 foreignField:"followers",
-//                 as:"following"
-//             }
-//         },
-//         {
-//             $addFields:{
-//                 isFollowed:{
-//                     followersCount:{
-//                         $size:"$follower"
-//                     },
-//                     followingCount:{
-//                         $size:"$following"
-//                     },
-//                     isFollowed: {
-//                         $cond: {
-//                             if: {
-//                                 $in: [req.user._id, { $ifNull: ["$followers.followers", []] }]
-//                             },
-//                             then: true,
-//                             else: false
-//                         }
-//                     }
-//                 }
-//             }
-//         },
-//         {
-//             $project:{
-//                 username:1,
-//                 email:1,
-//                 profile:1,
-//                 followersCount:1,
-//                 followingCount:1,
-//                 isFollowed:1,
-//             }
-//         }
-//     ])
-
-//     if(!profile.length){
-//         throw new ApiError(402,"Profile Not Found")
-//     }
-
-//     res.status(200)
-//         .json(new ApiResponse(200,profile[0],"Profile Fetched Successfully"))
-// })
-
 const getProfile=asyncHandler(async(req,res)=>{
     const userId=req.user._id;
     const user=await User.findById(userId).select("-password -refreshToken");
@@ -310,6 +241,27 @@ const getUserByID=asyncHandler(async(req,res)=>{
     res.status(200).json(new ApiResponse(200,user,"User Fetched Successfully"))
 })
 
+const ToggleFollow= asyncHandler(async(req,res)=>{
+    const { userid } = req.params;
+    if(!userid){ throw new ApiError(401,"User Not Found") }
+    const user = await User.findById(userid)
+    if(!user){ throw new ApiError(401,"User Not Found") }
+    const currentUser=await User.findById(req.user._id)
+    if(currentUser.following.includes(userid)){
+        currentUser.following.pull(userid)
+        user.followers.pull(req.user._id)
+    }
+    else{
+        currentUser.following.push(userid)
+        user.followers.push(req.user._id)
+    }
+    await currentUser.save()
+    await user.save()
+    res.status(200)
+        .json(new ApiResponse(200,{},"Toggle Follow Successfully"))
+})
+
+
 export {
     register,
     loginWithFormData as login,
@@ -321,5 +273,6 @@ export {
     getProfile,
     FollowUser,
     unfollowUser,
-    getUserByID
+    getUserByID,
+    ToggleFollow,
 }

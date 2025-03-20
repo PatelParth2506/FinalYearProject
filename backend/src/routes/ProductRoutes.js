@@ -14,6 +14,8 @@ import {
     addProductReview,
     addProductToCart,
     removeProductFromCart,
+    calculateTotalPrice,
+    emptyCart
 } from "../controllers/ProductController.js";
 
 const router = Router()
@@ -30,5 +32,7 @@ router.route("/getProductByCategory/:category").get(getProductByCategory)
 router.route("/addProductReview/:productid").post(auth, addProductReview)
 router.route("/addProductToCart/:productid").post(auth, addProductToCart)
 router.route("/removeProductFromCart/:productid").delete(auth, removeProductFromCart)
+router.route("/calculateTotalPrice/:productid").get(auth, calculateTotalPrice)
+router.route("/emptyCart").delete(auth, emptyCart)
 
 export default router
