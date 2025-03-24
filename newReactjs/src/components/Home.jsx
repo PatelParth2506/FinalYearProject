@@ -1,18 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react';
+import Post from './Post';
+import Uploaded from './Uploaded';
+import { useEffect } from 'react';
+import axios from 'axios';
+import Iconswithname from './Iconswithname';
 
-const Home = () => {
-  const handleLogout = () => {
-    localStorage.removeItem("a")
+function Home() {
+    const [user, setUser] = useState({});
 
-    window.location.href="/login"
-  }
-  return (
-    <div className='p-5'>
-      <h1 className='text-5xl'>Welcome to Home page</h1>
-     <br/>
-      <button onClick={handleLogout} className='bg-pink-700 text-white px-12 py-3'>Logout</button>
-    </div>
-  )
+    useEffect(() => {
+        const fetchdata = async () => {
+            const res = await axios.get('/api/user/getUserProfile', {
+                withCredentials: true,
+            });
+            console.log(res.data.data);
+            setUser(res.data.data);
+        };
+        fetchdata();
+    }, []);
+
+    return (
+        <div className="flex pt-10">
+            <div className="w-[20%] sticky top-10 h-fit left-0">
+                <Iconswithname />
+            </div>
+            <div className="w-[55%] mx-auto flex flex-col gap-y-5">
+                <Post user={user} />
+                <div className="w-full h-[1.5px] bg-[#3c7daf]"></div>
+                <div className="loginForm h-fit rounded-xl bg-white pb-5">
+                    <Uploaded user={user} />
+                </div>
+            </div>
+        </div>
+    );
 }
 
-export default Home
+export default Home;

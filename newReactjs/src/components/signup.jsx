@@ -15,7 +15,7 @@ const Signup = () => {
     const [emailError, setEmailError] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
 
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[_])(?=.*[!@#$%^&*])[a-zA-Z0-9_!@#$%^&*]{6,}$/;
+    // const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[_])(?=.*[!@#$%^&*])[a-zA-Z0-9_!@#$%^&*]{6,}$/;
     const usernameRegex = /^[a-zA-Z0-9_]{5,18}$/;
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -32,7 +32,7 @@ const Signup = () => {
 
     
     
-    const signUpData = (e) => {
+    const signUpData = async(e) => {
         console.log(email)
         console.log(name)
         console.log(user)
@@ -44,6 +44,13 @@ const Signup = () => {
             alert("All fields are mandatory to fill!")
             return false;
         }
+        const response=await axios.post("/api/user/register",{
+          email:email,
+          name:name,
+          username:user,
+          password:password,
+        })
+        console.log(response)
 
         if(!emailRegex.test(email)) {
             setEmailError(true);
@@ -53,22 +60,22 @@ const Signup = () => {
             return false;
           }
                     
-        if(!passwordRegex.test(password))
-        {
-            setPasswordError(true);
-            setTimeout(() => {
-                setPasswordError(false);
-            }, 4000);
-            return false;
-        }
+        // if(!passwordRegex.test(password))
+        // {
+        //     setPasswordError(true);
+        //     setTimeout(() => {
+        //         setPasswordError(false);
+        //     }, 4000);
+        //     return false;
+        // }
 
-        if(password.length < 6 || password.length > 14) {
-            setPasswordLengthError(true);
-            setTimeout(() => {
-              setPasswordLengthError(false);
-            }, 4000);
-            return false;
-          }
+        // if(password.length < 6 || password.length > 14) {
+        //     setPasswordLengthError(true);
+        //     setTimeout(() => {
+        //       setPasswordLengthError(false);
+        //     }, 4000);
+        //     return false;
+        //   }
                     
         // localStorage.clear()
         if(!usernameRegex.test(user)) {
@@ -89,10 +96,6 @@ const Signup = () => {
           };
 
           console.log(userData)
-
-          let users = JSON.parse(localStorage.getItem("users")) || [];
-          users.push(userData);
-          localStorage.setItem("users", JSON.stringify(users));
         
         setEmail("")
         setName("")

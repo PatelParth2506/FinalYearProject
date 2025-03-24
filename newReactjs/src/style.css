@@ -40,3 +40,47 @@ html,body{
 .msgBtn{
     background: linear-gradient(to left top,rgba(71, 5, 147, 0.903) ,rgb(56, 231, 214) );
 }
+
+
+.overFlow::-webkit-scrollbar{
+    display: none;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+html,body{
+    width: 100%;
+    height: 100%;
+    user-select: none;
+}
+
+.loginButton{
+    background-image: linear-gradient(to left bottom,rgb(56, 231, 214) ,rgba(111, 11, 211, 0.903));
+}
+
+.loginForm{
+    box-shadow: 0 0 5px #56a1c468;
+}
+
+#signInText{
+    background: linear-gradient(to left ,rgba(71, 5, 147, 0.903) 38%,rgb(56, 231, 214) 70%);
+    background-clip: text; 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.msgBtn{
+    background: linear-gradient(to left top,rgba(71, 5, 147, 0.803) ,rgba(56, 231, 214, 0.723) );
+}
+
+.sendBtn,.savechange{
+    background: linear-gradient(to left top,rgba(71, 5, 147, 0.903) ,rgb(56, 231, 214) );
+}
+
+.gradient{
+    background: linear-gradient(to left top,rgba(71, 5, 147, 0.649) ,rgba(56, 231, 214, 0.615) );
+}

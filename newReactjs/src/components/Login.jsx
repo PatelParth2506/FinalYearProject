@@ -6,9 +6,6 @@ import axios from "axios";
 
 const Login = () => {
 
-    // const [username,setUsername]=useState("");
-
-    // const [signinpassword,setSigninpassword]= useState("");
     const [logindata,setloginData]=useState({
         username:"",
         password:""
@@ -20,8 +17,6 @@ const Login = () => {
 
 
     const loginData = async(e) => {
-        // console.log(username)
-        // console.log(signinpassword)
 
         e.preventDefault()
 
@@ -30,32 +25,35 @@ const Login = () => {
                 setShowError(true); // error show karne ke liye state variable ko true karna
                 setTimeout(() => {
                   setShowError(false); // error hide karne ke liye state variable ko false karna
+                    console.log("showError Is False")
                 }, 3000);
                 return false;
             }
 
         try {
             const response=await axios.post("/api/user/login",logindata)
-            console.log(response)
-            setShowSuccess(true); 
+            console.log(response.data.statusCode)
+                console.log(response)
+                setShowSuccess(true); 
                 setTimeout(() => {
                   setShowSuccess(false);
                 }, 3000);
             navigate("/home")
         } catch (error) {
             console.log(error)
+            setShowError(true)
+            setTimeout(() => {
+                setShowError(false);
+                console.log("showError is false");
+            }, 3000);
         }           
         
-               console.log(logindata)        
+        console.log(logindata)        
               
                 setloginData({
                     username:"",
                     password:""
                 })
-                if(!userFound)
-                    {
-                        alert("Can't find user")
-                    }
             }
     
 
