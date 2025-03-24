@@ -4,9 +4,12 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { fileuploder } from "../utils/cloudinary.js";
 import { Cart } from "../models/CartModel.js";
+import { User } from "../models/UserModel.js";
 
 const createProduct = asyncHandler(async(req,res)=>{
     const { quentity, price, description, category } = req.body;
+    const user=await User.findById(req.user._id);
+    if(user.isBussiness === false){ throw new ApiError(402,"Account Must Be Business To Create Product") }
     if(req.user.isBussiness === false){ throw new ApiError(402,"Account Must Be Business To Create Product") }
     const imagepath=req.file.path;
     if(!imagepath){ throw new ApiError(401,"Image Is Require To Post") }

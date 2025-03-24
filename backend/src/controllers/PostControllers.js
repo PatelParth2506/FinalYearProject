@@ -25,7 +25,9 @@ const createPost=asyncHandler(async(req,res)=>{
 
 const getAllPost=asyncHandler(async(req,res)=>{
     const posts=await Post.find()
-                          .populate("owner","username profilePhoto")
+                          .populate("owner","username profilePhoto fullname")
+                          .populate("comments.commentby","username profilePhoto")
+                          .populate("likes","username profilePhoto")
                           .sort({createdAt:-1})
     if(!posts){ throw new ApiError(404,"No Post Found") }
     res.status(200).json(
@@ -132,6 +134,8 @@ const likePost=asyncHandler(async(req,res)=>{
     const { postid } = req.params;
     if(!postid){ throw new ApiError(401,"Post Id Is Required") }
     const post=await Post.findById(postid)
+                        .populate("owner",'username profilePhoto')
+                        .populate("comments.commentby","username profilePhoto")
     if(!post){ throw new ApiError(404,"Post Not Found") }
     const isLiked=post.likes.find((like)=>like.toString()===req.user._id.toString())
     if(isLiked){

@@ -16,30 +16,35 @@ const genrateAccessAndRefreshToken=async(userid)=>{
 }
 
 const register=asyncHandler(async(req,res)=>{
-    const { username, email, password, bio, isBussiness } = req.body;
+    const { username, email, password, bio, isBussiness, fullname } = req.body;
     
     if(username === "") throw new ApiError(401,"Username Can't Be Happy")
     if(email === "") throw new ApiError(401,"Email Can't Be Happy")
     if(password === "") throw new ApiError(401,"Password Can't Be Empty")
+    if(fullname === "") throw new ApiError(401,"Fullname Can't Be Empty")
     const usercheck=await User.findOne({
         $or:[ { email } , { username } ]
     })
     if(usercheck){
         throw new ApiError(402,"User Already Exists")   
     }
-    const profilePhotoPath=req.files?.profilePhoto[0]?.path;
-    if(!profilePhotoPath) throw new ApiError(401,"Profile Photo Is Required")
-    
-    const profilePhoto=await fileuploder(profilePhotoPath)
-
-    if(!profilePhoto) throw new ApiError(401,"Profile Photo Is Required")
+    let profilePhoto;
+    if(req.files){
+        const profilePhotoPath=req.files?.profilePhoto[0]?.path;
+        if(!profilePhotoPath) throw new ApiError(401,"Profile Photo Is Required")
+            console.log(profilePhotoPath)
+        profilePhoto=await fileuploder(profilePhotoPath)
+        console.log(profilePhoto)
+        if(!profilePhoto) throw new ApiError(401,"Profile Photo Is Required")
+    }
     
     const user=await User.create({
         username,
+        fullname,
         email,
         password,
         bio: bio || "",
-        profilePhoto:profilePhoto.url,
+        profilePhoto:profilePhoto.url || "",
         isBussiness
     })
 
@@ -59,8 +64,9 @@ const login=asyncHandler(async(req,res)=>{
     if(!usercheck) throw new ApiError(402,"Username Or Password Is Incorrect")
     
     const passcheck=await usercheck.isPasswordCorrect(password)
+    console.log(passcheck)
 
-    if(!passcheck){ throw new ApiError(402,"Password Is Incorrect") }
+    if(passcheck === false){ throw new ApiError(402,"Password Is Incorrect") }
 
     const {refreshToken, accessToken}=await genrateAccessAndRefreshToken(usercheck._id)
     console.log(accessToken)

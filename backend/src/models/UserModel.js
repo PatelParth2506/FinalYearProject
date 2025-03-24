@@ -12,6 +12,12 @@ const userSchema=new mongoose.Schema({
         lowercase:true,
         index:true,
     },
+    fullname:{
+        type:String,
+        require:true,
+        trim:true,
+        lowercase:true
+    },
     email:{
         type:String,
         require:true,
@@ -49,19 +55,32 @@ const userSchema=new mongoose.Schema({
     timestamps:true
 })
 
-userSchema.pre("save",async function(next) {
-    if(this.isModified("password")) return next();
-    this.password = await bcrypt.hash(this.password,10)
-    next()
-})
+userSchema.pre("save", async function (next) {
+    try {
+        if (!this.isModified("password")) return next();
+        console.log("Password before hashing:", this.password);
+        this.password = await bcrypt.hash(this.password, 10);
+        console.log("Password after hashing:", this.password);
+        next();
+    } catch (error) {
+        console.log("Error in hashing password:", error);
+        next(error)
+    }
+});
 
-userSchema.methods.isPasswordCorrect=async function(password) {
-    if(!password === !this.password){
-        return new ApiError(401,"Password Is Missing")
+userSchema.methods.isPasswordCorrect = async function (password) {
+    if (!password) {
+        throw new ApiError(401, "Password Is Missing");
     }
 
-    return await bcrypt.compare(password,this.password)
-}
+    console.log("Entered Password:", password);
+    console.log("Stored Hashed Password:", this.password);
+
+    const match = await bcrypt.compare(password, this.password);
+    console.log("Password Match:", match);
+
+    return match;
+};
 
 userSchema.methods.genrateAccessToken=async function(){
     return jwt.sign({
