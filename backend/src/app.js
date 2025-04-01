@@ -6,6 +6,7 @@ import PostRoutes from './routes/PostRoutes.js';
 import StoryRoutes from './routes/StoryRoutes.js';
 import MessageRoutes from './routes/MessageRoutes.js';
 import ProductRoutes from './routes/ProductRoutes.js';
+import PaymentRoutes from './routes/PaymentRoutes.js';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { addUser, removeUser, getReceiverSocketId } from './utils/Scokets.js';
@@ -35,6 +36,7 @@ app.use("/api/post", PostRoutes);
 app.use("/api/story", StoryRoutes);
 app.use("/api/message", MessageRoutes);
 app.use("/api/product", ProductRoutes);
+app.use("/api/payment", PaymentRoutes)
 
 
 io.on('connection', (socket) => {

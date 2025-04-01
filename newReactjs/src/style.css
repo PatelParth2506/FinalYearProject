@@ -84,3 +84,16 @@ html,body{
 .gradient{
     background: linear-gradient(to left top,rgba(71, 5, 147, 0.649) ,rgba(56, 231, 214, 0.615) );
 }
+
+body{
+    font-family: "poppins";
+}
+
+.bg {
+    background: url('../src/assets/img/banner.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 60vh;
+    width: 100%;
+}
