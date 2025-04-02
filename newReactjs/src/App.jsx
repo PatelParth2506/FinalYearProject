@@ -18,7 +18,7 @@ import Navbar from "./components/Navbar.jsx"
 import PaymentSuccess from "./components/PaymentSuccess.jsx"
 import PaymentCancel from "./components/PaymentCancel.jsx"
 import Photo from "./components/Photo.jsx"
-import { Loader } from "lucide-react"
+import Loader from "./components/Loader.jsx"
 
 const Layout = ({ children }) =>{
     const location = useLocation()
