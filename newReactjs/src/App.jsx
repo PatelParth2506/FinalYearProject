@@ -18,6 +18,7 @@ import Navbar from "./components/Navbar.jsx"
 import PaymentSuccess from "./components/PaymentSuccess.jsx"
 import PaymentCancel from "./components/PaymentCancel.jsx"
 import Photo from "./components/Photo.jsx"
+import { Loader } from "lucide-react"
 
 const Layout = ({ children }) =>{
     const location = useLocation()
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/editprofile"  element={<Editprofile />} />
           <Route path="/profile"  element={<Profile />} />
           <Route path="/photo"  element={<Photo />} />
+          <Route path="/loader"  element={<Loader />} />
           <Route path="/store" element={<StoreHome />} />
           <Route path="/store/product/:id" element={<ProductDetails />} />
           <Route path="/store/cart" element={<CartPage />} />
