@@ -11,7 +11,6 @@ const Profile = () => {
   const [post,setPost]=useState([])
   const [comments,setComments]=useState([])
 
-
   const [showFullBio, setShowFullBio] = useState(false);
 
 
