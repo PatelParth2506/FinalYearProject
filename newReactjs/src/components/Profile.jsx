@@ -11,6 +11,10 @@ const Profile = () => {
   const [post,setPost]=useState([])
   const [comments,setComments]=useState([])
 
+
+  const [showFullBio, setShowFullBio] = useState(false);
+
+
   useEffect(()=>{
     const fetchdata=async()=>{
       const res=await axios.get('/api/user/getUserProfile');

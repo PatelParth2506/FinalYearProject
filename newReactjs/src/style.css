@@ -69,3 +69,21 @@ body::-webkit-scrollbar{
     background:url('p8.jpg');
     background-size: cover;
 }
+
+.bgEdit{
+    background:url('bg5.jpg');
+    background-size: cover;
+}
+
+.bio-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.read-more-btn {
+    color: gray;
+    padding-block: 5px;
+    cursor: pointer;
+  }
