@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Iconswithname from './Iconswithname'
 import { useNavigate } from 'react-router-dom';
 
 const Editprofile = () => {
+
+  const [bio, setBio] = useState("");
 
   const navigate = useNavigate()
 
