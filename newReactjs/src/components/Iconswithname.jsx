@@ -39,7 +39,7 @@ const Iconswithname = () => {
         </div>
 
         <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>
-          <img src='love.png' alt="" className='w-6 h-6 ' />
+          <img src='heart.png' alt="" className='w-6 h-6 ' />
           <span>Instructions</span>
         </div>
 
@@ -48,7 +48,6 @@ const Iconswithname = () => {
           <span>Store</span>
         </div>
       </div>
-
 
       <div className="flex flex-col gap-4 cursor-pointer w-full">
         <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black  rounded-md'>
