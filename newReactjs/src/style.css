@@ -64,3 +64,8 @@ body::-webkit-scrollbar{
     height: 60vh;
     width: 100%;
 }
+
+.bgimage2{
+    background:url('p8.jpg');
+    background-size: cover;
+}
