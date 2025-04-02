@@ -15,16 +15,15 @@ const Login = () => {
 
     const navigate=useNavigate();
 
-
     const loginData = async(e) => {
 
         e.preventDefault()
 
         if(!logindata.username || !logindata.password)
             {
-                setShowError(true); // error show karne ke liye state variable ko true karna
+                setShowError(true); 
                 setTimeout(() => {
-                  setShowError(false); // error hide karne ke liye state variable ko false karna
+                  setShowError(false); 
                     console.log("showError Is False")
                 }, 3000);
                 return false;
@@ -41,8 +40,8 @@ const Login = () => {
             navigate("/home")
         } catch (error) {
             console.log(error)
-            setShowError(true)
-            setTimeout(() => {
+            setShowError(true)    
+            setTimeout(() => {     
                 setShowError(false);
                 console.log("showError is false");
             }, 3000);
@@ -59,26 +58,15 @@ const Login = () => {
 
     return (
         <div>
-            <div id="bg" className="w-screen h-screen  flex justify-center items-center">
-            {showError && (
-          <div className="absolute top-[0px] left-0 w-screen h-screen">
-            <Errorno5 />
-          </div>
-        )} 
-             {/* error component show karne ke liye */}
-            {/* "Agar showError true hai, toh <Errorno5 /> component ko render karo." */}
-
-            {showSuccess && (
-               <div className="absolute top-[0px] left-0 w-screen h-screen">
-               <Success2 />
-             </div>
-            )}
-
+            <div className="bgimage min-h-screen flex justify-center items-center px-4 sm:px-10 lg:px-20">
+            {showError && <Errorno5 />} 
+           
+            {showSuccess && <Success2 />}
 
                 <form onSubmit={(e)=>{
                     loginData(e)
-                }} className="loginForm flex flex-col gap-4 px-6 py-16 rounded-md bg-white h-auto">
-                    <h2 id="signInText" className="text-center font-semibold text-2xl ">Sign In</h2>
+                }} className="loginForm flex flex-col gap-5 p-6 sm:p-6 rounded-lg bg-white shadow-lg w-full max-w-md sm:w-96">
+                    <h2 id="signInText" className="text-center font-semibold text-xl sm:text-2xl">Sign In</h2>
                     <input value={logindata.username} 
                     onChange={(e)=>{
                         setloginData({
@@ -86,7 +74,7 @@ const Login = () => {
                             username:e.target.value
                         })
                     }} 
-                    className="px-4 py-3 w-96 rounded-md  bg-transparent border-[1px]  border-gray-400" type="text" placeholder="email or username"/>
+                    className="px-4 py-3 w-full rounded-md  bg-transparent border border-gray-400" type="text" placeholder="email or username"/>
 
                     <input value={logindata.password} 
                     onChange={(e)=>{
@@ -95,11 +83,11 @@ const Login = () => {
                             password:e.target.value
                         })
                     }} 
-                    className="px-4 py-3 w-96 rounded-md bg-transparent border-[1px] border-gray-400" type="password" placeholder="Password"/>
+                    className="px-4 py-3 w-full rounded-md bg-transparent border border-gray-400" type="password" placeholder="Password"/>
 
-                    <a className="text-blue-500 font-semibold text-right mt-[-14px]" href="">Forgot password?</a>
-                    <input value="Log in" type="submit" className="loginButton font-semibold text-white px-4 py-3 rounded-md mt-3" />
-                    <p className="text-gray-400 mt-4 text-center">Don't have an account? <Link to="/" className="text-blue-500 font-semibold">sign up</Link></p>
+                    <a className="text-blue-500 font-semibold text-right" href="">Forgot password?</a>
+                    <input value="Log in" type="submit" className="loginButton hover:bg-blue-600 font-semibold text-white px-4 py-3 rounded-md w-full" />
+                    <p className="text-gray-400 text-center text-sm sm:text-base">Don't have an account? <Link to="/" className="text-blue-500 font-semibold">sign up</Link></p>
                 </form>
             </div>
         </div>
