@@ -83,7 +83,7 @@ body::-webkit-scrollbar{
 }
 
 .read-more-btn {
-    color: gray;
+    color: rgb(128, 128, 128);
     padding-block: 5px;
     cursor: pointer;
-  }
+}
