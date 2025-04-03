@@ -9,10 +9,9 @@ function NavBarOfWeb({ toggleMenu }) {
   const [showSearch, setShowSearch] = useState(false);
 
   return (
-    <div className="top-0 z-10 w-full h-[7vh] sticky bg-white shadow-md shadow-[#56a1c41d] flex justify-center">
+    <div className="top-0 z-10 w-full h-[7vh] sticky bg-white shadow-md shadow-[#56a1c41d] flex justify-center px-4">
       <nav className="w-full bg-white p-2 flex justify-between items-center px-[1%]">
         <div className="flex-[2] flex justify-start items-center">
-          {/* Instagram Icon: Click to toggle LeftMenuIcon */}
           <button onClick={toggleMenu} className='outline-none'>
             <img src={instagram} alt="Logo" className="w-8 h-8"/>
           </button>

@@ -1,18 +1,41 @@
 import React, { useState } from 'react'
 import Iconswithname from './Iconswithname'
 import { useNavigate } from 'react-router-dom';
+import NavBarOfWeb from './NavBarOfWeb';
 
 const Editprofile = () => {
+
+  const [showMenu, setShowMenu] = useState(false);
+  
+      useEffect(() => {
+          const handleMouseMove = (event) => {
+              if (event.clientX <= 1) {
+                  setShowMenu(true);
+              }
+          };
+  
+          window.addEventListener("mousemove", handleMouseMove);
+          return () => window.removeEventListener("mousemove", handleMouseMove);
+      }, []);
+  
+      const handleMouseLeave = () => {
+          setShowMenu(false);
+      };
 
   const [bio, setBio] = useState("");
 
   const navigate = useNavigate()
 
   return (
-    <div className='flex'>
-       <Iconswithname />
-
-       <div className='bgimage2 w-screen h-screen p-10 flex flex-col justify-center items-center '>
+    <>
+            <div className="w-full h-screen">
+                <NavBarOfWeb toggleMenu={() => setShowMenu(!showMenu)} />
+                <div className="w-full h-[93vh] flex">
+                    <div className={`${showMenu ? 'block' : 'hidden'} md:block `} onMouseLeave={handleMouseLeave}>
+                        <Iconswithname/>
+                    </div>
+                    <div className="overFlow w-full overflow-auto">
+                    <div className='bgimage2 w-screen h-screen p-10 flex flex-col justify-center items-center '>
        <div className='relative w-auto h-auto bg-white p-6 rounded-3xl loginForm'>
        <h1 className='absolute top-[-25px] text-2xl font-medium bg-sky-200 px-14 py-2 rounded-lg text-blue-950'>Edit profile</h1>
 
@@ -60,6 +83,9 @@ const Editprofile = () => {
          </div>
        </div>
     </div>
+                    </div>
+                </div>
+        </>
   )
 }
 
