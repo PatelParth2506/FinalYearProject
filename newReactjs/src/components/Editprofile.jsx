@@ -10,10 +10,8 @@ const Editprofile = () => {
   const navigate = useNavigate()
 
   return (
-    <div className='flex'>
-    <Iconswithname />
 
-    <div className='bgimage2 w-screen h-screen p-10 flex flex-col justify-center items-center '>
+    <div className='bgimage2 w-full h-screen p-10 flex flex-col justify-center items-center '>
     <div className='relative w-auto h-auto bg-white p-6 rounded-3xl loginForm'>
     <h1 className='absolute top-[-25px] text-2xl font-medium bg-sky-200 px-14 py-2 rounded-lg text-blue-950'>Edit profile</h1>
 
@@ -60,7 +58,6 @@ const Editprofile = () => {
         </div>    
       </div>
     </div>
- </div>
       
   )
 }
