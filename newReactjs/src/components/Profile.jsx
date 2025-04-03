@@ -105,8 +105,6 @@ const Profile = () => {
             </div>
           </div>
         </div>
-
-
     
         <div className='flex gap-16 pt-3 justify-center'>
           <div className='flex gap-2 items-center font-semibold'>
@@ -114,12 +112,11 @@ const Profile = () => {
             <h3 className='cursor-pointer'>POSTS</h3>
             </div>
           <div className='flex gap-2 items-center font-semibold'>
-            <img src="reels.png" alt=""  className='w-5 h-5'/>
+            <img src="bookmark.png" alt=""  className='w-5 h-5'/>
             <h3 className='cursor-pointer'>SAVED</h3>
           </div>
         </div>
 
-        {/* Posts Grid */}
         <div id="posts" className="grid grid-cols-2 md:grid-cols-3 gap-4 p-6">
           {Array.isArray(post) && post.length > 0 ? (
             post.map((p, index) => (
