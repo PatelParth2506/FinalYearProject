@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Chatbox from './Chatbox'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Iconswithname from './Iconswithname'
 import axios from 'axios'
+import DefalutProfile from '../assets/img/DefalutProfile.jpg'
 
 const Profile = () => {
-  
+  const { userID } = useParams()
+  console.log(userID)
   const navigate=useNavigate()
   const [profiledata,setProfileData]=useState({})
   const [post,setPost]=useState([])
@@ -16,8 +18,14 @@ const Profile = () => {
 
   useEffect(()=>{
     const fetchdata=async()=>{
-      const res=await axios.get('/api/user/getUserProfile');
-      console.log(res.data.data)
+      let res;
+      if(userID){
+        res=await axios.get(`/api/user/getuser/${userID}`)
+        console.log(res.data.data)
+      }else{
+        res=await axios.get('/api/user/getUserProfile');
+        console.log(res.data.data)
+      }
       const posts=await axios.get(`/api/post/getuserAllpost/${res.data.data._id}`)
       console.log(posts)
       setPost(posts.data.data)
@@ -45,14 +53,14 @@ const Profile = () => {
 
               <div id="inner" className=' flex gap-10 items-center  bg-slate-100  rounded-xl px-8 py-6 w-[500px] '>
                 <div className='ml-[-150px] w-48 h-44 rounded-full overflow-hidden border-4 border-slate-100'>
-                    <img src={profiledata.profilePhoto} alt="" className='object-cover w-full h-full'/>
+                    <img src={profiledata.profilePhoto || DefalutProfile} alt="" className='object-cover w-full h-full'/>
                 </div>
 
                 <div className='max-h-80 flex flex-col gap-y-3 w-[400px] overflow-y-auto'>
 
               <div className='flex gap-9 items-center'>
                 <h2 className='font-semibold'>{profiledata.username}</h2>
-                <button className='editProfile text-white bg-blue-900 px-5 py-2 rounded-md loginButton' onClick={()=>{ navigate("/editprofile")}}>Edit profile</button>
+               {!userID&&( <button className='editProfile text-white bg-blue-900 px-5 py-2 rounded-md' onClick={()=>{ navigate("/editprofile")}}>Edit profile</button>)}
               </div>
 
                   <div className='flex gap-20'>
@@ -71,7 +79,7 @@ const Profile = () => {
                   </div>
 
                 <div>
-                  <h1 className='font-semibold'>DISHANT</h1>
+                  <h1 className='font-semibold'></h1>
 
                   <div>
                           {showFullBio ? (

@@ -17,7 +17,7 @@ const genrateAccessAndRefreshToken=async(userid)=>{
 
 const register=asyncHandler(async(req,res)=>{
     const { username, email, password, bio, isBussiness, fullname } = req.body;
-    
+    console.log(req.body)
     if(username === "") throw new ApiError(401,"Username Can't Be Happy")
     if(email === "") throw new ApiError(401,"Email Can't Be Happy")
     if(password === "") throw new ApiError(401,"Password Can't Be Empty")
@@ -44,7 +44,7 @@ const register=asyncHandler(async(req,res)=>{
         email,
         password,
         bio: bio || "",
-        profilePhoto:profilePhoto.url || "",
+        profilePhoto: "",
         isBussiness
     })
 
@@ -175,6 +175,7 @@ const  changeAccountDetails=asyncHandler(async(req,res)=>{
 
 const changeProfilePhoto=asyncHandler(async(req,res)=>{
     const profilePhotopath=req.file.path;
+    console.log(profilePhotopath)
     if(!profilePhotopath){
         throw new ApiError(403,"Profile Photo Is Required")
     }
@@ -244,6 +245,7 @@ const getUserByID=asyncHandler(async(req,res)=>{
     const { userid } = req.params;
     if(!userid){ throw new ApiError(401,"User Not Found") }
     const user=await User.findById(userid).select("-password -refreshToken") 
+    if(!user){ throw new ApiError(401,"User Not Found") }
     res.status(200).json(new ApiResponse(200,user,"User Fetched Successfully"))
 })
 
