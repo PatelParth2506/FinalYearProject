@@ -40,7 +40,7 @@ const Loader = () => {
             key={index}
             ref={(el) => (lettersRef.current[index] = el)}
             className={`inline-block bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text 
-              text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl ${
+              text-4xl sm:text-5xl md:text-5xl lg:text-6xl ${
                 index === 0 ? "transform scale-110" : ""
               }`}
           >
