@@ -66,15 +66,15 @@ const Profile = () => {
       <div className="flex justify-center md:justify-start gap-16">
         <div className="text-center">
           <h2 className="text-gray-500 font-semibold">Posts</h2>
-          <h1 className="font-semibold">{post?.length}5</h1>
+          <h1 className="font-semibold">{post?.length}</h1>
         </div>
         <div className="text-center">
           <h2 className="text-gray-500 font-semibold">Followers</h2>
-          <h1 className="font-semibold">{profiledata.followers?.length}3</h1>
+          <h1 className="font-semibold">{profiledata.followers?.length}</h1>
         </div>
         <div className="text-center">
           <h2 className="text-gray-500 font-semibold">Following</h2>
-          <h1 className="font-semibold">{profiledata.following?.length}34</h1>
+          <h1 className="font-semibold">{profiledata.following?.length}</h1>
         </div>
       </div>
 
