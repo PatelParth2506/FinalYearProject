@@ -50,7 +50,6 @@ const App = () => {
           <Route path="/story"  element={<StoryLayout />} />
           <Route path="/chatbox"  element={<Chatbox />} />
           <Route path="/chatrightpart"  element={<ChatRight />} />
-          <Route path="/editprofile"  element={<Editprofile />} />
           <Route path="/profilelayout/:userID?"  element={<ProfileLayout />} />
           <Route path="/editprofilelayout"  element={<EditprofileLayout />} />
           <Route path="/photo"  element={<Photo />} />

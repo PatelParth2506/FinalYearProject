@@ -15,7 +15,7 @@ function NavBarOfWeb({ toggleMenu }) {
           <button onClick={toggleMenu} className='outline-none'>
             <img src={instagram} alt="Logo" className="w-8 h-8"/>
           </button>
-          <p className="text-[#2B6EA0] font-medium text-xl pl-2 font-sans">Connected</p>
+          <p className="text-[#2B6EA0] font-medium text-xl pl-2 font-sans">ConnectMe</p>
         </div>
 
         <div className="flex-[3] hidden md:block">
