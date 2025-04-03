@@ -36,7 +36,7 @@ const Photo = () => {
                navigate("/loader")
 
                setTimeout(() => {
-                navigate("/profile")
+                navigate("/profilelayout")
                },4000)
             },1000);
           
