@@ -33,15 +33,16 @@ const Loader = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-white">
-      <h1 className="text-6xl font-bold flex tracking-tight">
+    <div className="flex items-center justify-center h-screen bg-white px-4">
+      <h1 className="font-bold flex tracking-tight text-center">
         {"ConnectMe".split("").map((char, index) => (
           <span
             key={index}
             ref={(el) => (lettersRef.current[index] = el)}
-            className={`inline-block bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text ${
-              index === 0 ? "text-6xl transform scale-110" : "text-6xl"
-            }`}
+            className={`inline-block bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text 
+              text-4xl sm:text-5xl md:text-5xl lg:text-6xl ${
+                index === 0 ? "transform scale-110" : ""
+              }`}
           >
             {char}
           </span>
