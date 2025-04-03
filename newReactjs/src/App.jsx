@@ -23,7 +23,6 @@ import ProfileLayout from "./components/ProfileLayout.jsx"
 import EditprofileLayout from "./components/EditprofileLayout.jsx"
 import StoryLayout from "./components/StoryLayout.jsx"
 
-
 const Layout = ({ children }) => {
   const location = useLocation()
 
