@@ -91,7 +91,7 @@ body::-webkit-scrollbar{
 
 @media(max-width:768px){
     .bgEdit{
-        background:rgb(190, 235, 255,0.2);
+        background:rgb(190, 235, 255,0.3);
     }
 }
 
