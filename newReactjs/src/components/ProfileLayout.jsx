@@ -10,7 +10,7 @@ function ProfileLayout() {
 
     useEffect(() => {
         const handleMouseMove = (event) => {
-            if (event.clientX <= 1) {
+            if (event.clientX <= 10) {
                 setShowMenu(true);
             }
         };
@@ -22,6 +22,7 @@ function ProfileLayout() {
     const handleMouseLeave = () => {
         setShowMenu(false);
     };
+    
     return (
         <>
             <div className="w-full h-screen">

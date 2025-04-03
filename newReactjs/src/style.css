@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities; 
+@tailwind utilities;
+
 *{
     margin: 0;
     padding: 0;
@@ -248,6 +249,7 @@ body {
 .overFlow::-webkit-scrollbar, body::-webkit-scrollbar {
     display: none;
 }
+
 .bgimage2{
     background:url('p8.jpg');
     background-size: cover;
@@ -270,3 +272,11 @@ body {
     padding-block: 5px;
     cursor: pointer;
 }
+
+
+@media(max-width:768px){
+    .bgEdit{
+        background:rgb(190, 235, 255,0.2);
+    }
+}
+

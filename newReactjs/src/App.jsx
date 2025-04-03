@@ -1,6 +1,6 @@
 import React from "react"
 import Signup from "./components/signup"
-import { BrowserRouter,Routes, Route, useLocation } from "react-router-dom"
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
 import Home from "./components/Home"
 import Login from "./components/Login"
 import ChatLeft from "./components/ChatLeft"
@@ -22,21 +22,21 @@ import HomeLayout from "./components/HomeLayout.jsx"
 import NavBarOfWeb from "./components/NavBarOfWeb.jsx"
 import ProfileLayout from "./components/ProfileLayout.jsx"
 
-const Layout = ({ children }) =>{
-    const location = useLocation()
+const Layout = ({ children }) => {
+  const location = useLocation()
 
-    const showNavbar = location.pathname.startsWith("/store")
+  const showNavbar = location.pathname.startsWith("/store")
 
-    return(
-      <>
-        {showNavbar && <NavBarOfWeb />}
-        {children}
-      </>
-    )
+  return (
+    <>
+      {showNavbar && <NavBarOfWeb />}
+      {children}
+    </>
+  )
 }
 
 const App = () => {
-  return(
+  return (
     <Provider store={store}>
    <BrowserRouter>
       <Layout>
