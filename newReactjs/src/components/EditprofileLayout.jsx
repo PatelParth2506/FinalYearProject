@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import Iconswithname from '../components/Iconswithname';
 import NavBarOfWeb from './NavBarOfWeb';
-import Iconswithname from './Iconswithname';
-import Profile from './Profile';
-import { useParams } from 'react-router-dom';
+import Editprofile from './Editprofile';
 
-function ProfileLayout() {
+function EditprofileLayout() {
     const [showMenu, setShowMenu] = useState(false);
-    const { userID } = useParams();
 
     useEffect(() => {
         const handleMouseMove = (event) => {
@@ -22,18 +20,16 @@ function ProfileLayout() {
     const handleMouseLeave = () => {
         setShowMenu(false);
     };
-    
     return (
         <>
-
             <div className="w-full h-screen">
                 <NavBarOfWeb toggleMenu={() => setShowMenu(!showMenu)} />
                 <div className="w-full h-[93vh] flex">
-                    <div className={`${showMenu ? 'block' : 'hidden'} md:block `}  onMouseLeave={handleMouseLeave}>
+                    <div className={`${showMenu ? 'block' : 'hidden'} md:block `} onMouseLeave={handleMouseLeave}>
                         <Iconswithname/>
                     </div>
                     <div className="overFlow w-full overflow-auto">
-                        <Profile userID={userID}/>
+                        <Editprofile />
                     </div>
                 </div>
             </div>
@@ -41,4 +37,4 @@ function ProfileLayout() {
     )
 }
 
-export default ProfileLayout
+export default EditprofileLayout
