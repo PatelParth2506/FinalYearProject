@@ -10,12 +10,13 @@ import send from '../assets/send.png'
 import { useNavigate } from 'react-router-dom';
 
 
-function Uploaded({user}) {
+function Uploaded({ user }) {
     const [like, setLike] = useState(false);
     const [save, setSave] = useState(false);
     const [commentState, setCommentState] = useState({});
     const [posts,setPosts]=useState([])
     const [newComment, setNewComment] = useState('');
+    const [friend, setFriend] = useState(false);  // it's only demo 
 
     const navigate = useNavigate()
 
@@ -28,30 +29,30 @@ function Uploaded({user}) {
             setPosts(res.data.data)
         }
         fetchdata()
-    },[])
+    }, [])
 
-    const toggleLike= async (postid)=>{
-        const like=await axios.post(`/api/post/likepost/${postid}`,{},{
-            withCredentials:true
+    const toggleLike = async (postid) => {
+        const like = await axios.post(`/api/post/likepost/${postid}`, {}, {
+            withCredentials: true
         })
         console.log(like.data)
-        setPosts((prev)=>{
-            return prev.map((p)=>{
-                if(p._id === postid){
+        setPosts((prev) => {
+            return prev.map((p) => {
+                if (p._id === postid) {
                     return like.data.data
-                }else{
+                } else {
                     return p
-                } 
+                }
             })
         })
     }
 
-    const handlesendComment = async (postid) =>{
+    const handlesendComment = async (postid) => {
         console.log(postid)
-        const addcom=await axios.post(`/api/post/addcomment/${postid}`,{
-            comment:newComment
-        },{
-            withCredentials:true
+        const addcom = await axios.post(`/api/post/addcomment/${postid}`, {
+            comment: newComment
+        }, {
+            withCredentials: true
         })
         console.log(addcom.data)
         setNewComment('')
@@ -79,27 +80,31 @@ function Uploaded({user}) {
         navigate(`/profile/${userID}`)   
     }
 
-    useEffect(()=>{
-        console.log(posts)
-    },[posts])
 
     return (
         posts.map((post)=>{
             const hasLiked =post.likes.includes(user._id)
             const commentOpen= commentState[post._id] || false;
-            return(<div className='w-full h-fit pt-5 px-10'>
+            return(
+            <div className='w-full h-fit pt-5 px-10'>
             <div className="flex items-center justify-between px-5" onClick={()=>gotoProfile(post.owner._id)}>
                 <div className="flex justify-start items-center gap-x-3 cursor-pointer">
                     <img src={post.owner.profilePhoto} alt="userPro" className='w-10 h-10'/>
                     <div className="flex justify-center items-start flex-col">
                         <p className="text-[#2B6EA0] text-[16px] font-semibold">{post.owner.username}</p>
                         <p className="text-gray-500 text-sm">{user.fullname}</p>
+                            </div>
+                            {friend && 
+                                <div className="px-7 py-2 ml-2 border border-2xl border-[#2B6EA0] text-[#2B6EA0] text-[16px] rounded-2xl">
+                                    <button>Follow</button>
+                                </div>
+                            }
+                        </div>
+                        <div className="flex justify-center items-center">
+                            <img src={dots} alt="dots" className='w-5 h-5' />
+                        </div>
                     </div>
-                </div>
-                <div className="flex justify-center items-center">
-                    <img src={dots} alt="dots" className='w-5 h-5' />
-                </div>
-            </div>
+
 
             <div className="w-full h-[420px] flex justify-center items-center mt-3">
                 <div className="h-full w-full mx-5 p-1">
@@ -116,11 +121,13 @@ function Uploaded({user}) {
                     <div className="flex items-center justify-center gap-x-2">
                         <img src={commentimg} alt="comments" className="cursor-pointer" onClick={() => toggleComment(post._id)} />
                         <p className="text-l text-gray-600"><b>{post.comments.length}</b></p>
+
+                            </div>
+                            <img src={send} alt="send" />
+                        </div>
+                        <img src={save ? bookmarked : bookmark} alt="bookmark" className="cursor-pointer" onClick={() => setSave(pre => !pre)} />
                     </div>
-                    <img src={send} alt="send" />
-                </div>
-                <img src={save?bookmarked:bookmark} alt="bookmark" className="cursor-pointer" onClick={() => setSave(pre => !pre)} />
-            </div>
+
 
             {commentOpen && (
     <div className="w-full px-5 mt-3">
@@ -157,10 +164,10 @@ function Uploaded({user}) {
                 <p className="text-gray-700">{post.description}</p>
             </div>
 
-            <div className='px-5 pt-5'>
-                <div className="w-full h-px bg-[#2B6EA0]"></div>
-            </div>
-        </div>)
+                    <div className='px-5 pt-5'>
+                        <div className="w-full h-px bg-[#2B6EA0]"></div>
+                    </div>
+                </div>)
         })
 
     )

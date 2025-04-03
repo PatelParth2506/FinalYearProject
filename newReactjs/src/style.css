@@ -38,14 +38,14 @@ html,body{
 .msgBtn{
     background: linear-gradient(to left top,rgba(71, 5, 147, 0.803) ,rgba(56, 231, 214, 0.723) );
 }
-/* 
+
 .overFlow::-webkit-scrollbar{
     display: none;
-} */
-/* 
+}
+
 body::-webkit-scrollbar{
     display: none;
-} */
+}
 
 .sendBtn,.savechange{
     background: linear-gradient(to left top,rgba(71, 5, 147, 0.903) ,rgb(56, 231, 214) );
@@ -266,7 +266,7 @@ body {
 }
 
 .read-more-btn {
-    color: gray;
+    color: rgb(128, 128, 128);
     padding-block: 5px;
     cursor: pointer;
 }

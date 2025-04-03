@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import gallary from '../assets/gallery.png';
+import gallery from '../assets/gallery.png'
 import axios from 'axios';
 
 function Post({ user }) {
@@ -44,9 +43,9 @@ function Post({ user }) {
     };
 
     return (
-        <div className="loginForm bg-white p-4 rounded-xl">
+        <div className="loginForm bg-white p-4 rounded-xl font-sans">
             <div className="flex items-center gap-x-3">
-                <img src={user.profilePhoto} alt="User Profile" className="w-10 h-10 rounded-full" />
+                <img src={user.profilePhoto ?? "userPro.png"} alt="User Profile" className="w-10 h-10 rounded-full" />
                 <input
                     type="text"
                     value={bio}
@@ -63,7 +62,7 @@ function Post({ user }) {
             <div className="flex items-center justify-between mt-3 px-2">
                 <div className="flex space-x-4 text-gray-500">
                     <label htmlFor="file-upload" className="cursor-pointer">
-                        <img src={gallary} alt="gallery" className="w-5 h-5" />
+                        <img src={gallery} alt="gallery" className="w-5 h-5" />
                     </label>
                     <input
                         type="file"
