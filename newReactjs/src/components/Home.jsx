@@ -3,7 +3,6 @@ import Post from './Post';
 import Uploaded from './Uploaded';
 import { useEffect } from 'react';
 import axios from 'axios';
-import Iconswithname from './Iconswithname';
 
 function Home() {
     const [user, setUser] = useState({});
@@ -20,18 +19,17 @@ function Home() {
     }, []);
 
     return (
-        <div className="flex pt-10">
-            <div className="w-[20%] sticky top-10 h-fit left-0">
-                <Iconswithname />
-            </div>
-            <div className="w-[55%] mx-auto flex flex-col gap-y-5">
-                <Post user={user} />
-                <div className="w-full h-[1.5px] bg-[#3c7daf]"></div>
-                <div className="loginForm h-fit rounded-xl bg-white pb-5">
-                    <Uploaded user={user} />
+        <>
+            <div className="flex justify-center pt-5 px-5 sm:pt-8">
+                <div className="w-[700px] flex flex-col gap-y-5 pb-5">
+                    <Post user={user}/>
+                    <div className="w-full h-[1.5px] bg-[#3c7daf]"></div>
+                    <div className="loginForm h-fit rounded-xl bg-white pb-5 pt-1">
+                        <Uploaded user={user}/>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
