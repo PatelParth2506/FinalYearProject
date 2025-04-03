@@ -59,7 +59,6 @@ const App = () => {
           <Route path="/store/cart" element={<CartPage />} />
           <Route path="/success" element={<PaymentSuccess/>}/>
           <Route path="/success" element={<PaymentCancel/>}/>
-          <Route path="/story" element={<StoryContainer/>}/>
        </Routes>
       </Layout>
        
