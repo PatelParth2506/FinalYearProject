@@ -42,11 +42,11 @@ html,body{
 
 .overFlow::-webkit-scrollbar{
     display: none;
-} 
+}
 
 body::-webkit-scrollbar{
     display: none;
-} 
+}
 
 .sendBtn,.savechange{
     background: linear-gradient(to left top,rgba(71, 5, 147, 0.903) ,rgb(56, 231, 214) );
