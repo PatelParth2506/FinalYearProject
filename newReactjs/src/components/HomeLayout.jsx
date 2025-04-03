@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import Iconswithname from '../components/Iconswithname';
 import Home from './Home';
 import NavBarOfWeb from './NavBarOfWeb';
-import Iconswithname from './Iconswithname';
 
 function HomeLayout() {
     const [showMenu, setShowMenu] = useState(false);
