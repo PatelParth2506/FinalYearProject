@@ -21,6 +21,7 @@ import Loader from "./components/Loader.jsx"
 import HomeLayout from "./components/HomeLayout.jsx"
 import NavBarOfWeb from "./components/NavBarOfWeb.jsx"
 import ProfileLayout from "./components/ProfileLayout.jsx"
+import StoryLayout from "./components/StoryLayout.jsx"
 
 const Layout = ({ children }) => {
   const location = useLocation()
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="/home"  element={<HomeLayout />} />
           <Route path="/chatleftpart"  element={<ChatLeft />} />
           <Route path="/chatrightempty"  element={<Chatrightempty />} />
+          <Route path="/story"  element={<StoryLayout />} />
           <Route path="/chatbox"  element={<Chatbox />} />
           <Route path="/chatrightpart"  element={<ChatRight />} />
           <Route path="/editprofile"  element={<Editprofile />} />
