@@ -21,7 +21,11 @@ import Loader from "./components/Loader.jsx"
 import HomeLayout from "./components/HomeLayout.jsx"
 import NavBarOfWeb from "./components/NavBarOfWeb.jsx"
 import ProfileLayout from "./components/ProfileLayout.jsx"
+<<<<<<< HEAD
 import EditprofileLayout from "./components/EditprofileLayout.jsx"
+=======
+import StoryLayout from "./components/StoryLayout.jsx"
+>>>>>>> 4aaa8d5d497acf7bcc2d1df4f63074fa8c8f9ca9
 
 const Layout = ({ children }) => {
   const location = useLocation()
@@ -47,6 +51,7 @@ const App = () => {
           <Route path="/home"  element={<HomeLayout />} />
           <Route path="/chatleftpart"  element={<ChatLeft />} />
           <Route path="/chatrightempty"  element={<Chatrightempty />} />
+          <Route path="/story"  element={<StoryLayout />} />
           <Route path="/chatbox"  element={<Chatbox />} />
           <Route path="/chatrightpart"  element={<ChatRight />} />
           <Route path="/editprofile"  element={<Editprofile />} />
@@ -59,7 +64,6 @@ const App = () => {
           <Route path="/store/cart" element={<CartPage />} />
           <Route path="/success" element={<PaymentSuccess/>}/>
           <Route path="/success" element={<PaymentCancel/>}/>
-          <Route path="/story" element={<StoryContainer/>}/>
        </Routes>
       </Layout>
        

@@ -102,18 +102,13 @@ function Uploaded({ user }) {
             const commentOpen = commentState[post._id] || false;
             return (
                 <div className='w-full h-fit pt-5 px-2 font-sans sm:px-6 md:px-8'>
-                    <div className="flex items-center justify-between px-5" onClick={() => gotoProfile(post.owner._id)}>
+                    <div className="flex items-center justify-between px-5">
                         <div className="flex justify-start items-center gap-x-3 cursor-pointer">
-                            <img src={post.owner.profilePhoto} alt="userPro" className='w-12 h-12 rounded-full' />
+                            <img src={post.owner.profilePhoto} alt="userPro" className='w-12 h-12 rounded-full' onClick={() => gotoProfile(post.owner._id)} />
                             <div className="flex justify-center items-start flex-col" onClick={() => gotoProfile(post.owner._id)}>
                                 <p className="text-[#2B6EA0] text-[16px] font-semibold">{post.owner.username}</p>
                                 <p className="text-gray-500 text-sm">{user.fullname ?? "hello"}</p>
                             </div>
-                            {friend &&
-                                <div className="px-7 py-2 ml-2 border border-2xl border-[#2B6EA0] text-[#2B6EA0] text-[16px] rounded-2xl">
-                                    <button>Follow</button>
-                                </div>
-                            }
                         </div>
                         <div className="flex justify-center items-center">
                             <div className="px-7 py-2 ml-2 border border-2xl border-[#2B6EA0] text-[#2B6EA0] text-[16px] rounded-2xl">

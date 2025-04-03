@@ -38,7 +38,7 @@ const Iconswithname = () => {
           <span>Home</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={() => { navigate("/profilelayout/") }}>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={() => { navigate("/profilelayout") }}>
           <img src={user} alt="" className='w-6 h-6 ' />
           <span>Profile</span>
         </div>
@@ -48,7 +48,7 @@ const Iconswithname = () => {
           <span>Search</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={() => { navigate("/story") }}>
           <img src={reels} alt="" className='w-6 h-6 ' />
           <span>Stories</span>
         </div>
