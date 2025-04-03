@@ -63,7 +63,7 @@ const Profile = () => {
                 <h2 className="font-semibold">{profiledata.username}</h2>
                 <button
                   className="editProfile text-white hover:bg-slate-950 px-9 py-2 rounded-md loginButton"
-                  onClick={() => navigate('/editprofile')}
+                  onClick={() => navigate('/editprofilelayout')}
                 >
                   Edit profile
                 </button>
