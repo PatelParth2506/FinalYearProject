@@ -52,7 +52,7 @@ const Photo = () => {
     };
 
     return (
-        <div className="w-full min-h-screen bgimage2 flex justify-center items-center p-4">
+        <div className="font-sans w-full min-h-screen bgimage2 flex justify-center items-center p-4">
             <div className="w-full max-w-[320px] bg-white rounded-3xl shadow-lg p-6 sm:p-8 flex flex-col items-center">
                 <h1 id="signInText" className="font-bold text-2xl text-center">
                     Edit profile photo

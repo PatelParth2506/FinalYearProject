@@ -105,7 +105,7 @@ const Signup = () => {
 
     return (
     <div>
-        <div className="bgimage min-h-screen  flex justify-center items-center px-4 relative">
+        <div className="font-sans bgimage min-h-screen  flex justify-center items-center px-4 relative">
         {passwordError && <Errorno1 />}
 
         {usernameError && <Errorno2 />}

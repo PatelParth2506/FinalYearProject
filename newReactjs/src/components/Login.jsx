@@ -58,7 +58,7 @@ const Login = () => {
 
     return (
         <div>
-            <div className="bgimage min-h-screen flex justify-center items-center px-4 sm:px-10 lg:px-20">
+            <div className="font-sans bgimage min-h-screen flex justify-center items-center px-4 sm:px-10 lg:px-20">
             {showError && <Errorno5 />} 
            
             {showSuccess && <Success2 />}
