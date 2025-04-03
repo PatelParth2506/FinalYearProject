@@ -20,8 +20,8 @@ const CartPage = () => {
   );
 
   const makePayment = async()=>{
-    const stripe=await loadStripe("pk_test_51R83AxFQJFwT0MWobvjOOBo8yHXSoFGzSTxaq5N3uNS466Zx2FViMT2h1X1oYi4cuMvhMkk36x00rKw98ws4CAkl00kqCV3F7e")
-  
+    const stripe=await loadStripe("pk_test_51R83AcJtik0TUV9rI3uvUj6qSHVoVx4RrX8Y4UuHo1MJIVoTVuCLSSOTFXfpKZCJ4xF4DDu5mjdtGd94uEN4qxTv00X42nePHw")
+    
     const response = await axios.post("/api/payment/checkout",cartItems,{
       withCredentials:true,
     })
@@ -47,7 +47,7 @@ const CartPage = () => {
           <h2 className="text-2xl font-bold">Your Cart is Empty</h2>
           <p className="text-gray-600">Please, add some products</p>
           <Link
-            to="/"
+            to="/store"
             className="inline-block bg-zinc-200 px-6 py-2 rounded-lg hover:bg-zinc-300"
           >
             Continue Shopping
@@ -65,10 +65,10 @@ const CartPage = () => {
         <div className="lg:col-span-2 shadow-md p-4 rounded-md bg-white">
           {cartItems.map((item) => (
             <div
-              key={item.id}
+              key={item._id}
               className="flex items-center gap-4 py-4 border-b"
             >
-              <Link to={`/product/${item.id}`}>
+              <Link to={`/product/${item._id}`}>
                 <img
                   src={item.photo}
                   alt={item.description.substring(0,20)}
@@ -78,7 +78,7 @@ const CartPage = () => {
 
               <div className="flex-1">
                 <Link
-                  to={`/product/${item.id}`}
+                  to={`/product/${item._id}`}
                   className="font-semibold hover:text-blue-600"
                 >
                   {item.description.substring(0,20)}
@@ -91,8 +91,8 @@ const CartPage = () => {
                     onClick={() =>
                       dispatch(
                         updateQuantity({
-                          id: item.id,
-                          quantity: Math.max(1, item.quantity - 1),
+                          id: item._id,
+                          quantity: Math.max(1, item.quentity - 1),
                         })
                       )
                     }
@@ -120,7 +120,7 @@ const CartPage = () => {
                   {/* 🗑️ Remove from Cart */}
                   <button
                     className="ml-4 text-red-500 hover:text-red-700"
-                    onClick={() => dispatch(removeFromCart(item.id))}
+                    onClick={() => dispatch(removeFromCart(item._id))}
                   >
                     <Trash2 size={20} />
                   </button>

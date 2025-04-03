@@ -26,7 +26,6 @@ const Signup = () => {
     const [name,setName]= useState("");
 
     const [user,setUser]= useState("");
-
     const [password,setPassword]= useState("");
 
     const navigate= useNavigate();
@@ -34,10 +33,6 @@ const Signup = () => {
     
     
     const signUpData = async(e) => {
-        // console.log(email)
-        // console.log(name)
-        // console.log(user)
-        // console.log(password)
         e.preventDefault()
 
         if(!email || !name || !user || !password)
@@ -45,13 +40,6 @@ const Signup = () => {
             alert("All fields are mandatory to fill!")
             return false;
         }
-        const response=await axios.post("/api/user/register",{
-          email:email,
-          name:name,
-          username:user,
-          password:password,
-        })
-        console.log(response)
 
         if(!emailRegex.test(email)){
             setEmailError(true);
@@ -88,14 +76,14 @@ const Signup = () => {
 
         else
         {
-        const userData = {
-            username: user,
-            name: name,
-            password: password,
-            email: email,
-          };
+          const response=await axios.post("/api/user/register",{
+            email:email,
+            fullname:name,
+            username:user,
+            password:password,
+          })
+          console.log(response)
 
-          console.log(userData)
         
         setEmail("")
         setName("")

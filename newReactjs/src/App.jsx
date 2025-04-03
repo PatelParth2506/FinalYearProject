@@ -15,6 +15,7 @@ import { Provider } from "react-redux"
 import { store } from "./App/store.js"
 import PaymentSuccess from "./components/PaymentSuccess.jsx"
 import PaymentCancel from "./components/PaymentCancel.jsx"
+import StoryContainer from "./components/StoryContainer.jsx"
 import Photo from "./components/Photo.jsx"
 import Loader from "./components/Loader.jsx"
 import HomeLayout from "./components/HomeLayout.jsx"
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="/store/cart" element={<CartPage />} />
           <Route path="/success" element={<PaymentSuccess/>}/>
           <Route path="/success" element={<PaymentCancel/>}/>
+          <Route path="/story" element={<StoryContainer/>}/>
        </Routes>
       </Layout>
        
