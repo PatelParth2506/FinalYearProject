@@ -15,14 +15,14 @@ function NavBarOfWeb({ toggleMenu }) {
           <button onClick={toggleMenu} className='outline-none'>
             <img src={instagram} alt="Logo" className="w-8 h-8"/>
           </button>
-          <p className="text-[#2B6EA0] font-medium text-xl pl-2 font-sans">Connected</p>
+          <p className="text-[#2B6EA0] font-medium text-xl pl-2 font-sans">ConnectMe</p>
         </div>
 
         <div className="flex-[3] hidden md:block">
           <div className="relative w-full">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Search something..."
               className="w-full border-none rounded-md px-3 pl-8 py-2 bg-[#56a1c41d] outline-none"
             />
             <img src={search} alt="search" className="w-4 absolute top-3 left-2" />
