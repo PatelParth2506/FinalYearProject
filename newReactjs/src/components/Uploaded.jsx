@@ -11,12 +11,12 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Uploaded({ user }) {
+    console.log(user)
     const [like, setLike] = useState(false);
     const [save, setSave] = useState(false);
     const [commentState, setCommentState] = useState({});
     const [posts, setPosts] = useState([])
     const [newComment, setNewComment] = useState('');
-    const [friend, setFriend] = useState(false);  // it's only demo 
 
     const navigate = useNavigate()
 
@@ -80,6 +80,21 @@ function Uploaded({ user }) {
         navigate(`/profile/${userID}`)
     }
 
+    const toggolefollow = async (userID) => {
+        try {
+            const res = await axios.post(`/api/user/togglefollow/${userID}`, {
+                withCredentials: true
+            })
+            if (user.following.includes(userID)) {
+                user.following = user.following.filter((id) => id !== userID)
+            } else {
+                user.following.push(userID)
+            }
+            setPosts((prev) => [...prev])
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         posts.map((post) => {
@@ -90,7 +105,7 @@ function Uploaded({ user }) {
                     <div className="flex items-center justify-between px-5" onClick={() => gotoProfile(post.owner._id)}>
                         <div className="flex justify-start items-center gap-x-3 cursor-pointer">
                             <img src={post.owner.profilePhoto} alt="userPro" className='w-12 h-12 rounded-full' />
-                            <div className="flex justify-center items-start flex-col">
+                            <div className="flex justify-center items-start flex-col" onClick={() => gotoProfile(post.owner._id)}>
                                 <p className="text-[#2B6EA0] text-[16px] font-semibold">{post.owner.username}</p>
                                 <p className="text-gray-500 text-sm">{user.fullname ?? "hello"}</p>
                             </div>
@@ -101,7 +116,9 @@ function Uploaded({ user }) {
                             }
                         </div>
                         <div className="flex justify-center items-center">
-                            <img src={dots} alt="dots" className='w-5 h-5' />
+                            <div className="px-7 py-2 ml-2 border border-2xl border-[#2B6EA0] text-[#2B6EA0] text-[16px] rounded-2xl">
+                                <button onClick={() => toggolefollow(post.owner._id)}>{user.following.includes(post.owner._id) ? "Following" : "Follow"}</button>
+                            </div>
                         </div>
                     </div>
 

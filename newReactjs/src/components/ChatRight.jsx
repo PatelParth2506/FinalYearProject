@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ChatLeft from './ChatLeft';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import axios from 'axios';
 
@@ -10,8 +10,8 @@ const ChatRight = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [socket, setSocket] = useState(null);
-  const [selectedMessage,setSelectedMessage]=useState(null)
-
+  const [selectedMessageId,setSelectedMessageId]=useState(null)
+  const navigate = useNavigate()
   useEffect(() => {
     const newSocket = io('http://localhost:8000', {
       withCredentials: true,
@@ -72,15 +72,22 @@ const ChatRight = () => {
         withCredentials: true
       });
       setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
-      setSelectedMessage(null)
+      setSelectedMessageId(null)
     } catch (error) {
       console.error(error);
     }
   };
 
+  const handleMessageClick=(messageID)=>{
+    setSelectedMessageId((prev)=>(prev === messageID ? null : messageID))
+  }
+
+  const openProfile = (f) => {
+    navigate("/chatrightpart", { state: { f, userData, followers } });
+  };
   return (
     <div className='flex'>
-      <ChatLeft userData={userData} followers={followers} />
+      <ChatLeft userData={userData} followers={followers} openProfile={openProfile}/>
 
       <div className='w-screen flex flex-col'>
         {followerData ? (
@@ -104,9 +111,9 @@ const ChatRight = () => {
               className={`p-2 my-2 rounded-lg max-w-xs ${
                 msg.sender === userData._id ? 'bg-blue-500 text-white self-end ml-auto' : 'bg-gray-200 text-black self-start mr-auto'
               }`}
-            >
+             onClick={()=>handleMessageClick(msg._id)}>
               {msg.text}
-              {msg.sender === userData._id && (
+              {selectedMessageId === msg._id && msg.sender === userData._id && (
                 <button
                   onClick={() => handleDeleteMessage(msg._id)}
                   className='ml-2 text-red-500'

@@ -38,30 +38,31 @@ const Layout = ({ children }) => {
 const App = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/home" element={<HomeLayout />} />
-            <Route path="/chatleftpart" element={<ChatLeft />} />
-            <Route path="/chatrightempty" element={<Chatrightempty />} />
-            <Route path="/chatbox" element={<Chatbox />} />
-            <Route path="/chatrightpart" element={<ChatRight />} />
-            <Route path="/editprofile" element={<Editprofile />} />
-            <Route path="/profilelayout" element={<ProfileLayout />} />
-            <Route path="/photo" element={<Photo />} />
-            <Route path="/loader" element={<Loader />} />
-            <Route path="/store" element={<StoreHome />} />
-            <Route path="/store/product/:id" element={<ProductDetails />} />
-            <Route path="/store/cart" element={<CartPage />} />
-            <Route path="/success" element={<PaymentSuccess />} />
-            <Route path="/success" element={<PaymentCancel />} />
-          </Routes>
-        </Layout>
-
-      </BrowserRouter>
-    </Provider>
+   <BrowserRouter>
+      <Layout>
+      <Routes>
+          <Route path="/"  element={<Signup />} />
+          <Route path="/login"  element={<Login />} />
+          <Route path="/home"  element={<HomeLayout />} />
+          <Route path="/chatleftpart"  element={<ChatLeft />} />
+          <Route path="/chatrightempty"  element={<Chatrightempty />} />
+          <Route path="/chatbox"  element={<Chatbox />} />
+          <Route path="/chatrightpart"  element={<ChatRight />} />
+          <Route path="/editprofile"  element={<Editprofile />} />
+          <Route path="/profilelayout/:userID?"  element={<ProfileLayout />} />
+          <Route path="/photo"  element={<Photo />} />
+          <Route path="/loader"  element={<Loader />} />
+          <Route path="/store" element={<StoreHome />} />
+          <Route path="/store/product/:id" element={<ProductDetails />} />
+          <Route path="/store/cart" element={<CartPage />} />
+          <Route path="/success" element={<PaymentSuccess/>}/>
+          <Route path="/success" element={<PaymentCancel/>}/>
+          <Route path="/story" element={<StoryContainer/>}/>
+       </Routes>
+      </Layout>
+       
+   </BrowserRouter>
+  </Provider>
   );
 }
 
