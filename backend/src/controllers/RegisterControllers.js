@@ -44,7 +44,7 @@ const register=asyncHandler(async(req,res)=>{
         email,
         password,
         bio: bio || "",
-        profilePhoto:profilePhoto.url || "",
+        profilePhoto: "",
         isBussiness
     })
 
@@ -244,6 +244,7 @@ const getUserByID=asyncHandler(async(req,res)=>{
     const { userid } = req.params;
     if(!userid){ throw new ApiError(401,"User Not Found") }
     const user=await User.findById(userid).select("-password -refreshToken") 
+    if(!user){ throw new ApiError(401,"User Not Found") }
     res.status(200).json(new ApiResponse(200,user,"User Fetched Successfully"))
 })
 
