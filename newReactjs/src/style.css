@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities; 
-/**{
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -121,8 +121,8 @@ body {
     position: absolute;
     inset: 0;
     border-radius: 0.75rem;
-    /* background: #dfdfdf63; */
-    /* /* background: linear-gradient(to top, rgba(54, 54, 54, 0.58), transparent); */
+    background: #dfdfdf63; 
+     background: linear-gradient(to top, rgba(54, 54, 54, 0.58), transparent); 
 }
 
 #signInText {

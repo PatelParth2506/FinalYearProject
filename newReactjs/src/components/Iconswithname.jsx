@@ -1,9 +1,32 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import home from '../assets/home.png'
+import reels from '../assets/reels.png'
+import heart from '../assets/heart.png'
+import user from '../assets/user.png'
+import search from '../assets/search.png'
+import bookmark from '../assets/bookmark.png'
+import exit from '../assets/exit.png'
+import store from '../assets/store.png'
+import chat from '../assets/chat.png'
+import settings from '../assets/settings.png'
+import axios from 'axios'
 
 const Iconswithname = () => {
 
   const navigate = useNavigate();
+
+  const handlelogout=async()=>{
+      try {
+        const res=await axios.post("/api/user/logout",{
+          withCredentials: true
+        })
+        console.log("LogOuted SuccessFully",res.data)
+        navigate("/login")
+      } catch (error) {
+        console.log("Can't Done Logout",error)
+      }
+  }
 
   return (
 
@@ -11,42 +34,42 @@ const Iconswithname = () => {
 
       <div className='w-full flex flex-col cursor-pointer flex-2 justify-between gap-2'>
         <div className='flex items-center gap-x-5 px-3 py-2 hover:bg-gray-100 hover:text-black rounded-md' onClick={() => { navigate("/home") }}>
-          <img src="home.png" alt="" className='w-6 h-6 ' />
+          <img src={home} alt="" className='w-6 h-6 ' />
           <span>Home</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={() => { navigate("/profilelayout") }}>
-          <img src="user.png" alt="" className='w-6 h-6 ' />
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={() => { navigate("/profilelayout/") }}>
+          <img src={user} alt="" className='w-6 h-6 ' />
           <span>Profile</span>
         </div>
 
         <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>
-          <img src="search.png" alt="" className='w-6 h-6 ' />
+          <img src={search} alt="" className='w-6 h-6 ' />
           <span>Search</span>
         </div>
 
         <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>
-          <img src="reels.png" alt="" className='w-6 h-6 ' />
+          <img src={reels} alt="" className='w-6 h-6 ' />
           <span>Stories</span>
         </div>
 
         <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={() => { navigate("/chatbox") }}>
-          <img src="chat.png" alt="" className='w-6 h-6 ' />
+          <img src={chat} alt="" className='w-6 h-6 ' />
           <span>Message</span>
         </div>
 
         <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>
-          <img src="love.png" alt="" className='w-6 h-6 ' />
+          <img src={heart} alt="" className='w-6 h-6 ' />
           <span>Instructions</span>
         </div>
 
         <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>
-          <img src="bookmark.png" alt="" className='w-6 h-6 ' />
+          <img src={bookmark} alt="" className='w-6 h-6 ' />
           <span>Bookmarks</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>
-          <img src="store.png" alt="" className='w-6 h-6 ' />
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={()=>{navigate("/store")}}>
+          <img src={store} alt="" className='w-6 h-6 ' />
           <span>Store</span>
         </div>
 
@@ -55,12 +78,12 @@ const Iconswithname = () => {
       <div className="w-full flex flex-1 items-end">
         <div className="w-full flex flex-col cursor-pointer gap-2">
           <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>
-            <img src="settings.png" alt="" className='w-6 h-6 ' />
+            <img src={settings} alt="" className='w-6 h-6 ' />
             <span>Settings</span>
           </div>
 
-          <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>
-            <img src="exit.png" alt="" className='w-6 h-6 ' />
+          <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={handlelogout}>
+            <img src={exit} alt="" className='w-6 h-6 ' />
             <span>Logout</span>
           </div>
         </div>

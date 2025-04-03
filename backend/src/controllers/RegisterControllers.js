@@ -269,6 +269,12 @@ const ToggleFollow= asyncHandler(async(req,res)=>{
         .json(new ApiResponse(200,{},"Toggle Follow Successfully"))
 })
 
+const getalluser= asyncHandler(async(req,res)=>{
+    const user=await User.find().select("_id")
+    res.status(200).json(
+        new ApiResponse(200,user,"All User Fetched SuccessFully")
+    )
+})
 
 export {
     register,
@@ -283,4 +289,5 @@ export {
     unfollowUser,
     getUserByID,
     ToggleFollow,
+    getalluser
 }

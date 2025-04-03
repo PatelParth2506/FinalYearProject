@@ -5,8 +5,7 @@ import Iconswithname from './Iconswithname'
 import axios from 'axios'
 import DefalutProfile from '../assets/img/DefalutProfile.jpg'
 
-const Profile = () => {
-  const { userID } = useParams()
+const Profile = ({userID}) => {
   console.log(userID)
   const navigate=useNavigate()
   const [profiledata,setProfileData]=useState({})

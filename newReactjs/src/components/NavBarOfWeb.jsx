@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import instagram from '../../assets/instagram.png';
-import notification from '../../assets/notification.png';
-import search from '../../assets/search.png';
-import chat from '../../assets/chat.png';
-import avatar from '../../assets/avatar.jpg';
+import instagram from '../assets/img/stories/instagram.png';
+import notification from '../assets/img/stories/notification.png';
+import search from '../assets/img/stories/search.png';
+import chat from '../assets/img/stories/chat.png';
+import avatar from '../assets/img/stories/avatar.jpg';
 
 function NavBarOfWeb({ toggleMenu }) {
   const [showSearch, setShowSearch] = useState(false);
