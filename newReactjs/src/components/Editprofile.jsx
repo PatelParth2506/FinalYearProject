@@ -36,8 +36,8 @@ const Editprofile = () => {
               value={bio}
               onChange={(e) => setBio(e.target.value)}
             />
-            <p className="text-gray-500 text-sm absolute top-2 right-2">{bio.length} / 150</p>
-            <label className='absolute top-1 left-3 text-gray-500 text-sm bg-white'>Bio</label>
+            <p className="text-gray-500 z-10 text-sm absolute top-1 right-[-1px]">{bio.length} / 150</p>
+            <label className='absolute top-1 left-3 text-gray-500 text-sm bg-white block w-full'>Bio</label>
           </div>
 
           <div className='relative'>
