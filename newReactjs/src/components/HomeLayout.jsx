@@ -8,7 +8,7 @@ function HomeLayout() {
 
     useEffect(() => {
         const handleMouseMove = (event) => {
-            if (event.clientX <= 1) {
+            if (event.clientX <= 10) {
                 setShowMenu(true);
             }
         };

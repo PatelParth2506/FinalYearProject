@@ -9,10 +9,9 @@ function NavBarOfWeb({ toggleMenu }) {
   const [showSearch, setShowSearch] = useState(false);
 
   return (
-    <div className="top-0 z-10 w-full h-[7vh] sticky bg-white shadow-md shadow-[#56a1c41d] flex justify-center">
+    <div className="top-0 z-10 w-full h-[7vh] sticky bg-white shadow-md shadow-[#56a1c41d] flex justify-center px-3">
       <nav className="w-full bg-white p-2 flex justify-between items-center px-[1%]">
         <div className="flex-[2] flex justify-start items-center">
-          {/* Instagram Icon: Click to toggle LeftMenuIcon */}
           <button onClick={toggleMenu} className='outline-none'>
             <img src={instagram} alt="Logo" className="w-8 h-8"/>
           </button>
@@ -31,7 +30,6 @@ function NavBarOfWeb({ toggleMenu }) {
         </div>
 
         <div className="flex-[2] flex justify-end items-center">
-          {/* Search button for small screens */}
           <button
             onClick={() => setShowSearch(!showSearch)}
             className="md:hidden p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-4"
@@ -51,7 +49,6 @@ function NavBarOfWeb({ toggleMenu }) {
         </div>
       </nav>
 
-      {/* Expanding Search Bar on Small Screens */}
       {showSearch && (
         <div className="absolute top-full left-0 w-full bg-white shadow-md shadow-[#56a1c41d] p-2 md:hidden">
           <input
