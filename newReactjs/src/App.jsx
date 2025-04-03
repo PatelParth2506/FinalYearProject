@@ -15,17 +15,14 @@ import { Provider } from "react-redux"
 import { store } from "./App/store.js"
 import PaymentSuccess from "./components/PaymentSuccess.jsx"
 import PaymentCancel from "./components/PaymentCancel.jsx"
-import StoryContainer from "./components/StoryContainer.jsx"
 import Photo from "./components/Photo.jsx"
 import Loader from "./components/Loader.jsx"
 import HomeLayout from "./components/HomeLayout.jsx"
 import NavBarOfWeb from "./components/NavBarOfWeb.jsx"
 import ProfileLayout from "./components/ProfileLayout.jsx"
-<<<<<<< HEAD
 import EditprofileLayout from "./components/EditprofileLayout.jsx"
-=======
 import StoryLayout from "./components/StoryLayout.jsx"
->>>>>>> 4aaa8d5d497acf7bcc2d1df4f63074fa8c8f9ca9
+
 
 const Layout = ({ children }) => {
   const location = useLocation()
