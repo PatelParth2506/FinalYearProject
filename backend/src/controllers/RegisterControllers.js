@@ -17,7 +17,7 @@ const genrateAccessAndRefreshToken=async(userid)=>{
 
 const register=asyncHandler(async(req,res)=>{
     const { username, email, password, bio, isBussiness, fullname } = req.body;
-    
+    console.log(req.body)
     if(username === "") throw new ApiError(401,"Username Can't Be Happy")
     if(email === "") throw new ApiError(401,"Email Can't Be Happy")
     if(password === "") throw new ApiError(401,"Password Can't Be Empty")
@@ -175,6 +175,7 @@ const  changeAccountDetails=asyncHandler(async(req,res)=>{
 
 const changeProfilePhoto=asyncHandler(async(req,res)=>{
     const profilePhotopath=req.file.path;
+    console.log(profilePhotopath)
     if(!profilePhotopath){
         throw new ApiError(403,"Profile Photo Is Required")
     }

@@ -2,13 +2,12 @@ import React from 'react'
 
 const Errorno5 = () => {
   return (
-    <div className='w-screen flex justify-center items-center mt-12'>
-    <div className='w-[400px] h-auto border-[2px] border-red-600 text-red-600 rounded-md shadow-md py-4 px-3 bg-white'>
-       <p className='text-center'>Please enter Username and Password correctly.</p>
-    </div>
+    <div className='fixed top-5 left-1/2 transform -translate-x-1/2 w-full max-w-md px-4 z-50'>
+      <div className='w-full border-2 border-red-600 bg-white text-red-600 rounded-md shadow-md py-3 px-6'>
+         <p className='text-center text-sm sm:text-base'>Please enter Username and Password correctly.</p>
+      </div>
     </div>
   )
 }
-
 
 export default Errorno5
