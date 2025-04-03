@@ -37,9 +37,9 @@ const Profile = () => {
 
 
   return (
-    <div className='w-screen h-screen  flex'>
+    <div className='w-full h-screen  flex'>
       
-    <div className='w-screen h-screen overflow-y-scroll'>
+    <div className='w-full h-screen overflow-y-scroll'>
          
             <div className='bgEdit flex items-center justify-center gap-2 px-8 py-14 w-full h-[350px] '>
 
