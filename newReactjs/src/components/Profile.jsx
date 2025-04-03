@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import Chatbox from './Chatbox'
+import { useNavigate, useParams } from 'react-router-dom'
+import Iconswithname from './Iconswithname'
 import axios from 'axios'
-import DefalutProfile from '../assets/img/DefalutProfile.jpg'
 import emptyuser2 from '../../emptyuser2.jpeg'
-
 const Profile = () => {
-  const navigate = useNavigate()
-  const [profiledata, setProfileData] = useState({})
-  const [post, setPost] = useState([])
-  const [comments, setComments] = useState([])
-  const [showFullBio, setShowFullBio] = useState(false)
+  
+  const navigate=useNavigate()
+  const [profiledata,setProfileData]=useState({})
+  const [post,setPost]=useState([])
+  const [comments,setComments]=useState([])
+
+  const [showFullBio, setShowFullBio] = useState(false);
+
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -57,7 +60,7 @@ const Profile = () => {
 
             <div className="max-h-80 flex flex-col gap-y-3 w-full md:w-[400px] overflow-y-auto">
               <div className="flex flex-col md:flex-row gap-4 md:gap-9 items-center">
-                <h2 className="font-semibold">{profiledata.username}Username</h2>
+                <h2 className="font-semibold">{profiledata.username}</h2>
                 <button
                   className="editProfile text-white hover:bg-slate-950 px-9 py-2 rounded-md loginButton"
                   onClick={() => navigate('/editprofile')}
@@ -70,15 +73,15 @@ const Profile = () => {
               <div className="flex justify-center md:justify-start gap-16 md:gap-16">
                 <div className="text-center">
                   <h2 className="text-gray-500 font-semibold">Posts</h2>
-                  <h1 className="font-semibold">{post?.length}1</h1>
+                  <h1 className="font-semibold">{post?.length}</h1>
                 </div>
                 <div className="text-center">
                   <h2 className="text-gray-500 font-semibold">Followers</h2>
-                  <h1 className="font-semibold">{profiledata.followers?.length}1</h1>
+                  <h1 className="font-semibold">{profiledata.followers?.length}</h1>
                 </div>
                 <div className="text-center">
                   <h2 className="text-gray-500 font-semibold">Following</h2>
-                  <h1 className="font-semibold">{profiledata.following?.length}1</h1>
+                  <h1 className="font-semibold">{profiledata.following?.length}</h1>
                 </div>
               </div>
 
@@ -87,7 +90,7 @@ const Profile = () => {
                 <h1 className="font-semibold">DISHANT</h1>
                 <div>
                   {showFullBio ? (
-                    <p>{profiledata.bio}How Are You</p>
+                    <p>{profiledata.bio}</p>
                   ) : (
                     <p className="bio-text whitespace-pre-wrap">{profiledata.bio}</p>
                   )}
@@ -103,15 +106,16 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex gap-16 pt-3 justify-center">
-          <div className="flex gap-2 items-center font-semibold cursor-pointer">
-            <img src="profile.png" alt="Posts" className="w-5 h-5" />
-            <h3>POSTS</h3>
-          </div>
-          <div className="flex gap-2 items-center font-semibold cursor-pointer">
-            <img src="reels.png" alt="Saved" className="w-5 h-5" />
-            <h3>SAVED</h3>
+
+    
+        <div className='flex gap-16 pt-3 justify-center'>
+          <div className='flex gap-2 items-center font-semibold'>
+            <img src="profile.png" alt=""  className='w-5 h-5'/>
+            <h3 className='cursor-pointer'>POSTS</h3>
+            </div>
+          <div className='flex gap-2 items-center font-semibold'>
+            <img src="reels.png" alt=""  className='w-5 h-5'/>
+            <h3 className='cursor-pointer'>SAVED</h3>
           </div>
         </div>
 

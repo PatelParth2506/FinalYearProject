@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import React from "react";
 
 const ProductCard = ({ product }) => {
-  console.log(product)
   return (
     <Link to={`/store/product/${product._id}`} className="block">
       <div className="shadow-xl rounded-md cursor-pointer p-4">
