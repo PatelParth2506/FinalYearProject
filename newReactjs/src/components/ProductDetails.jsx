@@ -31,7 +31,7 @@ const ProductDetails = () => {
 
   // ✅ Find Related Products (Same Category but Different ID)
   const relatedProducts = products.filter(
-    (p) => p.category === product.category && p._id !== product.id
+    (p) => p.category === product.category && p._id !== product._id
   );
 
   return (
@@ -107,8 +107,8 @@ const ProductDetails = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {relatedProducts.map((item) => (
                 <Link
-                  key={item.id}
-                  to={`/store/product/${item.id}`}
+                  key={item._id}
+                  to={`/store/product/${item._id}`}
                   className="border p-4 rounded-md shadow hover:shadow-lg transition bg-white flex flex-col items-center text-center"
                   style={{
                     height: "340px",
@@ -116,8 +116,8 @@ const ProductDetails = () => {
                 >
                   <div className="w-full h-[200px] flex justify-center items-center overflow-hidden">
                     <img
-                      src={item.image}
-                      alt={item.title}
+                      src={item.photo}
+                      alt={item.description.substring(0,20)}
                       className="object-contain w-full h-full"
                     />
                   </div>

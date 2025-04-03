@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { act } from "react";
 
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
   const response = await axios.get("/api/product/getAllProduct");
@@ -19,7 +18,7 @@ const initialState = {
 // Search Products and Filter Category
 const filterProducts = (state) => {
   return state.items.filter((product) => {
-    const matchSearch = product.title
+    const matchSearch = product.description
       .toLowerCase()
       .includes(state.searchItem.toLowerCase());
 
@@ -42,7 +41,13 @@ const productSlice = createSlice({
 
     setSelectedCategory: (state, action) => {
       state.selectedCategory = action.payload;
-      state.filteredItems = [...filterProducts(state)];
+      // state.filteredItems = [...filterProducts(state)];
+
+      if(action.payload === "ALL"){
+        state.filteredItems = state.items;
+      }else{
+        state.filteredItems=state.items.filter((p)=>p.category === action.payload)
+      }
     },
   },
   extraReducers:(builder)=>{

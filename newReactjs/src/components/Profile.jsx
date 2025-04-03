@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Chatbox from './Chatbox'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Iconswithname from './Iconswithname'
 import axios from 'axios'
 
 const Profile = () => {
-  
+  const { userID } = useParams()
+  console.log(userID)
   const navigate=useNavigate()
   const [profiledata,setProfileData]=useState({})
   const [post,setPost]=useState([])
@@ -13,8 +14,14 @@ const Profile = () => {
 
   useEffect(()=>{
     const fetchdata=async()=>{
-      const res=await axios.get('/api/user/getUserProfile');
-      console.log(res.data.data)
+      let res;
+      if(userID){
+        res=await axios.get(`/api/user/getuser/${userID}`)
+        console.log(res.data.data)
+      }else{
+        res=await axios.get('/api/user/getUserProfile');
+        console.log(res.data.data)
+      }
       const posts=await axios.get(`/api/post/getuserAllpost/${res.data.data._id}`)
       console.log(posts)
       setPost(posts.data.data)
@@ -50,7 +57,7 @@ const Profile = () => {
 
               <div className='flex gap-5 items-center'>
                 <h2 className='font-semibold'>{profiledata.username}</h2>
-                <button className='editProfile text-white bg-blue-900 px-5 py-2 rounded-md' onClick={()=>{ navigate("/editprofile")}}>Edit profile</button>
+               {!userID&&( <button className='editProfile text-white bg-blue-900 px-5 py-2 rounded-md' onClick={()=>{ navigate("/editprofile")}}>Edit profile</button>)}
               </div>
 
                   <div className='flex gap-24'>
@@ -69,7 +76,7 @@ const Profile = () => {
                   </div>
 
                 <div>
-                  <h1 className='font-semibold'>DISHANT</h1>
+                  <h1 className='font-semibold'>{profiledata.fullname}</h1>
                   <p>{profiledata.bio}</p>
                 </div>
 

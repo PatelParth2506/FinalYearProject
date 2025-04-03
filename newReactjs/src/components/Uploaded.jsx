@@ -7,14 +7,17 @@ import commentimg from '../assets/comments.png'
 import herat from '../assets/heart.png'
 import heratfill from '../assets/heartFill.png'
 import send from '../assets/send.png'
+import { useNavigate } from 'react-router-dom';
 
 
 function Uploaded({user}) {
     const [like, setLike] = useState(false);
     const [save, setSave] = useState(false);
-    const [comment, setComment] = useState(false);
+    const [commentState, setCommentState] = useState({});
     const [posts,setPosts]=useState([])
     const [newComment, setNewComment] = useState('');
+
+    const navigate = useNavigate()
 
     useEffect(()=>{
         const fetchdata = async()=>{
@@ -53,10 +56,27 @@ function Uploaded({user}) {
         console.log(addcom.data)
         setNewComment('')
 
-        setComment(true)
+        setCommentState((prev)=>({
+            ...prev,
+            [postid]:true
+        }))
         setTimeout(()=>{
-            setComment(false)
+            setCommentState((prev)=>({
+                ...prev,
+                [postid]:false
+            }))
         },1000)
+    }
+
+    const toggleComment= (postid)=>{
+        setCommentState((prev)=>({
+            ...prev,
+            [postid]:!prev[postid]
+        }))
+    }
+
+    const gotoProfile = async(userID)=>{
+        navigate(`/profile/${userID}`)   
     }
 
     useEffect(()=>{
@@ -66,10 +86,11 @@ function Uploaded({user}) {
     return (
         posts.map((post)=>{
             const hasLiked =post.likes.includes(user._id)
+            const commentOpen= commentState[post._id] || false;
             return(<div className='w-full h-fit pt-5 px-10'>
-            <div className="flex items-center justify-between px-5">
+            <div className="flex items-center justify-between px-5" onClick={()=>gotoProfile(post.owner._id)}>
                 <div className="flex justify-start items-center gap-x-3 cursor-pointer">
-                    <img src={post.owner.profilePhoto} alt="userPro" className='w-10 h-10' />
+                    <img src={post.owner.profilePhoto} alt="userPro" className='w-10 h-10'/>
                     <div className="flex justify-center items-start flex-col">
                         <p className="text-[#2B6EA0] text-[16px] font-semibold">{post.owner.username}</p>
                         <p className="text-gray-500 text-sm">{user.fullname}</p>
@@ -90,18 +111,18 @@ function Uploaded({user}) {
                 <div className="flex gap-x-4">
                     <div className="flex items-center justify-center gap-x-2">
                         <img src={hasLiked ? heratfill : herat} onClick={()=>toggleLike(post._id)} alt="heart" className="cursor-pointer" />
-                        <p className="text-sm text-gray-600">{post.likes.length}Likes</p>
+                        <p className="text-l text-gray-600"><b>{post.likes.length}</b></p>
                     </div>
                     <div className="flex items-center justify-center gap-x-2">
-                        <img src={commentimg} alt="comments" className="cursor-pointer" onClick={() => setComment(pre => !pre)} />
-                        <p className="text-sm text-gray-600">{post.comments.length}</p>
+                        <img src={commentimg} alt="comments" className="cursor-pointer" onClick={() => toggleComment(post._id)} />
+                        <p className="text-l text-gray-600"><b>{post.comments.length}</b></p>
                     </div>
                     <img src={send} alt="send" />
                 </div>
                 <img src={save?bookmarked:bookmark} alt="bookmark" className="cursor-pointer" onClick={() => setSave(pre => !pre)} />
             </div>
 
-            {comment && (
+            {commentOpen && (
     <div className="w-full px-5 mt-3">
         <div className="w-full px-3 py-3 flex flex-col gap-y-3 bg-gray-100 rounded-xl">
             <div className="w-full flex flex-col gap-y-1 max-h-40 overflow-y-auto">
@@ -133,7 +154,7 @@ function Uploaded({user}) {
 )}
 
             <div className="px-6 mt-2">
-                <p className="text-gray-700">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque, eligendi.</p>
+                <p className="text-gray-700">{post.description}</p>
             </div>
 
             <div className='px-5 pt-5'>

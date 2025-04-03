@@ -17,6 +17,7 @@ import { store } from "./App/store.js"
 import Navbar from "./components/Navbar.jsx"
 import PaymentSuccess from "./components/PaymentSuccess.jsx"
 import PaymentCancel from "./components/PaymentCancel.jsx"
+import StoryContainer from "./components/StoryContainer.jsx"
 
 const Layout = ({ children }) =>{
     const location = useLocation()
@@ -46,11 +47,13 @@ const App = () => {
           <Route path="/chatrightpart"  element={<ChatRight />} />
           <Route path="/editprofile"  element={<Editprofile />} />
           <Route path="/profile"  element={<Profile />} />
+          <Route path="/profile/:userID" element={<Profile/>}/>
           <Route path="/store" element={<StoreHome />} />
           <Route path="/store/product/:id" element={<ProductDetails />} />
           <Route path="/store/cart" element={<CartPage />} />
           <Route path="/success" element={<PaymentSuccess/>}/>
           <Route path="/success" element={<PaymentCancel/>}/>
+          <Route path="/story" element={<StoryContainer/>}/>
        </Routes>
       </Layout>
        

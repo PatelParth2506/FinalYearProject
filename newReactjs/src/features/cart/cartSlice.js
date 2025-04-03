@@ -22,14 +22,14 @@ const cartSlice = createSlice({
     // Remove Cart
     removeFromCart: (state, action) => {
       const existingItem = state.items.find(
-        (item) => item.id === action.payload
+        (item) => item._id === action.payload
       );
       if (existingItem) {
         if (existingItem.quantity > 1) {
           existingItem.quantity -= 1; // Decrease quantity by 1
         } else {
           state.items = state.items.filter(
-            (item) => item.id !== action.payload
+            (item) => item._id !== action.payload
           ); // Remove item if quantity reaches 0
         }
       }
