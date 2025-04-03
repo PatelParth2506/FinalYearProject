@@ -14,11 +14,12 @@ import ProductDetails from "./components/ProductDetails"
 import CartPage from "./components/CartPage"
 import { Provider } from "react-redux"
 import { store } from "./App/store.js"
-import Navbar from "./components/Navbar.jsx"
 import PaymentSuccess from "./components/PaymentSuccess.jsx"
 import PaymentCancel from "./components/PaymentCancel.jsx"
 import Photo from "./components/Photo.jsx"
 import Loader from "./components/Loader.jsx"
+import HomeLayout from "./components/HomeLayout.jsx"
+import NavBarOfWeb from "./components/NavBarOfWeb.jsx"
 
 const Layout = ({ children }) =>{
     const location = useLocation()
@@ -27,7 +28,7 @@ const Layout = ({ children }) =>{
 
     return(
       <>
-        {showNavbar && <Navbar />}
+        {showNavbar && <NavBarOfWeb />}
         {children}
       </>
     )
@@ -41,7 +42,7 @@ const App = () => {
       <Routes>
           <Route path="/"  element={<Signup />} />
           <Route path="/login"  element={<Login />} />
-          <Route path="/home"  element={<Home />} />
+          <Route path="/home"  element={<HomeLayout />} />
           <Route path="/chatleftpart"  element={<ChatLeft />} />
           <Route path="/chatrightempty"  element={<Chatrightempty />} />
           <Route path="/chatbox"  element={<Chatbox />} />
