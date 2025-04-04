@@ -119,7 +119,7 @@ const Signup = () => {
             <form onSubmit={(e)=>{
                 signUpData(e)
             }} className="loginForm flex flex-col gap-4 px-6 py-9  w-full max-w-md sm:w-96 lg:w-1/2 rounded-md  bg-white">
-                <h2 id="signInText" className="text-center font-semibold text-xl sm:text-2xl">Sign Up</h2>
+                <h2 className="text-blue-500 text-center font-bold text-xl sm:text-2xl">Sign Up</h2>
                 <input value={email} onChange={(e)=>{
                     setEmail(e.target.value)
                 }} 
@@ -142,7 +142,7 @@ const Signup = () => {
 
                <p className="text-gray-400 text-center my-2  text-sm sm:text-base">Already have an account? <Link to="/login" className="text-blue-500 font-semibold">Login</Link></p>
 
-                <input type="submit" value="Sign up" className="loginButton font-semibold text-white px-4 py-3 rounded-md hover:bg-blue-900 transition w-full text-sm sm:text-base " />
+                <input type="submit" value="Sign up" className="bg-blue-500 font-semibold text-white px-4 py-3 rounded-md hover:bg-blue-700 w-full text-sm sm:text-base transition duration-300" />
                 <p className="text-gray-400 text-center text-sm sm:text-base">By signing up, you agree to our <br /><span className="font-semibold">Terms,Data Policy</span> and {" "} <span className="font-semibold"> Cookies Policy.</span></p>
             </form>
         </div>

@@ -66,7 +66,7 @@ const Login = () => {
                 <form onSubmit={(e)=>{
                     loginData(e)
                 }} className="loginForm flex flex-col gap-5 p-6 sm:p-6 rounded-lg bg-white shadow-lg w-full max-w-md sm:w-96">
-                    <h2 id="signInText" className="text-center font-semibold text-xl sm:text-2xl">Sign In</h2>
+                    <h2 className="text-center font-bold text-xl sm:text-2xl text-blue-500">Sign In</h2>
                     <input value={logindata.username} 
                     onChange={(e)=>{
                         setloginData({
@@ -86,7 +86,7 @@ const Login = () => {
                     className="px-4 py-3 w-full rounded-md bg-transparent border border-gray-400" type="password" placeholder="Password"/>
 
                     <a className="text-blue-500 font-semibold text-right" href="">Forgot password?</a>
-                    <input value="Log in" type="submit" className="loginButton hover:bg-blue-600 font-semibold text-white px-4 py-3 rounded-md w-full" />
+                    <input value="Log in" type="submit" className="hover:bg-blue-700 transition duration-300 font-semibold text-white px-4 py-3 rounded-md w-full bg-blue-500" />
                     <p className="text-gray-400 text-center text-sm sm:text-base">Don't have an account? <Link to="/" className="text-blue-500 font-semibold">sign up</Link></p>
                 </form>
             </div>

@@ -54,7 +54,7 @@ const Photo = () => {
     return (
         <div className="font-sans w-full min-h-screen bgimage2 flex justify-center items-center p-4">
             <div className="w-full max-w-[320px] bg-white rounded-3xl shadow-lg p-6 sm:p-8 flex flex-col items-center">
-                <h1 id="signInText" className="font-bold text-2xl text-center">
+                <h1 className="font-bold text-2xl text-center text-blue-500">
                     Edit profile photo
                 </h1>
                 <div className="w-full flex justify-center items-center my-6">
@@ -73,7 +73,7 @@ const Photo = () => {
                 />
                 <button
                     onClick={handleSave}
-                    className="loginButton text-base sm:text-lg hover:bg-blue-700 text-white py-3 rounded-lg mt-4 w-full transition duration-300 font-extrabold"
+                    className=" text-base sm:text-lg hover:bg-blue-700 text-white py-3 rounded-lg mt-4 w-full transition duration-300 font-extrabold bg-blue-500"
                     disabled={isLoading}
                 >
                     {isLoading ? "Saving..." : "Save"}

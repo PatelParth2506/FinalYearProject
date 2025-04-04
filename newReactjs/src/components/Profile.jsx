@@ -62,7 +62,7 @@ const Profile = () => {
               <div className="flex flex-col md:flex-row gap-4 md:gap-9 items-center">
                 <h2 className="font-semibold">{profiledata.username}</h2>
                 <button
-                  className="editProfile text-white hover:bg-slate-950 px-9 py-2 rounded-md loginButton"
+                  className="editProfile text-white hover:bg-blue-700 px-9 py-2 rounded-md bg-blue-500 transition duration-300"
                   onClick={() => navigate('/editprofilelayout')}
                 >
                   Edit profile
