@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Iconswithname from '../components/Iconswithname';
-import Home from './Home';
-import Iconswithname from './Iconswithname';
+import NavBarOfWeb from './NavBarOfWeb';
+import Editprofile from './Editprofile';
 
-function HomeLayout() {
+function EditprofileLayout() {
     const [showMenu, setShowMenu] = useState(false);
 
     useEffect(() => {
@@ -23,12 +23,13 @@ function HomeLayout() {
     return (
         <>
             <div className="w-full h-screen">
+                <NavBarOfWeb toggleMenu={() => setShowMenu(!showMenu)} />
                 <div className="w-full h-[93vh] flex">
-                    <div className={`${showMenu ? 'block' : 'hidden'} md:block `} onMouseLeave={handleMouseLeave}>
+                    <div className={`${showMenu ? 'block' : 'hidden'} md:block z-20 `} onMouseLeave={handleMouseLeave}>
                         <Iconswithname/>
                     </div>
                     <div className="overFlow w-full overflow-auto">
-                        <Home/>
+                        <Editprofile />
                     </div>
                 </div>
             </div>
@@ -36,4 +37,4 @@ function HomeLayout() {
     )
 }
 
-export default HomeLayout
+export default EditprofileLayout

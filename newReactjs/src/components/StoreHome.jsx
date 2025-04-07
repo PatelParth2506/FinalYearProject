@@ -21,11 +21,11 @@ const categories = [
 const StoreHome = () => {
   const dispatch = useDispatch();
   return (
-    <div>
+    <div className="font-sans">
       <div className="bg"></div>
       <div className="container mx-auto my-10 px-4 flex flex-col items-center gap-2">
         <h3 className="font-semibold text-3xl mb-3">Catergory</h3>
-        {/* Category Section */}
+
         <div className=" bg-gray-100 rounded-md w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4 px-4 py-4 place-items-center">
           {categories.map((cat) => (
             <button key={cat.name} className="flex flex-col items-center gap-2">
@@ -41,7 +41,7 @@ const StoreHome = () => {
           ))}
         </div>
         <h3 className="font-semibold text-3xl mt-4">Products</h3>
-        {/* Product Grid Area */}
+
         <ProductGrid />
       </div>
       <Footer />

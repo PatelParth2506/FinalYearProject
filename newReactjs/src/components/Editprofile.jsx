@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import Iconswithname from './Iconswithname'
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -53,11 +52,22 @@ const Editprofile = () => {
      <label className='absolute top-1 left-4 text-gray-500'>Name</label>
    </div>
 
-   <div className='relative'>
-     <input type="text"  value={username} onChange={(e)=>setUsername(e.target.value)} className="px-4 pt-6 pb-2 w-[400px] rounded-md bg-transparent border-[1px] border-gray-400"/>
-     <label className='absolute top-1 left-4 text-gray-500'>Username</label>
-   </div>
+          <div className='relative'>
+            <input type="text"  value={username} onChange={(e)=>setUsername(e.target.value)} className="px-3 pt-5 pb-1 w-full rounded-md bg-transparent border border-gray-400 text-md" />
+            <label className='absolute top-1 left-3 text-gray-500 text-sm'>Username</label>
+          </div>
 
+          <div className='relative'>
+            <textarea
+              maxLength={150}
+              className="resize-none px-3 pt-5 pb-1 w-full rounded-md bg-transparent border border-gray-400 text-md"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+            />
+            <p className="text-gray-500 z-10 text-sm absolute top-1 right-[-1px]">{bio.length} / 150</p>
+            <label className='absolute top-1 left-3 text-gray-500 text-sm bg-white block w-full'>Bio</label>
+          </div>
    <div className='relative'>
    <textarea maxLength={150}
      type="text" value={bio} onChange={(e)=>setBio(e.target.value)} className="resize-none px-4 pt-6 pb-2 w-[400px] rounded-md bg-transparent border-[1px] border-gray-400" style={{scrollbarWidth: 'none',msOverflowStyle: 'none'}}/>
@@ -82,9 +92,7 @@ const Editprofile = () => {
         </div>    
       </div>
     </div>
- </div>
-      
-  )
+  );
 }
 
-export default Editprofile
+export default Editprofile;

@@ -16,7 +16,7 @@ const ProductDetails = () => {
 
   if (!product) {
     return (
-      <div className="container mx-auto px-4 py-8 text-center">
+      <div className="font-sans container mx-auto px-4 py-8 text-center">
         <h2 className="text-2xl font-bold mb-4">Product Not Found!</h2>
         <Link to={"/store"} className="text-blue-600 hover:text-blue-800">
           Return to Home

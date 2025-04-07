@@ -48,10 +48,11 @@ const App = () => {
           <Route path="/home"  element={<HomeLayout />} />
           <Route path="/chatleftpart"  element={<ChatLeft />} />
           <Route path="/chatrightempty"  element={<Chatrightempty />} />
+          <Route path="/story"  element={<StoryLayout />} />
           <Route path="/chatbox"  element={<Chatbox />} />
           <Route path="/chatrightpart"  element={<ChatRight />} />
-          <Route path="/editprofile"  element={<Editprofile />} />
           <Route path="/profilelayout/:userID?"  element={<ProfileLayout />} />
+          <Route path="/editprofilelayout"  element={<EditprofileLayout />} />
           <Route path="/photo"  element={<Photo />} />
           <Route path="/loader"  element={<Loader />} />
           <Route path="/store" element={<StoreHome />} />

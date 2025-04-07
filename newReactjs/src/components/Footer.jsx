@@ -17,7 +17,7 @@ const Footer = () => {
                 placeholder="Enter Your Email  "
                 className="py-4 px-4 rounded shadow-md w-full"
               />
-              <button className="bg-gray-200 py-3 px-4 rounded-full absolute right-3 top-1">
+              <button className="bg-blue-400 py-3 px-4 rounded-lg absolute right-1 top-1 text-white">
                 Submit
               </button>
             </form>
@@ -34,21 +34,21 @@ const Footer = () => {
                 cum veritatis maxime aspernatur quibusdam perspiciatis natus
                 nemo atque sed fugit?
               </p>
-              <div className="flex items-center gap-8 mt-5">
+              <div className="flex items-center gap-4 mt-5">
                 <Facebook
-                  size={40}
+                  size={45}
                   className="bg-white text-black rounded-md p-2"
                 />
                 <Twitter
-                  size={40}
+                  size={45}
                   className="bg-white text-black rounded-md p-2"
                 />
                 <Youtube
-                  size={40}
+                  size={45}
                   className="bg-white text-black rounded-md p-2"
                 />
                 <Instagram
-                  size={40}
+                  size={45}
                   className="bg-white text-black rounded-md p-2"
                 />
               </div>

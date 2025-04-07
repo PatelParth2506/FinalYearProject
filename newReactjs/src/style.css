@@ -310,15 +310,6 @@ html,body{
     box-shadow: 0 0 5px rgba(134, 131, 131, 0.629);
 }
 
-#signInText{
-    background: linear-gradient(to left ,rgba(71, 5, 147, 0.903) 38%,rgb(56, 231, 214) 70%);
-    background-clip: text; 
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
 .msgBtn{
     background: linear-gradient(to left top,rgba(71, 5, 147, 0.803) ,rgba(56, 231, 214, 0.723) );
 }
@@ -356,12 +347,6 @@ body::-webkit-scrollbar {
     display: none;
 }
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    user-select: none;
-}
 
 .gradientBtnSimple {
     background-image: linear-gradient(to top left, #2B529B, #4685bc, #55a3c6, #56a1c4);
@@ -409,14 +394,6 @@ body {
      background: linear-gradient(to top, rgba(54, 54, 54, 0.58), transparent); 
 }
 
-#signInText {
-    background: linear-gradient(to left, rgba(71, 5, 147, 0.903) 38%, rgb(56, 231, 214) 70%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
 
 .msgBtn {
     background: linear-gradient(to left top, rgba(71, 5, 147, 0.803), rgba(56, 231, 214, 0.723));
@@ -430,24 +407,6 @@ body {
 .gradient {
     background: linear-gradient(to left top, rgba(71, 5, 147, 0.649), rgba(56, 231, 214, 0.615));
 } */ */
-
-
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html, body {
-    width: 100%;
-    height: 100%;
-    user-select: none;
-}
-
-body {
-    font-family: "Poppins";
-}
 
 #bg {
     background: url('bglogin8.jpg');
@@ -539,7 +498,7 @@ body {
 }
 
 .bgEdit{
-    background:url('bg5.jpg');
+    background-image: url('bg5.jpg');
     background-size: cover;
 }
 

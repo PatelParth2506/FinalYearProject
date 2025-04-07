@@ -73,6 +73,8 @@ function Uploaded() {
 
     const toggleComment = (postid) => {
         setCommentState((prev) => ({
+    const toggleComment = (postid) => {
+        setCommentState((prev) => ({
             ...prev,
             [postid]: !prev[postid]
         }));

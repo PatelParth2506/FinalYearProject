@@ -9,7 +9,7 @@ function NavBarOfWeb({ toggleMenu }) {
   const [showSearch, setShowSearch] = useState(false);
 
   return (
-    <div className="top-0 z-10 w-full h-[7vh] sticky bg-white shadow-md shadow-[#56a1c41d] flex justify-center px-4">
+    <div className="top-0 z-10 w-full h-[7vh] sticky bg-white shadow-md shadow-[#56a1c41d] flex justify-center px-3">
       <nav className="w-full bg-white p-2 flex justify-between items-center px-[1%]">
         <div className="flex-[2] flex justify-start items-center">
           <button onClick={toggleMenu} className='outline-none'>
