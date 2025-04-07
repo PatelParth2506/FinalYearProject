@@ -2,6 +2,289 @@
 @tailwind components;
 @tailwind utilities;
 
+/***{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,body{
+    width: 100%;
+    height: 100%;
+    user-select: none;
+}
+
+.bgimage{
+    background:url('bg8.jpg');
+    background-size:cover;
+}
+
+.loginButton{
+    background-image: linear-gradient(to left bottom,rgb(56, 231, 214) ,rgba(111, 11, 211, 0.903));
+}
+
+.loginForm{
+    box-shadow: 0 0 5px rgba(134, 131, 131, 0.629);
+}
+
+#signInText{
+    background: linear-gradient(to left ,rgba(71, 5, 147, 0.903) 38%,rgb(56, 231, 214) 70%);
+    background-clip: text; 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.msgBtn{
+    background: linear-gradient(to left top,rgba(71, 5, 147, 0.803) ,rgba(56, 231, 214, 0.723) );
+}
+
+.overFlow::-webkit-scrollbar{
+    display: none;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+.sendBtn,.savechange{
+    background: linear-gradient(to left top,rgba(71, 5, 147, 0.903) ,rgb(56, 231, 214) );
+}
+
+.gradient{
+    background: linear-gradient(to left top,rgba(71, 5, 147, 0.649) ,rgba(56, 231, 214, 0.615) );
+}
+
+.bg {
+    background: url('../src/assets/img/banner.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 60vh;
+    width: 100%;
+}
+
+.overFlow::-webkit-scrollbar {
+    display: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    user-select: none;
+}
+
+.gradientBtnSimple {
+    background-image: linear-gradient(to top left, #2B529B, #4685bc, #55a3c6, #56a1c4);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.gradientBgStory {
+    background-image: linear-gradient(to bottom, #2c2c2c, #ffffff00);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.75rem;
+}
+
+.gradientBgStoryBottom {
+    background-image: linear-gradient(to top, #2d2d2d, #ffffff00);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.75rem;
+}
+
+.rightBg {
+    background-image: url('./assets/rightBg.png');
+    background-size: 100% 100%;
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.loginButton {
+    background-image: linear-gradient(to left bottom, rgb(56, 231, 214), rgba(111, 11, 211, 0.903));
+}
+
+.loginForm {
+    box-shadow: 0 0 5px #56a1c468;
+}
+
+.story-gradient {
+    position: absolute;
+    inset: 0;
+    border-radius: 0.75rem;
+    background: #dfdfdf63; 
+     background: linear-gradient(to top, rgba(54, 54, 54, 0.58), transparent); 
+}
+
+#signInText {
+    background: linear-gradient(to left, rgba(71, 5, 147, 0.903) 38%, rgb(56, 231, 214) 70%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.msgBtn {
+    background: linear-gradient(to left top, rgba(71, 5, 147, 0.803), rgba(56, 231, 214, 0.723));
+}
+
+.sendBtn,
+.savechange {
+    background: linear-gradient(to left top, rgba(71, 5, 147, 0.903), rgb(56, 231, 214));
+}
+
+.gradient {
+    background: linear-gradient(to left top, rgba(71, 5, 147, 0.649), rgba(56, 231, 214, 0.615));
+} 
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    user-select: none;
+}
+
+body {
+    font-family: "Poppins";
+}
+
+#bg {
+    background: url('bglogin8.jpg');
+    background-size: cover;
+}
+
+.loginButton {
+    background-image: linear-gradient(to left bottom, rgb(56, 231, 214), rgba(111, 11, 211, 0.903));
+}
+
+.loginForm {
+    box-shadow: 0 0 5px #56a1c468;
+}
+
+#signInText {
+    background: linear-gradient(to left, rgba(71, 5, 147, 0.903) 38%, rgb(56, 231, 214) 70%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.msgBtn {
+    background: linear-gradient(to left top, rgba(71, 5, 147, 0.803), rgba(56, 231, 214, 0.723));
+}
+
+.sendBtn, .savechange {
+    background: linear-gradient(to left top, rgba(71, 5, 147, 0.903), rgb(56, 231, 214));
+}
+
+.gradient {
+    background: linear-gradient(to left top, rgba(71, 5, 147, 0.649), rgba(56, 231, 214, 0.615));
+}
+
+.bg {
+    background: url('../src/assets/img/banner.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 60vh;
+    width: 100%;
+}
+
+.rightBg {
+    background-image: url('./assets/rightBg.png');
+    background-size: 100% 100%;
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.gradientBtnSimple {
+    background-image: linear-gradient(to top left, #2B529B, #4685bc, #55a3c6, #56a1c4);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.gradientBgStory {
+    background-image: linear-gradient(to bottom, #2c2c2c, #ffffff00);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.75rem;
+}
+
+.gradientBgStoryBottom {
+    background-image: linear-gradient(to top, #2d2d2d, #ffffff00);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.75rem;
+}
+
+.story-gradient {
+    position: absolute;
+    inset: 0;
+    border-radius: 0.75rem;
+    background: linear-gradient(to top, rgba(54, 54, 54, 0.58), transparent);
+}
+
+.overFlow::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;
+}
+
+.bgimage2{
+    background:url('p8.jpg');
+    background-size: cover;
+}
+
+.bgEdit{
+    background:url('bg5.jpg');
+    background-size: cover;
+}
+
+.bio-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.read-more-btn {
+    color: rgb(128, 128, 128);
+    padding-block: 5px;
+    cursor: pointer;
+}
+
+
+@media(max-width:768px){
+    .bgEdit{
+        background:rgb(190, 235, 255,0.2);
+    }
+}
+
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *{
     margin: 0;
     padding: 0;
@@ -273,10 +556,8 @@ body {
     cursor: pointer;
 }
 
-
 @media(max-width:768px){
     .bgEdit{
-        background:rgb(190, 235, 255,0.2);
+         background:rgb(190, 235, 255,0.3); 
     }
 }
-

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Home from './Home';
-import NavBarOfWeb from './NavBarOfWeb';
 import Iconswithname from './Iconswithname';
 
 function HomeLayout() {
@@ -23,7 +22,6 @@ function HomeLayout() {
     return (
         <>
             <div className="w-full h-screen">
-                <NavBarOfWeb toggleMenu={() => setShowMenu(!showMenu)} />
                 <div className="w-full h-[93vh] flex">
                     <div className={`${showMenu ? 'block' : 'hidden'} md:block `} onMouseLeave={handleMouseLeave}>
                         <Iconswithname/>

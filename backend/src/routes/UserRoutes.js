@@ -5,7 +5,7 @@ import { register,
          logout,
          refreshTokenGenrate,
          changePassword,
-         changeAccountDetails,
+         updateUserDetails,
          changeProfilePhoto,
          getProfile,
          FollowUser,       
@@ -30,7 +30,7 @@ router.route("/login").post(login)
 router.route("/logout").post(auth,logout)
 router.route("/genrateToken").post(refreshTokenGenrate)
 router.route("/passwordchnge").patch(auth,changePassword)
-router.route("/accountdetailchange").patch(auth,changeAccountDetails)
+router.route("/accountdetailchange").patch(auth,updateUserDetails)
 router.route("/profilePhotochange").patch(auth,upload.single("profilePhoto"),changeProfilePhoto)
 router.route("/getUserProfile").get(auth,getProfile)
 router.route("/getuser/:userid").get(auth,getUserByID)

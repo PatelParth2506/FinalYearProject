@@ -59,7 +59,7 @@ const Profile = ({userID}) => {
 
               <div className='flex gap-9 items-center'>
                 <h2 className='font-semibold'>{profiledata.username}</h2>
-                <button className='editProfile text-white bg-blue-900 px-5 py-2 rounded-md loginButton' onClick={()=>{ navigate("/editprofile")}}>Edit profile</button>
+                {!userID && (<button className='editProfile text-white bg-blue-500 px-5 py-2 rounded-md ' onClick={()=>{ navigate("/editprofile")}}>Edit profile</button>)}  
               </div>
 
       {/* Stats */}
@@ -79,7 +79,7 @@ const Profile = ({userID}) => {
       </div>
 
                 <div>
-                  <h1 className='font-semibold'>DISHANT</h1>
+                  <h1 className='font-semibold'>{profiledata.fullname}</h1>
 
                   <div>
                           {showFullBio ? (

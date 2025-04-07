@@ -1,13 +1,35 @@
 import React, { useState } from 'react'
 import Iconswithname from './Iconswithname'
 import { useNavigate } from 'react-router-dom';
-import NavBarOfWeb from './NavBarOfWeb';
+import axios from 'axios';
 
 const Editprofile = () => {
-
+  const [name,setName]= useState("");
+  const [username,setUsername]= useState("")
   const [bio, setBio] = useState("");
 
   const navigate = useNavigate()
+
+  const handlesubmit=async()=>{
+    if(!name && !username && !bio){
+      alert("Please Update At Least One Field")
+      return
+    }
+
+    try {
+      const res=await axios.patch('/api/user/accountdetailchange',{
+        fullname:name,
+        username,
+        bio
+      },
+    {
+      withCredentials:true
+    })
+    navigate('/profilelayout/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className='flex'>
@@ -22,23 +44,23 @@ const Editprofile = () => {
         <div className='w-20 h-20 rounded-full overflow-hidden'>
             <img src="man2.jpg" alt="" className='w-full h-full object-cover'/>     
         </div>
-        <h2 className='text-lg font-semibold text-blue-900' onClick={()=>{ navigate("/photo")  }}>Edit picture or profile</h2>
+        <h2 className='text-lg font-semibold text-blue-900' onClick={()=>{ navigate("/photo",{state:{from:"editprofile"}})  }}>Edit picture or profile</h2>
      </div>
 
  <div className='flex flex-col gap-5'>
    <div className='relative'>
-     <input type="text" className="px-4 pt-6 pb-2 w-[400px] rounded-md bg-transparent border-[1px] border-gray-400"/>
+     <input type="text" value={name} onChange={(e)=>setName(e.target.value)} className="px-4 pt-6 pb-2 w-[400px] rounded-md bg-transparent border-[1px] border-gray-400"/>
      <label className='absolute top-1 left-4 text-gray-500'>Name</label>
    </div>
 
    <div className='relative'>
-     <input type="text" className="px-4 pt-6 pb-2 w-[400px] rounded-md bg-transparent border-[1px] border-gray-400"/>
+     <input type="text"  value={username} onChange={(e)=>setUsername(e.target.value)} className="px-4 pt-6 pb-2 w-[400px] rounded-md bg-transparent border-[1px] border-gray-400"/>
      <label className='absolute top-1 left-4 text-gray-500'>Username</label>
    </div>
 
    <div className='relative'>
    <textarea maxLength={150}
-     type="text" className="resize-none px-4 pt-6 pb-2 w-[400px] rounded-md bg-transparent border-[1px] border-gray-400" style={{scrollbarWidth: 'none',msOverflowStyle: 'none'}}/>
+     type="text" value={bio} onChange={(e)=>setBio(e.target.value)} className="resize-none px-4 pt-6 pb-2 w-[400px] rounded-md bg-transparent border-[1px] border-gray-400" style={{scrollbarWidth: 'none',msOverflowStyle: 'none'}}/>
   <p className="text-gray-500 text-sm absolute top-1 z-20 right-3">{bio.length} / 150</p>
 
   <label className='w-[380px] absolute top-1 left-4 z-10 text-gray-500 bg-white'>Bio</label>
@@ -56,7 +78,7 @@ const Editprofile = () => {
 
 
 
-     <input className='savechange text-white px-4 py-4 rounded-md text-xl font-bold' type="submit" value="Save" />
+     <input className='bg-blue-500 text-white px-4 py-4 rounded-md text-xl font-bold' type="submit" value="Save"  onClick={handlesubmit}/>
         </div>    
       </div>
     </div>

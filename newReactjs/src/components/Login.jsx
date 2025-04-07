@@ -31,8 +31,6 @@ const Login = () => {
 
         try {
             const response=await axios.post("/api/user/login",logindata)
-            console.log(response.data.statusCode)
-                console.log(response)
                 setShowSuccess(true); 
                 setTimeout(() => {
                   setShowSuccess(false);
@@ -86,7 +84,7 @@ const Login = () => {
                     className="px-4 py-3 w-full rounded-md bg-transparent border border-gray-400" type="password" placeholder="Password"/>
 
                     <a className="text-blue-500 font-semibold text-right" href="">Forgot password?</a>
-                    <input value="Log in" type="submit" className="loginButton hover:bg-blue-600 font-semibold text-white px-4 py-3 rounded-md w-full" />
+                    <input value="Log in" type="submit" className="bg-blue-500 hover:bg-blue-600 font-semibold text-white px-4 py-3 rounded-md w-full" />
                     <p className="text-gray-400 text-center text-sm sm:text-base">Don't have an account? <Link to="/" className="text-blue-500 font-semibold">sign up</Link></p>
                 </form>
             </div>

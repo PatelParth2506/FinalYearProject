@@ -8,7 +8,7 @@ const Chatrightempty = () => {
         </div>
         <h2 className='text-xl'>Start your chat</h2>
         <p className='text-gray-500'>Send private photos and messages to a friend or group</p>
-        <button className='msgBtn px-4 py-2 bg-red-300 rounded-lg text-white'>Send message</button>
+        <button className=' px-4 py-2 bg-blue-500 rounded-lg text-white'>Send message</button>
     </div>
   )
 }

@@ -7,11 +7,13 @@ import axios from 'axios';
 const ChatRight = () => {
   const location = useLocation();
   const { followerData, userData, followers } = location.state || {};
+  console.log(followerData)
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [socket, setSocket] = useState(null);
   const [selectedMessageId,setSelectedMessageId]=useState(null)
   const navigate = useNavigate()
+
   useEffect(() => {
     const newSocket = io('http://localhost:8000', {
       withCredentials: true,
@@ -39,7 +41,7 @@ const ChatRight = () => {
         console.log(error)
       }
     }
-    if(userData._id && followerData._id){
+    if(userData?._id && followerData?._id){
       fetchmessage()
     }
   },[userData,followerData])
@@ -83,7 +85,8 @@ const ChatRight = () => {
   }
 
   const openProfile = (f) => {
-    navigate("/chatrightpart", { state: { f, userData, followers } });
+    console.log(f)
+    navigate("/chatrightpart", { state: { followerData:f, userData, followers } });
   };
   return (
     <div className='flex'>
@@ -104,10 +107,10 @@ const ChatRight = () => {
         )}
 
         <div className='flex-grow overflow-y-scroll p-4'>
-          {messages.map((msg, index) => (
+          {messages.map((msg) => (
             
             <div
-              key={index}
+              key={msg._id}
               className={`p-2 my-2 rounded-lg max-w-xs ${
                 msg.sender === userData._id ? 'bg-blue-500 text-white self-end ml-auto' : 'bg-gray-200 text-black self-start mr-auto'
               }`}
@@ -130,6 +133,11 @@ const ChatRight = () => {
             type='text'
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
+            onKeyDown={(e)=>{
+              if(e.key === 'Enter'){
+                handleSendMessage()
+              }
+            }}
             placeholder='Type a message...'
             className='flex-grow px-4 py-2 border rounded-md'
           />

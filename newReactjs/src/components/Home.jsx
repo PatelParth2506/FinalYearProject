@@ -12,7 +12,6 @@ function Home() {
             const res = await axios.get('/api/user/getUserProfile', {
                 withCredentials: true,
             });
-            console.log(res.data.data);
             setUser(res.data.data);
         };
         fetchdata();

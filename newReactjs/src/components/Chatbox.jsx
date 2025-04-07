@@ -11,6 +11,7 @@ const Chatbox = () => {
   const [message,setMessage]=useState([])
   const [newMessage,setNewMessage]=useState('')
   const [socket,setSocket]=useState(null)
+  const [selectedFollower,setSelectedFollower]=useState(null)
   const navigate = useNavigate();
 
 
@@ -57,11 +58,16 @@ const Chatbox = () => {
   }, []);
 
   const openProfile = (followerData) => {
+    setSelectedFollower(followerData)
     navigate("/chatrightpart", { state: { followerData, userData, followers } });
   };
 
   const handleSendMessage = async() => {
-    const receiverId = followers[0]?._id; 
+    if (!selectedFollower) {
+      alert('Please select a follower to chat with.');
+      return;
+    }
+    const receiverId = selectedFollower._id; 
     const message={
       senderId:userData.id,
       receiverId,
@@ -70,7 +76,6 @@ const Chatbox = () => {
 
     try {
       const res=await axios.post(`/api/message/getmessage/${receiverId}`)
-      console.log(res.data)
       setNewMessage((prev)=>[...prev,res.data])
       socket.emit('sendMessage',message)
       setNewMessage('')
