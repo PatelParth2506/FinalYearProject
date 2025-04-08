@@ -23,6 +23,8 @@ import ProfileLayout from "./components/ProfileLayout.jsx"
 import Navbar from "./components/Navbar.jsx"
 import StoryLayout from "./components/StoryLayout.jsx"
 import AdminLayout from "./components/AdminLayout.jsx"
+import EditprofileLayout from "./components/EditprofileLayout.jsx"
+import Uploaded from "./components/Uploaded.jsx"
 
 const Layout = ({ children }) => {
   const location = useLocation()
@@ -59,9 +61,9 @@ const App = () => {
           <Route path="/store/product/:id" element={<ProductDetails />} />
           <Route path="/store/cart" element={<CartPage />} />
           <Route path="/success" element={<PaymentSuccess/>}/>
-          <Route path="/success" element={<PaymentCancel/>}/>
-          <Route path="/story" element={<StoryLayout/>}/>
+          <Route path="/cancel" element={<PaymentCancel/>}/>
           <Route path="/admin" element={<AdminLayout/>}/>
+          <Route path="/getallpost/:userID/:postID" element={<HomeLayout/>}/>
        </Routes>
       </Layout>
        

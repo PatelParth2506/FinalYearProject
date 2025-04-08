@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Iconswithname from '../components/Iconswithname';
 import Home from './Home';
 import Iconswithname from './Iconswithname';
 

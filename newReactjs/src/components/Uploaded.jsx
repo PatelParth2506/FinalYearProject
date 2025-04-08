@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import dots from '../assets/dots.png';
 import bookmark from '../assets/bookmark.png';
 import bookmarked from '../assets/bookmarkFill.png';
@@ -7,9 +7,12 @@ import commentimg from '../assets/comments.png';
 import herat from '../assets/heart.png';
 import heratfill from '../assets/heartFill.png';
 import send from '../assets/send.png';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+
 
 function Uploaded() {
+    const postRefs = useRef({})
+    const { userID, postID } = useParams();
     const [like, setLike] = useState(false);
     const [save, setSave] = useState(false);
     const [commentState, setCommentState] = useState({});
@@ -23,13 +26,30 @@ function Uploaded() {
     useEffect(() => {
         const fetchdata = async () => {
             try {
+                if(!userID) {
+
                 const res = await axios.get('/api/post/getAllPost', {
                     withCredentials: true
                 });
                 const randompost = res.data.data.sort(() => Math.random() - 0.5);
                 setPosts(randompost);
-
-                const data = await axios.get('/api/user/getUserProfile', {
+            }else{
+                const res= await axios.get(`/api/post/getuserAllpost/${userID}`,{
+                    withCredentials: true
+                })
+                if (postID) {
+                    const index = res.data.data.findIndex((p) => p._id === postID);
+                    if (index !== -1) {
+                        const clicked = res.data.data[index];
+                        const before = res.data.data.slice(0, index).reverse();
+                        const after = res.data.data.slice(index + 1);
+                        res.data.data = [...before, clicked, ...after];
+                    }
+                }
+                
+            setPosts(res.data.data)
+        }
+            const data = await axios.get('/api/user/getUserProfile', {
                     withCredentials: true
                 });
                 setUser(data.data.data);
@@ -73,8 +93,6 @@ function Uploaded() {
 
     const toggleComment = (postid) => {
         setCommentState((prev) => ({
-    const toggleComment = (postid) => {
-        setCommentState((prev) => ({
             ...prev,
             [postid]: !prev[postid]
         }));
@@ -100,14 +118,20 @@ function Uploaded() {
         }
     };
 
-    if (loading) return <div className="text-center text-xl py-10">Loading...</div>;
+    useEffect(() => {
+        if (!loading && postID && postRefs.current[postID]) {
+            postRefs.current[postID].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, [loading, postID, posts]);
+
+    if (loading) return( <div className="text-center text-xl py-10">Loading...</div>);
 
     return posts.map((post) => {
         const hasLiked = post.likes.includes(user._id);
         const commentOpen = commentState[post._id] || false;
 
         return (
-            <div className='w-full h-fit pt-5 px-10' key={post._id}>
+            <div className='w-full h-fit pt-5 px-10' ref={(el) => (postRefs.current[post._id] = el)} key={post._id}>
                 <div className="flex items-center justify-between px-5">
                     <div className="flex justify-start items-center gap-x-3 cursor-pointer">
                         <img src={post.owner.profilePhoto} alt="userPro" className='w-10 h-10' onClick={() => gotoProfile(post.owner._id)} />

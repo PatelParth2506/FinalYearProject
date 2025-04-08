@@ -4,7 +4,7 @@ import LeftMenuIcon from './LeftMenuIcon';
 
 function StoryLayout() {
     const [showMenu, setShowMenu] = useState(false);
-
+    console.log("StoryLayout loaded");
     useEffect(() => {
         const handleMouseMove = (event) => {
             if (event.clientX <= 1) {

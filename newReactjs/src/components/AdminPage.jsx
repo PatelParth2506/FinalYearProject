@@ -6,7 +6,7 @@ function AdminPage({user}) {
 
   useEffect(() => {
     const storedProducts = async()=>{
-      const res=await axios.get(`/api/product/getAllProduct`,{
+      const res=await axios.get(`/api/product/getBusinessProduct`,{
         withCredentials:true
       })
       setProducts(res.data.data)

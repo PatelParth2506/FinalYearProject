@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Iconswithname from './Iconswithname'
 import axios from 'axios'
 import emptyuser2 from '../../emptyuser2.jpeg'
-const Profile = () => {
+const Profile = ({userID}) => {
   
   const navigate=useNavigate()
   const [profiledata,setProfileData]=useState({})
@@ -17,7 +17,6 @@ const Profile = () => {
   useEffect(() => {
     const fetchdata = async () => {
       let res
-      // Assuming userID is declared somewhere or coming from params
       if (userID) {
         res = await axios.get(`/api/user/getuser/${userID}`)
         console.log(res.data.data)
@@ -61,12 +60,12 @@ const Profile = () => {
             <div className="max-h-80 flex flex-col gap-y-3 w-full md:w-[400px] overflow-y-auto">
               <div className="flex flex-col md:flex-row gap-4 md:gap-9 items-center">
                 <h2 className="font-semibold">{profiledata.username}</h2>
-                <button
+                {!userID && <button
                   className="editProfile text-white hover:bg-blue-700 px-9 py-2 rounded-md bg-blue-500 transition duration-300"
                   onClick={() => navigate('/editprofilelayout')}
                 >
                   Edit profile
-                </button>
+                </button>}
               </div>
 
               {/* Stats */}
@@ -85,26 +84,26 @@ const Profile = () => {
                 </div>
               </div>
 
-              {/* Bio */}
-              <div>
-                <h1 className="font-semibold">DISHANT</h1>
                 <div>
-                  {showFullBio ? (
-                    <p>{profiledata.bio}</p>
-                  ) : (
-                    <p className="bio-text whitespace-pre-wrap">{profiledata.bio}</p>
-                  )}
-                  <button
-                    className="read-more-btn text-blue-600"
-                    onClick={() => setShowFullBio(!showFullBio)}
-                  >
-                    {showFullBio ? 'Show less' : 'Read more'}
-                  </button>
+                  <h1 className='font-semibold'>DISHANT</h1>
+
+                  <div>
+                          {showFullBio ? (
+                             <p>{profiledata.bio}</p>
+                            ) : (
+                              <p className="bio-text whitespace-pre-wrap">{profiledata.bio}</p>
+                            )}
+
+                         <button className="read-more-btn" onClick={() => setShowFullBio(!showFullBio)}>
+                         {showFullBio ? 'Show less' : 'Read more'}
+                          </button>
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+
+
     
         <div className='flex gap-16 pt-3 justify-center'>
           <div className='flex gap-2 items-center font-semibold'>
@@ -124,6 +123,7 @@ const Profile = () => {
                 <img
                   src={p.photo}
                   alt="Post"
+                  onClick={()=>navigate(`/getallpost/${profiledata._id}/${p._id}`,)}
                   className="w-full h-full object-cover rounded-lg shadow-md"
                 />
               </div>

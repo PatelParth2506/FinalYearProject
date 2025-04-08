@@ -197,6 +197,17 @@ const emptyCart = asyncHandler(async(req,res)=>{
     )
 })
 
+const getBusinessProduct = asyncHandler(async(req,res)=>{
+    const userid=req.user._id
+    const products=await Product.find({seller:userid})
+                                .populate("seller","username profilePhoto")
+                                .sort({createdAt:-1})
+    if(!products){ throw new ApiError(404,"No Product Found") }
+    res.status(200).json(
+        new ApiResponse(200,products,"All Product Fetched Successfully")
+    )
+})
+
 export {
     createProduct,
     deleteProduct,
@@ -212,4 +223,5 @@ export {
     removeProductFromCart,
     calculateTotalPrice,
     emptyCart,
+    getBusinessProduct
 }

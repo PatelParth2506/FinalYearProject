@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Iconswithname from './Iconswithname';
 
 const Editprofile = () => {
   const [name,setName]= useState("");
@@ -32,7 +33,7 @@ const Editprofile = () => {
 
   return (
     <div className='flex'>
-    <Iconswithname />
+      <Iconswithname />
 
     <div className='bgimage2 w-screen h-screen p-10 flex flex-col justify-center items-center '>
     <div className='relative w-auto h-auto bg-white p-6 rounded-3xl loginForm'>
@@ -92,6 +93,7 @@ const Editprofile = () => {
         </div>    
       </div>
     </div>
+  </div>
   );
 }
 

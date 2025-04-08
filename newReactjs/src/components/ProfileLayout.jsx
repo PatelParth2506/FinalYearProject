@@ -25,7 +25,7 @@ function ProfileLayout() {
     
     return (
         <>
-            <div className="w-full h-screen">
+            <div className="w-full h-screen font-sans">
                 <div className="w-full h-[93vh] flex">
                     <div className={`${showMenu ? 'block' : 'hidden'} md:block `} >
                         <Iconswithname userID={userID}/>

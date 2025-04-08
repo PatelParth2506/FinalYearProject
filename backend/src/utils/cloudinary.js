@@ -17,7 +17,7 @@ const fileuploder=async(path)=>{
             resource_type:"auto"
         })
         console.log(response)
-        // fs.unlinkSync(path)
+        fs.unlinkSync(path)
         return response
     } catch (error) {
         fs.unlinkSync(path)
