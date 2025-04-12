@@ -11,6 +11,7 @@ export const fetchProducts = createAsyncThunk("products/fetchProducts", async ()
 const initialState = {
   items: [],
   filteredItems: [],
+  loading: false,
   searchItem: "",
   selectedCategory: "All",
 };

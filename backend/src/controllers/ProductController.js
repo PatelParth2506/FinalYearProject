@@ -154,17 +154,33 @@ const addProductReview = asyncHandler(async(req,res)=>{
 })
 
 const addProductToCart = asyncHandler(async(req,res)=>{
-    const  { productid } = req.params;
-    if(!productid){ throw new ApiError(401,"Product Id Is Required") }
-    const product = await Product.findById(productid)
-    if(!product){ throw new ApiError(404,"Product Not Found") }
-    const cart=await Cart.create({
-        quentity:1,
-        productinfo:productid,
-        buyer:req.user._id
-    })
+    const  { productid, quentity } = req.body;
+    console.log(req.body)
+    let cart;
+    const existingItem = await Cart.findOne({buyer:req.user._id , productinfo:productid})
+    console.log(existingItem)
+    if(existingItem){
+        existingItem.quentity +=quentity
+        await existingItem.save()
+    }else{
+        cart = await Cart.create({
+            quentity,
+            productinfo:productid,
+            buyer:req.user._id
+        })
+    }
+    console.log(cart)
     res.status(200).json(
-        new ApiResponse(200,cart,"Product Added To Cart Successfully")
+        new ApiResponse(200,{},"Product Added To Cart Successfully")
+    )
+})
+
+const updateProductQuentityByBuyer = asyncHandler(async(req,res)=>{
+    const { buyer, productinfo , quentity } = req.body;
+    consol.log(req.body)
+    await Cart.findOneAndUpdate({buyer, productinfo}, {quentity:quentity})
+    res.status(200).json(
+        new ApiResponse(200,{},"Product Quentity Updated Successfully")
     )
 })
 
@@ -197,6 +213,17 @@ const emptyCart = asyncHandler(async(req,res)=>{
     )
 })
 
+const getCart = asyncHandler(async(req,res)=>{
+    const cart = await Cart.find({buyer:req.user._id})
+                            .populate("productinfo","photo price description")
+                            .populate("buyer","username profilePhoto")
+                            .sort({createdAt:-1})
+    if(!cart){ throw new ApiError(404,"No Product Found") }
+    res.status(200).json(
+        new ApiResponse(200,cart,"All Product Fetched Successfully")
+    )
+})
+
 const getBusinessProduct = asyncHandler(async(req,res)=>{
     const userid=req.user._id
     const products=await Product.find({seller:userid})
@@ -223,5 +250,7 @@ export {
     removeProductFromCart,
     calculateTotalPrice,
     emptyCart,
-    getBusinessProduct
+    getBusinessProduct,
+    getCart,
+    updateProductQuentityByBuyer
 }

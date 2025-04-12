@@ -1,9 +1,15 @@
 import { ShoppingCart, Plus, Minus } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { addToCart, removeFromCart } from "../features/cart/cartSlice";
 import Footer from "../components/Footer";
+import {
+  addProductToCart,
+  fetchCart,
+  removeProductFromCart,
+  updateProductQuentity,
+} from "../features/cart/cartSlice"; 
+import { fetchProducts } from "../features/ProductSlice";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -13,6 +19,20 @@ const ProductDetails = () => {
 
   // Find the current product
   const product = products.find((p) => p._id === id);
+  useEffect(()=>{
+    dispatch(fetchCart())
+    dispatch(fetchProducts())
+  },[dispatch])
+
+  const { loading } = useSelector((state) => state.product);
+
+if (loading) {
+  return (
+    <div className="font-sans container mx-auto px-4 py-8 text-center">
+      <h2 className="text-2xl font-bold mb-4">Loading product...</h2>
+    </div>
+  );
+}
 
   if (!product) {
     return (
@@ -26,8 +46,8 @@ const ProductDetails = () => {
   }
 
   // ✅ Get product quantity in cart
-  const cartItem = cartItems.find((item) => item.id === product.id);
-  const quantity = cartItem ? cartItem.quantity : 0;
+  const cartItem = cartItems.find((item) => item.productinfo._id === product._id);
+  const quantity = cartItem ? cartItem.quentity : 0;
 
   // ✅ Find Related Products (Same Category but Different ID)
   const relatedProducts = products.filter(
@@ -75,14 +95,25 @@ const ProductDetails = () => {
             {quantity > 0 ? (
               <div className="flex items-center gap-4">
                 <button
-                  onClick={() => dispatch(removeFromCart(product.id))}
+                  onClick={() =>{
+                    if(quantity === 1){
+                      dispatch(removeProductFromCart(product._id))
+                    }else{
+                      dispatch(
+                        updateProductQuentity({
+                          productid: product._id,
+                          quentity: quantity - 1,
+                        })
+                      );
+                    }
+                  }}
                   className="bg-red-500 text-white px-3 py-2 rounded-md flex items-center justify-center hover:bg-red-600 transition"
                 >
                   <Minus size={16} />
                 </button>
                 <span className="text-lg font-bold">{quantity}</span>
                 <button
-                  onClick={() => dispatch(addToCart(product))}
+                  onClick={() => dispatch(addProductToCart({productid:product._id}))}
                   className="bg-green-500 text-white px-3 py-2 rounded-md flex items-center justify-center hover:bg-green-600 transition"
                 >
                   <Plus size={16} />
@@ -90,7 +121,7 @@ const ProductDetails = () => {
               </div>
             ) : (
               <button
-                onClick={() => dispatch(addToCart(product))}
+                onClick={() => dispatch(addProductToCart({productid:product._id}))}
                 className="w-full sm:w-auto bg-zinc-200 px-8 py-3 rounded-md flex items-center justify-center gap-2 hover:bg-zinc-300 transition"
               >
                 <ShoppingCart />
