@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Errorno1 from "./Errorno1";
@@ -16,7 +15,7 @@ const Signup = () => {
   const [emailError, setEmailError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -157,15 +156,35 @@ const Signup = () => {
             type="text"
             placeholder="Username"
           />
+
+        <div className="relative">
           <input
             value={password}
             onChange={(e) => {
                setPassword(e.target.value)
             }}
-            className="px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
-            type="password"
+            className="w-full px-4 py-3 pr-10 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
           />
+
+         <span
+           onClick={() => setShowPassword(!showPassword)}
+           className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer select-none"
+           title={showPassword ? "Hide password" : "Show password"}
+         >
+           <img
+             src={
+               showPassword
+                 ? "https://cdn-icons-png.flaticon.com/512/709/709612.png" 
+                 : "https://cdn-icons-png.flaticon.com/512/709/709586.png" 
+             }
+             alt={showPassword ? "Hide password" : "Show password"}
+             className="w-5 h-5"
+           />
+         </span>
+
+        </div>
 
           <div className="flex items-center gap-2">
               <input
