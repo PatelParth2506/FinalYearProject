@@ -1,30 +1,60 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Iconswithname from './Iconswithname';
 
 const Editprofile = () => {
+  const [name,setName]= useState("");
+  const [username,setUsername]= useState("")
   const [bio, setBio] = useState("");
-  const navigate = useNavigate();
+
+  const navigate = useNavigate()
+
+  const handlesubmit=async()=>{
+    if(!name && !username && !bio){
+      alert("Please Update At Least One Field")
+      return
+    }
+
+    try {
+      const res=await axios.patch('/api/user/accountdetailchange',{
+        fullname:name,
+        username,
+        bio
+      },
+    {
+      withCredentials:true
+    })
+    navigate('/profilelayout/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
-    <div className='font-sans bgimage2 w-full h-full flex flex-col justify-center items-center p-6 md:p-6 '>
-      <div className='relative w-full max-w-sm md:max-w-sm lg:max-w-md bg-white p-5 md:p-6 rounded-2xl shadow-lg'>
-        <h1 className='absolute top-[-18px] text-lg md:text-xl bg-sky-200 px-6 py-2 rounded-lg text-blue-950 font-bold'>Edit profile</h1>
-        
-        <div className='flex flex-col items-center gap-3 py-4'>
-          <div className='w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden'>
-            <img src="man2.jpg" alt="Profile" className='w-full h-full object-cover' />
-          </div>
-          <h2 className='text-md font-medium text-blue-600 cursor-pointer' onClick={() => navigate("/photo")}>Edit picture or profile</h2>
+    <div className='flex'>
+      <Iconswithname />
+
+    <div className='bgimage2 w-screen h-screen p-10 flex flex-col justify-center items-center '>
+    <div className='relative w-auto h-auto bg-white p-6 rounded-3xl loginForm'>
+    <h1 className='absolute top-[-25px] text-2xl font-medium bg-sky-200 px-14 py-2 rounded-lg text-blue-950'>Edit profile</h1>
+
+
+    <div className='flex items-center flex-col gap-3 py-5'>
+        <div className='w-20 h-20 rounded-full overflow-hidden'>
+            <img src="man2.jpg" alt="" className='w-full h-full object-cover'/>     
         </div>
+        <h2 className='text-lg font-semibold text-blue-900' onClick={()=>{ navigate("/photo",{state:{from:"editprofile"}})  }}>Edit picture or profile</h2>
+     </div>
 
-        <div className='flex flex-col gap-4'>
-          <div className='relative'>
-            <input type="text" className="px-3 pt-5 pb-1 w-full rounded-md bg-transparent border border-gray-400 text-md" />
-            <label className='absolute top-1 left-3 text-gray-500 text-sm'>Name</label>
-          </div>
+ <div className='flex flex-col gap-5'>
+   <div className='relative'>
+     <input type="text" value={name} onChange={(e)=>setName(e.target.value)} className="px-4 pt-6 pb-2 w-[400px] rounded-md bg-transparent border-[1px] border-gray-400"/>
+     <label className='absolute top-1 left-4 text-gray-500'>Name</label>
+   </div>
 
           <div className='relative'>
-            <input type="text" className="px-3 pt-5 pb-1 w-full rounded-md bg-transparent border border-gray-400 text-md" />
+            <input type="text"  value={username} onChange={(e)=>setUsername(e.target.value)} className="px-3 pt-5 pb-1 w-full rounded-md bg-transparent border border-gray-400 text-md" />
             <label className='absolute top-1 left-3 text-gray-500 text-sm'>Username</label>
           </div>
 
@@ -39,21 +69,31 @@ const Editprofile = () => {
             <p className="text-gray-500 z-10 text-sm absolute top-1 right-[-1px]">{bio.length} / 150</p>
             <label className='absolute top-1 left-3 text-gray-500 text-sm bg-white block w-full'>Bio</label>
           </div>
+   <div className='relative'>
+   <textarea maxLength={150}
+     type="text" value={bio} onChange={(e)=>setBio(e.target.value)} className="resize-none px-4 pt-6 pb-2 w-[400px] rounded-md bg-transparent border-[1px] border-gray-400" style={{scrollbarWidth: 'none',msOverflowStyle: 'none'}}/>
+  <p className="text-gray-500 text-sm absolute top-1 z-20 right-3">{bio.length} / 150</p>
 
-          <div className='relative'>
-            <select className='px-3 pt-6 pb-1 w-full rounded-md bg-transparent border border-gray-400 text-md'>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Custom">Custom</option>
-              <option value="Not">Prefer not to say</option>
-            </select>
-            <label className='absolute top-1 left-3 text-gray-500 text-sm'>Gender</label>
-          </div>
+  <label className='w-[380px] absolute top-1 left-4 z-10 text-gray-500 bg-white'>Bio</label>
+  </div>
 
-          <input className='savechange text-white w-full px-3 py-2 rounded-md text-lg  hover:bg-blue-700 transition duration-300 font-bold' type="submit" value="Save" />
-        </div>
+  <div className='relative'>
+     <select className='px-4 pt-7 pb-2 w-[400px] rounded-md  bg-transparent border-[1px] border-gray-400'>
+         <option value="Male">Male</option>
+         <option value="Female">Female</option>
+         <option value="Custom">Custom</option>
+         <option value="Not">Prefer not to say</option>
+     </select>
+     <label className='absolute top-1 left-4 text-gray-500'>Gender</label>
+   </div>
+
+
+
+     <input className='bg-blue-500 text-white px-4 py-4 rounded-md text-xl font-bold' type="submit" value="Save"  onClick={handlesubmit}/>
+        </div>    
       </div>
     </div>
+  </div>
   );
 }
 

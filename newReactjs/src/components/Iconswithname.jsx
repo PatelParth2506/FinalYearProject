@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import home from '../assets/home.png'
 import reels from '../assets/reels.png'
@@ -12,9 +12,33 @@ import chat from '../assets/chat.png'
 import settings from '../assets/settings.png'
 import axios from 'axios'
 
-const Iconswithname = () => {
-
+const Iconswithname = ({userID}) => {
+  const [isBusiness,setIsBusiness]=useState(false)
+  const [data,setData]=useState({})
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    const fetchdatabyid=async()=>{
+      const res=await axios.get(`/api/user/getUserProfile`,{
+        withCredentials:true
+      })
+      if(res.data.data.isBussiness === false || res.data.data.isBussiness === undefined){
+        setIsBusiness(false)
+      }else{
+        setIsBusiness(true)
+        setData(res.data.data)
+      }
+    }
+    fetchdatabyid()
+  })
+
+  const handleclick=()=>{
+    if(isBusiness){
+      navigate("/admin",{state:{data:data}})
+    }else{
+      navigate("/home")
+    }
+  }
 
   const handlelogout=async()=>{
       try {
@@ -48,7 +72,7 @@ const Iconswithname = () => {
           <span>Search</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={() => { navigate("/story") }}>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={()=>{navigate("/story")}}>
           <img src={reels} alt="" className='w-6 h-6 ' />
           <span>Stories</span>
         </div>
@@ -58,9 +82,9 @@ const Iconswithname = () => {
           <span>Message</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={handleclick}>
           <img src={heart} alt="" className='w-6 h-6 ' />
-          <span>Instructions</span>
+          <span>{isBusiness?"Admin" : "Instruction"}</span>
         </div>
 
         <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>

@@ -73,7 +73,7 @@ function Post({ user }) {
                     />
                 </div>
 
-                <button className="msgBtn text-white text-[16px] px-8 py-2 rounded-2xl" onClick={createPost}>
+                <button className="bg-blue-500 text-white text-[16px] px-8 py-2 rounded-2xl" onClick={createPost}>
                     Post
                 </button>
             </div>

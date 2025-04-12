@@ -27,7 +27,7 @@ const Navbar = () => {
           <ul className="container mx-auto flex flex-wrap justify-between md:flex-row px-4 md:px-2 items-center relative">
             <div className="flex gap-4">
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/home">Home</Link>
               </li>
               <li>
                 <Link to="/">About</Link>

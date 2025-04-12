@@ -9,12 +9,12 @@ const ChatLeft = ({ userData, followers = [], openProfile }) => {
       <div className='w-16 h-screen bg-white flex items-center flex-col gap-y-7 py-5 pt-8 border-r-2 border-gray-300'>
         <img src="instagram.png" alt="" className='w-8 h-8 cursor-pointer' />
         <br></br>
-        <img src={home} alt="" className='w-6 h-6 cursor-pointer' onClick={navigate('/home')}/>
+        <img src={home} alt="" className='w-6 h-6 cursor-pointer' onClick={()=>navigate('/home')}/>
         <img src="search.png" alt="" className='w-6 h-6 cursor-pointer' />
         <img src="clapper.png" alt="" className='w-6 h-6 cursor-pointer' />
         <img src="chat.png" alt="" className='w-6 h-6 cursor-pointer' />
         <img src="love.png" alt="" className='w-6 h-6 cursor-pointer' />
-        <img src="profile.png" alt="" className='w-6 h-6 cursor-pointer' />
+        <img src="profile.png" alt="" className='w-6 h-6 cursor-pointer' onClick={()=>navigate('/profilelayout/')} />
         <img src="settings.png" alt="" className='w-6 h-6 cursor-pointer' />
       </div>
 

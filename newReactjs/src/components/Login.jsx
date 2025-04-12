@@ -31,8 +31,6 @@ const Login = () => {
 
         try {
             const response=await axios.post("/api/user/login",logindata)
-            console.log(response.data.statusCode)
-                console.log(response)
                 setShowSuccess(true); 
                 setTimeout(() => {
                   setShowSuccess(false);

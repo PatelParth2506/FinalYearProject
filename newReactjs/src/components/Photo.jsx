@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Photo = () => {
     const navigate = useNavigate();
+    const location = useLocation()
+    console.log(location.state)
     const [selectedFile, setSelectedFile] = useState(null);
     const [imageUrl, setImageUrl] = useState("emptyuser2.jpeg");
     const [isLoading, setIsLoading] = useState(false);
@@ -30,14 +32,20 @@ const Photo = () => {
                 withCredentials:true
             });
 
-            const updatedImageUrl = res.data.profilePhoto; // Assuming the backend returns the updated profile photo URL
+            const updatedImageUrl = res.data.profilePhoto;
             localStorage.setItem("profilePicture", updatedImageUrl);
 
             setTimeout(() => {
                 navigate("/loader");
 
                 setTimeout(() => {
-                    navigate("/profile");
+                    if(location.state.from === "editprofile"){
+                        navigate("/profilelayout/");
+                    }else if(location.state.from === "signup"){
+                        navigate("/login")
+                    }else{
+                        navigate("/")
+                    }
                 }, 4000);
             }, 1000);
         } catch (error) {

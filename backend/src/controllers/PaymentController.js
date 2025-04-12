@@ -15,7 +15,6 @@ const checkout = asyncHandler(async(req,res)=>{
             currency: 'inr',
             product_data: {
               name: item.description,
-            //   images: [item.image], 
             },
             unit_amount: item.price * 100,
           },

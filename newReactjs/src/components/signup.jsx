@@ -9,52 +9,54 @@ import Success from "./Success";
 import axios from "axios";
 
 const Signup = () => {
-  const [passwordError, setPasswordError] = useState(false);
-  const [usernameError, setUsernameError] = useState(false);
-  const [passwordLengthError, setPasswordLengthError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
 
+    const [passwordError, setPasswordError] = useState(false);
+    const [usernameError, setUsernameError] = useState(false);
+    const [passwordLengthError, setPasswordLengthError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
 
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
+    
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[_])(?=.*[!@#$%^&*])[a-zA-Z0-9_!@#$%^&*]{6,}$/;
+    const usernameRegex = /^[a-zA-Z0-9_]{5,18}$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[_])(?=.*[!@#$%^&*])[a-zA-Z0-9_!@#$%^&*]{6,}$/;
-  const usernameRegex = /^[a-zA-Z0-9_]{5,18}$/;
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const [email,setEmail]= useState("");
 
-  const navigate = useNavigate();
+    const [name,setName]= useState("");
 
-  const handleCheckboxChange = (e) => {
-    setIsChecked(e.target.checked);
-  };
+    const [user,setUser]= useState("");
+    const [password,setPassword]= useState("");
 
-  const signUpData = async (e) => {
-    e.preventDefault();
+    const navigate= useNavigate();
 
-    if (!email || !name || !user || !password) {
-      alert("All fields are required!");
-      return false;
-    }
+    
+    
+    const signUpData = async(e) => {
+        e.preventDefault()
 
-    if (!emailRegex.test(email)) {
-      setEmailError(true);
-      setTimeout(() => {
-          setEmailError(false);
-        }, 4000);
-      return false;
-    }
+        if(!email || !name || !user || !password)
+        {
+            alert("All fields are mandatory to fill!")
+            return false;
+        }
 
-    if (!passwordRegex.test(password)) {
-      setPasswordError(true);
-      setTimeout(() => {
-         setPasswordError(false);
-      }, 4000);
-      return false;
-    }
+        if(!emailRegex.test(email)){
+            setEmailError(true);
+            setTimeout(() => {
+              setEmailError(false);
+            }, 4000);
+            return false;
+          }         
+                     
+          if(!passwordRegex.test(password))
+            {
+                setPasswordError(true);
+                setTimeout(() => {
+                    setPasswordError(false);
+                }, 4000);
+                return false;
+            }    
 
     if (password.length < 6 || password.length > 14) {
       setPasswordLengthError(true);
@@ -72,55 +74,49 @@ const Signup = () => {
       return false;
     }
 
-    else
-    {
-    const response = await axios.post("/api/user/register", {
-      email:email,
-      fullname: name,
-      username: user,
-      password:password,
-      isBussiness:isChecked
-    });
+        else
+        {
+          const response=await axios.post("/api/user/register",{
+            email:email,
+            fullname:name,
+            username:user,
+            password:password,
+          })
+          console.log(response)
 
-    console.log(response);
+        
+        setEmail("")
+        setName("")
+        setUser("")
+        setPassword("")
+        }
 
-    setEmail("");
-    setName("");
-    setUser("");
-    setPassword("");
-  }
+        setShowSuccess(true);
+        setTimeout(() => {
+          setShowSuccess(false);
+          navigate("/loader")
 
-    setShowSuccess(true);
-    setTimeout(() => {
-      setShowSuccess(false);
-      navigate("/loader");
+          setTimeout(()=>{
+            navigate("/photo");
+          },4000);
+        }, 2000);
+  
+    }
 
-      setTimeout(() => {
-         navigate("/photo", { state: { from: "signup" } });
-      }, 4000);
-    }, 2000);
-  };
-  return (
+    return (
+    <div>
+        <div className="font-sans bgimage min-h-screen  flex justify-center items-center px-4 relative">
+        {passwordError && <Errorno1 />}
 
-<div className="min-h-screen w-full bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 flex justify-center items-center px-6 sm:px-10 py-10 sm:py-2 relative">
-      {passwordError && <Errorno1 />}
-      {usernameError && <Errorno2 />}
-      {passwordLengthError && <Errorno3 />}
-      {emailError && <Errorno4 />}
-      {showSuccess && <Success />}
+        {usernameError && <Errorno2 />}
 
-      <div className="max-w-6xl w-full bg-white/30 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 transition-all">
-       
-        <div className="md:flex items-center justify-center bg-gradient-to-tr from-blue-500 to-purple-600 p-6 md:p-8">
-        <img 
-    src="https://cdni.iconscout.com/illustration/premium/thumb/user-login-4489447-3723275.png"
-    alt="SignUp image"
-    className="w-80 md:w-96 object-contain animate-fade-in drop-shadow-xl m-auto"
-  />
-        </div>
+        {passwordLengthError && <Errorno3 />}
 
-     
-        <form onSubmit={(e)=>{
+        {emailError && <Errorno4 />}
+
+        {showSuccess && <Success />}
+
+            <form onSubmit={(e)=>{
                 signUpData(e)
             }}  className="w-full p-8 md:p-7 flex flex-col justify-center gap-4 sm:gap-5 bg-white/70"
         >
@@ -137,65 +133,29 @@ const Signup = () => {
             placeholder="Email"
           />
 
-          <input
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value)
-            }}
-            className="px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
-            type="text"
-            placeholder="Name"
-          />
+                <input value={name} onChange={(e)=>{
+                    setName(e.target.value)
+                }} 
+                className="px-4 py-3 w-full rounded-md bg-transparent border-[1px] border-gray-400" type="text" placeholder="Name"/>
 
-          <input
-            value={user}
-            onChange={(e) => {
-               setUser(e.target.value)
-              }}
-            className="px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
-            type="text"
-            placeholder="Username"
-          />
-          <input
-            value={password}
-            onChange={(e) => {
-               setPassword(e.target.value)
-            }}
-            className="px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
-            type="password"
-            placeholder="Password"
-          />
+                <input value={user} onChange={(e)=>{
+                    setUser(e.target.value)
+                }} 
+                className="px-4 py-3 w-full rounded-md  bg-transparent border-[1px]  border-gray-400" type="text" placeholder="Username"/>
 
-          <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={isChecked}
-                onChange={handleCheckboxChange}
-                className="w-4 h-4"
-              />
-              <h2 className="text-gray-700">Do you want to use business account?</h2>
-          </div>
+                <input value={password} onChange={(e)=>{
+                    setPassword(e.target.value)
+                }} 
+                className="px-4 py-3 w-full rounded-md  bg-transparent border-[1px]  border-gray-400" type="password" placeholder="Password"/>
 
-          <input
-            type="submit" value="Sign Up"
-            className="mt-2 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:scale-95"
-          />
-          
-          <p className="text-sm text-center text-gray-500 mt-2">
-            Already have an account?{" "}
-            <Link to="/login" className="text-blue-600 font-semibold hover:underline">Login</Link>
-          </p>
+               <p className="text-gray-400 text-center my-2  text-sm sm:text-base">Already have an account? <Link to="/login" className="text-blue-500 font-semibold">Login</Link></p>
 
-          <p className="text-sm text-center text-gray-400 mt-4">
-            By signing up, you agree to our <br />
-            <span className="font-semibold">Terms</span>,{" "}
-            <span className="font-semibold">Data Policy</span> and{" "}
-            <span className="font-semibold">Cookies Policy</span>.
-          </p>
-        </form>
-      </div>
+                <input type="submit" value="Sign up" className="bg-blue-500 font-semibold text-white px-4 py-3 rounded-md hover:bg-blue-700 w-full text-sm sm:text-base transition duration-300" />
+                <p className="text-gray-400 text-center text-sm sm:text-base">By signing up, you agree to our <br /><span className="font-semibold">Terms,Data Policy</span> and {" "} <span className="font-semibold"> Cookies Policy.</span></p>
+            </form>
+        </div>
     </div>
-  );
-};
+    )
+}
 
 export default Signup;
