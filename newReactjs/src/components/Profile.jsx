@@ -47,7 +47,7 @@ const Profile = ({userID}) => {
         <div className="bgEdit flex flex-col md:flex-row items-center justify-center gap-4 px-8 py-1 w-full h-auto md:h-[350px]">
           <div
             id="inner"
-            className="flex flex-col md:flex-row gap-2 items-center md:bg-slate-100 rounded-xl px-8 py-6 w-full md:w-[500px]"
+            className="flex flex-col md:flex-row gap-2 md:gap-10 items-center md:bg-slate-100 rounded-xl px-8 py-6 w-full md:w-[500px]"
           >
             <div className="md:ml-[-150px] w-40 h-40 rounded-full overflow-hidden border-4 border-blue-900 ">
               <img
