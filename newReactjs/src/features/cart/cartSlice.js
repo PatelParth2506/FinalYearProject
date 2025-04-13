@@ -25,6 +25,7 @@ export const addProductToCart = createAsyncThunk("cart/add",async({productid},th
     return res.data.data
   }catch(err){
     console.log(err)
+
     return thunkAPI.rejectWithValue(err.response?.data || err.message);
   }
 })
@@ -61,7 +62,6 @@ const initialState = {
 const cartSlice = createSlice({
   name: "cart",
   initialState,
-  // reducers: {
   //   addToCart: (state, action) => {
   //     const existingItem = state.items.find(
   //       (item) => item._id === action.payload._id

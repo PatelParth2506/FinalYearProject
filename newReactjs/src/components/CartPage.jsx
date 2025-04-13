@@ -38,6 +38,12 @@ const CartPage = () => {
       sessionId:session.data.id
     })
 
+    if(result){
+      const resp= await axios.post("/api/product/createorder",{
+        
+      })
+    }
+
     if(result.error){
       console.log(result.error.message)
     }

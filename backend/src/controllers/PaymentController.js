@@ -14,11 +14,11 @@ const checkout = asyncHandler(async(req,res)=>{
           price_data: {
             currency: 'inr',
             product_data: {
-              name: item.description,
+              name: item.productinfo.description,
             },
-            unit_amount: item.price * 100,
+            unit_amount: item.productinfo.price * 100,
           },
-          quantity: item.quantity,
+          quantity: item.quentity,
         })),
         mode: 'payment',
         success_url: 'http://localhost:5173/success',

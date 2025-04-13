@@ -5,6 +5,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { fileuploder } from "../utils/cloudinary.js";
 import { Cart } from "../models/CartModel.js";
 import { User } from "../models/UserModel.js";
+import { Order } from "../models/OrderModel.js";
 
 const createProduct = asyncHandler(async(req,res)=>{
     const { quentity, price, description, category } = req.body;
@@ -235,6 +236,40 @@ const getBusinessProduct = asyncHandler(async(req,res)=>{
     )
 })
 
+const createorder = asyncHandler(async(req,res)=>{
+    const { productid, quentity } = req.body;
+    if(!productid){ throw new ApiError(401,"Product Id Is Required") }
+    if(!quentity){ throw new ApiError(401,"Quentity Is Required") }
+    if(!totalprice){ throw new ApiError(401,"Total Price Is Required") }
+    const product = await Product.findById(productid)
+    product.quentity -= quentity
+    if(product.quentity < 0){ throw new ApiError(401,"Product Quentity Is Not Enough") }
+    await product.save()
+    const order = await Order.create({
+        products:[{
+            productinfo:productid,
+            quentity,
+        }],
+        totalprice:product.price * quentity,
+        buyer:req.user._id,
+        seller:product.seller
+    })
+    res.status(200).json(
+        new ApiResponse(200,order,"Order Created Successfully")
+    )
+})  
+
+const getallorderofseller = asyncHandler(async(req,res)=>{
+    const orders = await Order.find({seller:req.user._id})
+                            .populate("products.productinfo","photo price description")
+                            .populate("buyer","username profilePhoto")
+                            .sort({createdAt:-1})
+    if(!orders){ throw new ApiError(404,"No Order Found") }
+    res.status(200).json(
+        new ApiResponse(200,orders,"All Order Fetched Successfully")
+    )
+})
+
 export {
     createProduct,
     deleteProduct,
@@ -252,5 +287,7 @@ export {
     emptyCart,
     getBusinessProduct,
     getCart,
-    updateProductQuentityByBuyer
+    updateProductQuentityByBuyer,
+    createorder,
+    getallorderofseller,
 }
