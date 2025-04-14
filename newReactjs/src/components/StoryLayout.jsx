@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import StoriesPage from './StoriesPage';
-import NavBarOfWeb from './NavBarOfWeb';
 import LeftMenuIcon from './LeftMenuIcon';
 
 function StoryLayout() {
     const [showMenu, setShowMenu] = useState(false);
-
+    console.log("StoryLayout loaded");
     useEffect(() => {
         const handleMouseMove = (event) => {
             if (event.clientX <= 1) {
@@ -24,7 +23,6 @@ function StoryLayout() {
     return (
         <>
             <div className="w-full h-screen">
-                <NavBarOfWeb toggleMenu={() => setShowMenu(!showMenu)} />
                 <div className="w-full h-[93vh] flex">
                     <div className={`${showMenu ? 'block' : 'hidden'} md:block `} onMouseLeave={handleMouseLeave}>
                         <LeftMenuIcon/>

@@ -15,7 +15,12 @@ import {
     addProductToCart,
     removeProductFromCart,
     calculateTotalPrice,
-    emptyCart
+    emptyCart,
+    getBusinessProduct,
+    getCart,
+    updateProductQuentityByBuyer,
+    createorder,
+    getallorderofseller
 } from "../controllers/ProductController.js";
 
 const router = Router()
@@ -30,9 +35,18 @@ router.route("/updateProductPrice/:productid").patch(auth, updateProductPrice)
 router.route("/updateProductDescription/:productid").patch(auth, updateProductDescription)
 router.route("/getProductByCategory/:category").get(getProductByCategory)
 router.route("/addProductReview/:productid").post(auth, addProductReview)
-router.route("/addProductToCart/:productid").post(auth, addProductToCart)
+
+router.route("/addProductToCart").post(auth, addProductToCart)
 router.route("/removeProductFromCart/:productid").delete(auth, removeProductFromCart)
 router.route("/calculateTotalPrice/:productid").get(auth, calculateTotalPrice)
 router.route("/emptyCart").delete(auth, emptyCart)
+router.route("/getCart").get(auth, getCart)
+router.route("/updateBuyerQuentity").patch(auth,updateProductQuentityByBuyer)
+
+router.route("/getBusinessProduct").get(auth, getBusinessProduct)
+
+router.route("/createOrder").post(auth,createorder)
+router.route("/getOrder").get(auth,getallorderofseller)
+
 
 export default router

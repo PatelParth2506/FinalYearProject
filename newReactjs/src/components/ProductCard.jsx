@@ -4,7 +4,7 @@ import React from "react";
 const ProductCard = ({ product }) => {
   return (
     <Link to={`/store/product/${product._id}`} className="block">
-      <div className="shadow-xl rounded-md cursor-pointer p-4">
+      <div className="font-sans shadow-xl rounded-md cursor-pointer p-4">
         <img
           src={product.photo}
           alt={product.description}

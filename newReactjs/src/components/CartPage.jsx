@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
-  addToCart,
-  removeFromCart,
-  updateQuantity,
+  fetchCart,
+  addProductToCart,
+  removeProductFromCart,
+  updateProductQuentity,
 } from "../features/cart/cartSlice";
 import axios from "axios";
 
@@ -14,8 +15,11 @@ const CartPage = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
   console.log(cartItems);
+  useEffect(()=>{
+    dispatch(fetchCart())
+  },[dispatch])
   const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + item.productinfo.price * item.quentity,
     0
   );
 
@@ -33,6 +37,12 @@ const CartPage = () => {
     const result = await stripe.redirectToCheckout({
       sessionId:session.data.id
     })
+
+    if(result){
+      const resp= await axios.post("/api/product/createorder",{
+        
+      })
+    }
 
     if(result.error){
       console.log(result.error.message)
@@ -64,14 +74,15 @@ const CartPage = () => {
         {/* ✅ Cart Items Section */}
         <div className="lg:col-span-2 shadow-md p-4 rounded-md bg-white">
           {cartItems.map((item) => (
+            console.log(item),
             <div
               key={item._id}
               className="flex items-center gap-4 py-4 border-b"
             >
               <Link to={`/product/${item._id}`}>
                 <img
-                  src={item.photo}
-                  alt={item.description.substring(0,20)}
+                  src={item.productinfo.photo}
+                  alt={item.productinfo.description.substring(0,20)}
                   className="w-24 h-24 object-cover rounded"
                 />
               </Link>
@@ -81,18 +92,18 @@ const CartPage = () => {
                   to={`/product/${item._id}`}
                   className="font-semibold hover:text-blue-600"
                 >
-                  {item.description.substring(0,20)}
+                  {item.productinfo.description.substring(0,20)}
                 </Link>
-                <p className="text-gray-500">Price: ${item.price.toFixed(2)}</p>
+                <p className="text-gray-500">Price: ${item.productinfo.price.toFixed(2)}</p>
                 <div className="flex items-center gap-2 mt-2">
                   {/* 🔻 Decrease Quantity */}
                   <button
                     className="p-1 rounded-full hover:bg-gray-100"
                     onClick={() =>
                       dispatch(
-                        updateQuantity({
-                          id: item._id,
-                          quantity: Math.max(1, item.quentity - 1),
+                        updateProductQuentity({
+                          productid: item.productinfo._id,
+                          quentity: Math.max(1, item.quentity - 1),
                         })
                       )
                     }
@@ -100,16 +111,16 @@ const CartPage = () => {
                     <Minus size={16} />
                   </button>
 
-                  <span>{item.quantity}</span>
+                  <span>{item.quentity}</span>
 
                   {/* 🔺 Increase Quantity */}
                   <button
                     className="p-1 rounded-full hover:bg-gray-100"
                     onClick={() =>
                       dispatch(
-                        updateQuantity({
-                          id: item.id,
-                          quantity: item.quantity + 1,
+                        updateProductQuentity({
+                          productid: item.productinfo._id,
+                          quentity: item.quentity + 1
                         })
                       )
                     }
@@ -120,7 +131,7 @@ const CartPage = () => {
                   {/* 🗑️ Remove from Cart */}
                   <button
                     className="ml-4 text-red-500 hover:text-red-700"
-                    onClick={() => dispatch(removeFromCart(item._id))}
+                    onClick={() => dispatch(removeProductFromCart({ productid: item.productinfo._id }))}
                   >
                     <Trash2 size={20} />
                   </button>
@@ -128,7 +139,7 @@ const CartPage = () => {
               </div>
               <div className="text-right">
                 <p className="font-bold">
-                  ${(item.price * item.quantity).toFixed(2)}
+                  ${(item.productinfo.price * item.quentity).toFixed(2)}
                 </p>
               </div>
             </div>

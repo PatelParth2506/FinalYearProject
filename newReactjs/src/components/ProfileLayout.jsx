@@ -25,12 +25,10 @@ function ProfileLayout() {
     
     return (
         <>
-
-            <div className="w-full h-screen">
-                <NavBarOfWeb toggleMenu={() => setShowMenu(!showMenu)} />
+            <div className="w-full h-screen font-sans">
                 <div className="w-full h-[93vh] flex">
-                    <div className={`${showMenu ? 'block' : 'hidden'} md:block `}  onMouseLeave={handleMouseLeave}>
-                        <Iconswithname/>
+                    <div className={`${showMenu ? 'block' : 'hidden'} md:block `} >
+                        <Iconswithname userID={userID}/>
                     </div>
                     <div className="overFlow w-full overflow-auto">
                         <Profile userID={userID}/>

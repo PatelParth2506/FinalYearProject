@@ -47,10 +47,21 @@ const register=asyncHandler(async(req,res)=>{
         profilePhoto: "",
         isBussiness
     })
+    const {refreshToken, accessToken}=await genrateAccessAndRefreshToken(user._id)
+    console.log(accessToken)
+    const loginuser=await User.findById(user._id).select("-password -refreshToken")
+
+    const option={
+        httpOnly:true,
+        secure:true
+    }
 
     const createdUser=await User.findById(user._id).select("-password -refreshToken")
 
-    return res.status(200).json(new ApiResponse(200,createdUser,"User Registred Successfully"))
+    return res.status(200)
+            .cookie("AccessToken",accessToken,option)
+              .cookie("RefreshToken",refreshToken,option)
+                .json(new ApiResponse(200,createdUser,"User Registred Successfully"))
 })
 
 const login=asyncHandler(async(req,res)=>{
@@ -150,28 +161,32 @@ const changePassword=asyncHandler(async(req,res)=>{
         .json(200,{},"Password Changed Successfully")
 })
 
-const  changeAccountDetails=asyncHandler(async(req,res)=>{
-    const { email, bio }=req.body
-    if(!email || !bio){
-        throw new ApiError(402,"Email And Bio Is Required To Change")
+const updateUserDetails = asyncHandler(async (req, res) => {
+    const { bio, fullname, username } = req.body;
+
+    if (!bio && !fullname && !username) {
+        throw new ApiError(400, "At least one field (bio, fullname, or username) is required to update");
     }
 
-    const user=await User.findByIdAndUpdate(
-        req.user._id,
-        {
-            $set:{
-                email,
-                bio
-            }
-        },
-        {new:true}
-    ).select("-password -refreshToken")
+    const updateFields = {};
+    if (bio) updateFields.bio = bio;
+    if (fullname) updateFields.fullname = fullname;
+    if (username) {
+        const existingUser = await User.findOne({ username });
+        if (existingUser && existingUser._id.toString() !== req.user._id.toString()) {
+            throw new ApiError(400, "Username is already taken");
+        }
+        updateFields.username = username;
+    }
 
-    res.status(200)
-        .json(new ApiResponse(
-            200,user,"Data Changed SuccessFully"
-        ))
-})
+      const updatedUser = await User.findByIdAndUpdate(
+        req.user._id,
+        { $set: updateFields },
+        { new: true } 
+    ).select("-password -refreshToken");
+
+    res.status(200).json(new ApiResponse(200, updatedUser, "User details updated successfully"));
+});
 
 const changeProfilePhoto=asyncHandler(async(req,res)=>{
     const profilePhotopath=req.file.path;
@@ -282,7 +297,7 @@ export {
     logout,
     refreshTokenGenrate,
     changePassword,
-    changeAccountDetails,
+    updateUserDetails,
     changeProfilePhoto,
     getProfile,
     FollowUser,

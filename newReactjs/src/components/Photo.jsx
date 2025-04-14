@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Photo = () => {
     const navigate = useNavigate();
+    const location = useLocation()
+    console.log(location.state)
     const [selectedFile, setSelectedFile] = useState(null);
     const [imageUrl, setImageUrl] = useState("emptyuser2.jpeg");
     const [isLoading, setIsLoading] = useState(false);
@@ -30,14 +32,20 @@ const Photo = () => {
                 withCredentials:true
             });
 
-            const updatedImageUrl = res.data.profilePhoto; // Assuming the backend returns the updated profile photo URL
+            const updatedImageUrl = res.data.profilePhoto;
             localStorage.setItem("profilePicture", updatedImageUrl);
 
             setTimeout(() => {
                 navigate("/loader");
 
                 setTimeout(() => {
-                    navigate("/profile");
+                    if(location.state.from === "editprofile"){
+                        navigate("/profilelayout/");
+                    }else if(location.state.from === "signup"){
+                        navigate("/login")
+                    }else{
+                        navigate("/")
+                    }
                 }, 4000);
             }, 1000);
         } catch (error) {
@@ -52,9 +60,9 @@ const Photo = () => {
     };
 
     return (
-        <div className="w-full min-h-screen bgimage2 flex justify-center items-center p-4">
+        <div className="font-sans w-full min-h-screen bgimage2 flex justify-center items-center p-4">
             <div className="w-full max-w-[320px] bg-white rounded-3xl shadow-lg p-6 sm:p-8 flex flex-col items-center">
-                <h1 id="signInText" className="font-bold text-2xl text-center">
+                <h1 className="font-bold text-2xl text-center text-blue-500">
                     Edit profile photo
                 </h1>
                 <div className="w-full flex justify-center items-center my-6">
@@ -73,7 +81,7 @@ const Photo = () => {
                 />
                 <button
                     onClick={handleSave}
-                    className="loginButton text-base sm:text-lg hover:bg-blue-700 text-white py-3 rounded-lg mt-4 w-full transition duration-300 font-extrabold"
+                    className=" text-base sm:text-lg hover:bg-blue-700 text-white py-3 rounded-lg mt-4 w-full transition duration-300 font-extrabold bg-blue-500"
                     disabled={isLoading}
                 >
                     {isLoading ? "Saving..." : "Save"}
