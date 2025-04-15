@@ -8,6 +8,7 @@ import herat from '../assets/heart.png';
 import heratfill from '../assets/heartFill.png';
 import send from '../assets/send.png';
 import { useParams, useNavigate } from 'react-router-dom';
+import { connect } from 'socket.io-client';
 
 
 function Uploaded() {
@@ -26,30 +27,30 @@ function Uploaded() {
     useEffect(() => {
         const fetchdata = async () => {
             try {
-                if(!userID) {
+                if (!userID) {
 
-                const res = await axios.get('/api/post/getAllPost', {
-                    withCredentials: true
-                });
-                const randompost = res.data.data.sort(() => Math.random() - 0.5);
-                setPosts(randompost);
-            }else{
-                const res= await axios.get(`/api/post/getuserAllpost/${userID}`,{
-                    withCredentials: true
-                })
-                if (postID) {
-                    const index = res.data.data.findIndex((p) => p._id === postID);
-                    if (index !== -1) {
-                        const clicked = res.data.data[index];
-                        const before = res.data.data.slice(0, index).reverse();
-                        const after = res.data.data.slice(index + 1);
-                        res.data.data = [...before, clicked, ...after];
+                    const res = await axios.get('/api/post/getAllPost', {
+                        withCredentials: true
+                    });
+                    const randompost = res.data.data.sort(() => Math.random() - 0.5);
+                    setPosts(randompost);
+                } else {
+                    const res = await axios.get(`/api/post/getuserAllpost/${userID}`, {
+                        withCredentials: true
+                    })
+                    if (postID) {
+                        const index = res.data.data.findIndex((p) => p._id === postID);
+                        if (index !== -1) {
+                            const clicked = res.data.data[index];
+                            const before = res.data.data.slice(0, index).reverse();
+                            const after = res.data.data.slice(index + 1);
+                            res.data.data = [...before, clicked, ...after];
+                        }
                     }
+
+                    setPosts(res.data.data)
                 }
-                
-            setPosts(res.data.data)
-        }
-            const data = await axios.get('/api/user/getUserProfile', {
+                const data = await axios.get('/api/user/getUserProfile', {
                     withCredentials: true
                 });
                 setUser(data.data.data);
@@ -112,7 +113,7 @@ function Uploaded() {
             } else {
                 user.following = [...(user.following || []), userID];
             }
-            setPosts((prev) => [...prev]); 
+            setPosts((prev) => [...prev]);
         } catch (error) {
             console.log(error);
         }
@@ -124,28 +125,27 @@ function Uploaded() {
         }
     }, [loading, postID, posts]);
 
-    if (loading) return( <div className="text-center text-xl py-10">Loading...</div>);
+    if (loading) return (<div className="text-center text-xl py-10">Loading...</div>);
 
     return posts.map((post) => {
         const hasLiked = post.likes.includes(user._id);
         const commentOpen = commentState[post._id] || false;
 
         return (
-            <div className='w-full h-fit pt-5 px-10' ref={(el) => (postRefs.current[post._id] = el)} key={post._id}>
+            <div className='w-full h-fit pt-5 px-0 sm:px-8' ref={(el) => (postRefs.current[post._id] = el)} key={post._id}>
                 <div className="flex items-center justify-between px-5">
                     <div className="flex justify-start items-center gap-x-3 cursor-pointer">
-                        <img src={post.owner.profilePhoto} alt="userPro" className='w-10 h-10' onClick={() => gotoProfile(post.owner._id)} />
+                        <img src={post.owner.profilePhoto} alt="userPro" className='w-12 h-12 rounded-full object-cover border-2 border-[#2B6EA0] p-[2px]' onClick={() => gotoProfile(post.owner._id)} />
                         <div className="flex justify-center items-start flex-col" onClick={() => gotoProfile(post.owner._id)}>
                             <p className="text-[#2B6EA0] text-[16px] font-semibold">{post.owner.username}</p>
-                            <p className="text-gray-500 text-sm">{user.fullname}</p>
+                            <p className="text-gray-500 text-sm">{user.fullname ?? "ConnectMe"}</p>
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
-                        <div className={`px-7 py-2 ml-2 border text-[16px] rounded-2xl
-                             ${
-                                user.following?.includes(post.owner._id)
-                                    ? "bg-white text-[#2B6EA0] border-[#2B6EA0]"
-                                    : "bg-blue-500 text-white border-[#2B6EA0]"
+                        <div className={`px-7 py-[7px] ml-2 border text-[16px] rounded-2xl
+                             ${user.following?.includes(post.owner._id)
+                                ? "bg-[#2B6EA0] text-white border-[#2B6EA0]"
+                                : "bg-white text-[#2B6EA0] border-[#2B6EA0]"
                             }`}>
                             <button onClick={() => toggolefollow(post.owner._id)}>
                                 {user.following?.includes(post.owner._id) ? "Following" : "Follow"}
@@ -154,21 +154,21 @@ function Uploaded() {
                     </div>
                 </div>
 
-                <div className="w-full h-[420px] flex justify-center items-center mt-3">
+                <div className="w-full h-[350px] flex justify-center items-center mt-3 sm:h-[420px]">
                     <div className="h-full w-full mx-5 p-1">
                         <img src={post.photo} alt="post" className='w-full h-full rounded-2xl' />
                     </div>
                 </div>
 
-                <div className="w-full flex justify-between items-center mt-2 px-6">
+                <div className="w-full flex justify-between items-center mt-3 px-5">
                     <div className="flex gap-x-4">
                         <div className="flex items-center justify-center gap-x-2">
                             <img src={hasLiked ? heratfill : herat} onClick={() => toggleLike(post._id)} alt="heart" className="cursor-pointer" />
-                            <p className="text-l text-gray-600"><b>{post.likes.length}</b></p>
+                            <p className="text-sm text-gray-600">{post.likes.length}</p>
                         </div>
                         <div className="flex items-center justify-center gap-x-2">
                             <img src={commentimg} alt="comments" className="cursor-pointer" onClick={() => toggleComment(post._id)} />
-                            <p className="text-l text-gray-600"><b>{post.comments.length}</b></p>
+                            <p className="text-sm text-gray-600">{post.comments.length}</p>
                         </div>
                         <img src={send} alt="send" />
                     </div>
@@ -178,7 +178,7 @@ function Uploaded() {
                 {commentOpen && (
                     <div className="w-full px-5 mt-3">
                         <div className="w-full px-3 py-3 flex flex-col gap-y-3 bg-gray-100 rounded-xl">
-                            <div className="w-full flex flex-col gap-y-1 max-h-40 overflow-y-auto">
+                            <div className="w-full overFlow flex flex-col gap-y-1 max-h-40 overflow-y-auto ">
                                 {post.comments && post.comments.length > 0 ? (
                                     post.comments.map((c, index) => (
                                         <p key={index} className="text-[15px] text-gray-800 max-w-full h-fit flex justify-between flex-col">
@@ -186,7 +186,7 @@ function Uploaded() {
                                         </p>
                                     ))
                                 ) : (
-                                    <p className="text-gray-500 text-sm">No comments yet.</p>
+                                    <p className="text-[#2B6EA0] text-sm">No comments yet.</p>
                                 )}
                             </div>
                             <div className="flex gap-x-2 items-center">
@@ -199,7 +199,7 @@ function Uploaded() {
                                         onChange={(e) => setNewComment(e.target.value)}
                                     />
                                 </div>
-                                <button className="msgBtn text-white text-[13px] px-5 py-2 rounded" onClick={() => handlesendComment(post._id)}>Send</button>
+                                <button className="text-white text-[13px] bg-[#2B6EA0] px-5 py-2 rounded" onClick={() => handlesendComment(post._id)}>Send</button>
                             </div>
                         </div>
                     </div>
