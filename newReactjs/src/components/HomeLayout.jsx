@@ -19,6 +19,7 @@ function HomeLayout() {
     const handleMouseLeave = () => {
         setShowMenu(false);
     };
+    
     return (
         <>
             <div className="w-full h-screen">
