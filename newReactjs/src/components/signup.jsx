@@ -198,7 +198,7 @@ const Signup = () => {
 
           <input
             type="submit" value="Sign Up"
-            className="mt-2 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:scale-95"
+            className="mt-2 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-200 shadow-lg"
           />
           
           <p className="text-sm text-center text-gray-500 mt-2">

@@ -2,38 +2,39 @@ import React, { useState } from 'react';
 import gallery from '../assets/gallery.png'
 import axios from 'axios';
 
-function Post({ user }) {
-    const [bio, setBio] = useState('');
-    const [image, setImage] = useState(null); 
-    const [previewImage, setPreviewImage] = useState(''); 
-    const [message, setMessage] = useState(''); 
+function Post({ user, postText, setPostText }) {
+    // const [bio, setBio] = useState('');
+    const [image, setImage] = useState(null);
+    const [previewImage, setPreviewImage] = useState('');
+    const [message, setMessage] = useState('');
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        setImage(file); 
+        setImage(file);
         setPreviewImage(URL.createObjectURL(file));
     };
 
     const createPost = async () => {
-        if (!bio || !image) {
-            setMessage('Both bio and image are required!');
+        if (!postText || !image) {
+            setMessage('Both post text and image are required!');
             return;
         }
 
         const formData = new FormData();
-        formData.append('description', bio); 
-        formData.append('photo', image); 
+        formData.append('description', postText);
+        formData.append('photo', image);
 
         try {
             const res = await axios.post('/api/post/createpost', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
-                withCredentials: true, 
+                withCredentials: true,
             });
 
             setMessage('Post created successfully!');
-            setBio(''); 
+            // setBio('');
+            setPostText('');
             setImage(null);
             setPreviewImage('');
         } catch (error) {
@@ -43,15 +44,16 @@ function Post({ user }) {
     };
 
     return (
-        <div className="loginForm bg-white p-4 rounded-xl font-sans">
+        <div className="bg-white rounded-2xl px-6 py-3 hover:shadow-xl hover:shadow-[#2b6da018] transition duration-300">
+            <h2 className="text-xl font-semibold text-[#2B6EA0] mb-4">What's on your mind?</h2>
             <div className="flex items-center gap-x-3">
                 <img src={user.profilePhoto ?? "userPro.png"} alt="User Profile" className="w-10 h-10 rounded-full" />
-                <input
+                <textarea
                     type="text"
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
+                    value={postText}
+                    onChange={(e) => setPostText(e.target.value)}
                     placeholder="What's on your mind?"
-                    className="w-full bg-white border border-gray-300 rounded-full px-4 py-2 outline-none"
+                    className="overFlow w-full bg-white border border-gray-300 resize-none rounded-full px-4 py-2 h-11 outline-none"
                 />
             </div>
 
@@ -73,12 +75,10 @@ function Post({ user }) {
                     />
                 </div>
 
-                <button className="bg-blue-500 text-white text-[16px] px-8 py-2 rounded-2xl" onClick={createPost}>
-                    Post
-                </button>
-            </div>
+                <button className="bg-[#2B6EA0] text-white text-[16px] px-8 py-2 rounded-xl" onClick={createPost}>Post</button>
 
-            {message && <p className="mt-3 text-center text-sm text-gray-600">{message}</p>}
+            </div>
+            {message && <p className="mt-3 text-center text-[15px] text-gray-600">{message}</p>}
         </div>
     );
 }

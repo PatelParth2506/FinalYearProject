@@ -42,7 +42,7 @@ const Profile = ({userID}) => {
   }, [])
 
   return (
-    <div className="overFlow w-full h-screen flex flex-col">
+    <div className="overFlow w-full h-screen flex flex-col bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe]">
       <div className="overFlow w-full h-screen overflow-y-scroll">
         <div className="bgEdit flex flex-col md:flex-row items-center justify-center gap-4 px-8 py-1 w-full h-auto md:h-[350px]">
           <div

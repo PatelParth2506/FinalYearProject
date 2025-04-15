@@ -22,10 +22,10 @@ function StoryLayout() {
 
     return (
         <>
-            <div className="w-full h-screen">
+            <div className="w-full h-[93vh]">
                 <div className="w-full h-[93vh] flex">
                     <div className={`${showMenu ? 'block' : 'hidden'} md:block `} onMouseLeave={handleMouseLeave}>
-                        <LeftMenuIcon/>
+                        <LeftMenuIcon />
                     </div>
                     <div className="overFlow w-full overflow-auto">
                         <StoriesPage />

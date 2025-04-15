@@ -33,7 +33,6 @@ const Editprofile = () => {
 
   return (
     <div className='flex'>
-      <Iconswithname />
 
     <div className='bgimage2 w-screen h-screen p-10 flex flex-col justify-center items-center '>
     <div className='relative w-auto h-auto bg-white p-6 rounded-3xl loginForm'>
@@ -69,14 +68,7 @@ const Editprofile = () => {
             <p className="text-gray-500 z-10 text-sm absolute top-1 right-[-1px]">{bio.length} / 150</p>
             <label className='absolute top-1 left-3 text-gray-500 text-sm bg-white block w-full'>Bio</label>
           </div>
-   <div className='relative'>
-   <textarea maxLength={150}
-     type="text" value={bio} onChange={(e)=>setBio(e.target.value)} className="resize-none px-4 pt-6 pb-2 w-[400px] rounded-md bg-transparent border-[1px] border-gray-400" style={{scrollbarWidth: 'none',msOverflowStyle: 'none'}}/>
-  <p className="text-gray-500 text-sm absolute top-1 z-20 right-3">{bio.length} / 150</p>
-
-  <label className='w-[380px] absolute top-1 left-4 z-10 text-gray-500 bg-white'>Bio</label>
-  </div>
-
+   
   <div className='relative'>
      <select className='px-4 pt-7 pb-2 w-[400px] rounded-md  bg-transparent border-[1px] border-gray-400'>
          <option value="Male">Male</option>
