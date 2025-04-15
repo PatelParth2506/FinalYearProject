@@ -20,7 +20,8 @@ import {
     getCart,
     updateProductQuentityByBuyer,
     createorder,
-    getallorderofseller
+    getallorderofseller,
+    getsellersbuyers
 } from "../controllers/ProductController.js";
 
 const router = Router()
@@ -44,6 +45,7 @@ router.route("/getCart").get(auth, getCart)
 router.route("/updateBuyerQuentity").patch(auth,updateProductQuentityByBuyer)
 
 router.route("/getBusinessProduct").get(auth, getBusinessProduct)
+router.route("/getSellersBuyers").get(auth,getsellersbuyers)
 
 router.route("/createOrder").post(auth,createorder)
 router.route("/getOrder").get(auth,getallorderofseller)

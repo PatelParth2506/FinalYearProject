@@ -261,13 +261,31 @@ const createorder = asyncHandler(async(req,res)=>{
 
 const getallorderofseller = asyncHandler(async(req,res)=>{
     const orders = await Order.find({seller:req.user._id})
-                            .populate("products.productinfo","photo price description")
+                            .populate("products.productid","photo price description")
                             .populate("buyer","username profilePhoto")
                             .sort({createdAt:-1})
     if(!orders){ throw new ApiError(404,"No Order Found") }
     res.status(200).json(
         new ApiResponse(200,orders,"All Order Fetched Successfully")
     )
+})
+
+const getsellersbuyers = asyncHandler(async(req,res)=>{
+    const orders = await Order.find({seller:req.user._id})
+                                .populate("buyer","-password")
+    const uniqueBuyersMap= new Map()
+    const uniqueBuyers = orders.filter((order)=>{
+        if(!uniqueBuyersMap.has(order.buyer._id)){
+            uniqueBuyersMap.set(order.buyer._id,true)
+            return true
+        }
+        return false
+    })
+    res.status(200).json({
+        success:true,
+        message:"All Buyers Fetched Successfully",
+        data:uniqueBuyers
+    })
 })
 
 export {
@@ -290,4 +308,5 @@ export {
     updateProductQuentityByBuyer,
     createorder,
     getallorderofseller,
+    getsellersbuyers
 }

@@ -1,7 +1,6 @@
 import React from "react"
 import Signup from "./components/signup"
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
-import Home from "./components/Home"
 import Login from "./components/Login"
 import ChatLeft from "./components/ChatLeft"
 import Chatrightempty from "./components/Chatrightempty"
@@ -24,7 +23,13 @@ import Navbar from "./components/Navbar.jsx"
 import StoryLayout from "./components/StoryLayout.jsx"
 import AdminLayout from "./components/AdminLayout.jsx"
 import EditprofileLayout from "./components/EditprofileLayout.jsx"
-import Uploaded from "./components/Uploaded.jsx"
+import Home from"./components/AdminComponent/Home.jsx"
+import Inventory from "./components/AdminComponent/Inventory.jsx"
+import CURD from "./components/AdminComponent/CURD.jsx"
+import AddProduct from "./components/AdminComponent/AddProduct.jsx"
+import AddProducts from "./components/AdminComponent/AddProducts.jsx"
+import Orders from "./components/AdminComponent/Orders.jsx"
+import Customers from "./components/AdminComponent/Customers.jsx"
 
 const Layout = ({ children }) => {
   const location = useLocation()
@@ -62,8 +67,18 @@ const App = () => {
           <Route path="/store/cart" element={<CartPage />} />
           <Route path="/success" element={<PaymentSuccess/>}/>
           <Route path="/cancel" element={<PaymentCancel/>}/>
-          <Route path="/admin" element={<AdminLayout/>}/>
           <Route path="/getallpost/:userID/:postID" element={<HomeLayout/>}/>
+          <Route path="/storeadmin/home" element={<Home/>}/>
+          <Route path="/storeadmin/inventory" element={<Inventory/>}/>
+
+          <Route path="/admin" element={<Home/>}/>
+          <Route path="/admin/inventory" element={<Inventory/>}/>
+          <Route path="/admin/Customers" element={<Customers/>}/>
+          <Route path="/admin/Orders" element={<Orders/>}/>
+          <Route path="/admin/updateProducts" element={<AddProducts/>}/>
+          <Route path="/admin/updateProducts/product" element={<CURD/>}/>
+          <Route path="/admin/addProduct" element={<AddProduct/>}/>
+
        </Routes>
       </Layout>
        
