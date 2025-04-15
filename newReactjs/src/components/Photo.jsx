@@ -100,7 +100,7 @@ const Photo = () => {
 
             <div className="w-full xl:w-1/3 flex justify-center items-center px-6 py-10 bg-[#f9f9fb] h-screen">
                 <div className="w-full max-w-[340px] md:max-w-sm backdrop-blur-lg bg-white/90 rounded-2xl shadow-2xl p-8 md:p-10 space-y-8">
-                    <h2 className="text-3xl font-bold text-[#2D3748] text-center">
+                    <h2 className="text-2xl font-bold text-blue-500 text-center md:text-3xl">
                         Upload Your Photo
                     </h2>
 
@@ -130,7 +130,7 @@ const Photo = () => {
                     <button
                         onClick={handleSave}
                         disabled={isLoading}
-                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-xl text-lg shadow-md transition duration-300 disabled:opacity-50"
+                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-2 md:py-3  rounded-xl text-lg shadow-md transition duration-300 disabled:opacity-50"
                     >
                         {isLoading ? "Saving..." : "Save & Continue"}
                     </button>
