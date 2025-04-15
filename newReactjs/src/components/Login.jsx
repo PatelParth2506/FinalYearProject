@@ -27,30 +27,30 @@ const Login = () => {
                 return false;
             }
 
-
-            try {
-              const response=await axios.post("/api/user/login",logindata)
-                  setShowSuccess(true); 
-                  setTimeout(() => {
-                    setShowSuccess(false);
-                  }, 3000);
-              navigate("/home")
-          } catch (error) {
-              console.log(error)
-              setShowError(true)    
-              setTimeout(() => {     
-                  setShowError(false);
-                  console.log("showError is false");
-              }, 3000);
-          } 
-
-          console.log(logindata)        
-
-          setloginData({
-            username:"",
-            password:""
-        })
-};
+        try {
+            const response=await axios.post("/api/user/login",logindata)
+                setShowSuccess(true); 
+                setTimeout(() => {
+                  setShowSuccess(false);
+                }, 3000);
+            navigate("/home")
+        } catch (error) {
+            console.log(error)
+            setShowError(true)    
+            setTimeout(() => {     
+                setShowError(false);
+                console.log("showError is false");
+            }, 3000);
+        }           
+        
+        console.log(logindata)        
+              
+                setloginData({
+                    username:"",
+                    password:""
+                })
+            }
+    
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 flex justify-center items-center px-6 sm:px-10 py-10 sm:py-2 relative">

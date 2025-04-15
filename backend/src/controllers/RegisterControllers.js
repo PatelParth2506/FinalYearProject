@@ -53,7 +53,7 @@ const register=asyncHandler(async(req,res)=>{
 
     const option={
         httpOnly:true,
-        secure:true
+        secure:false,
     }
 
     const createdUser=await User.findById(user._id).select("-password -refreshToken")
@@ -78,14 +78,16 @@ const login=asyncHandler(async(req,res)=>{
     console.log(passcheck)
 
     if(passcheck === false){ throw new ApiError(402,"Password Is Incorrect") }
-
+    console.log(usercheck._id)
+    
     const {refreshToken, accessToken}=await genrateAccessAndRefreshToken(usercheck._id)
     console.log(accessToken)
     const loginuser=await User.findById(usercheck._id).select("-password -refreshToken")
 
     const option={
         httpOnly:true,
-        secure:true
+        secure:false,
+        sameSite:'Lax'
     }
     return res.status(200)
               .cookie("AccessToken",accessToken,option)
@@ -293,7 +295,7 @@ const getalluser= asyncHandler(async(req,res)=>{
 
 export {
     register,
-    loginWithFormData as login,
+    login,
     logout,
     refreshTokenGenrate,
     changePassword,
