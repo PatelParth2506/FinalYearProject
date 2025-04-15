@@ -53,46 +53,45 @@ const Iconswithname = ({userID}) => {
   }
 
   return (
-
-    <div className='bg-slate-950 text-gray-100 overFlow loginForm font-sans w-[220px] h-[93vh] py-8 px-2 flex flex-col gap-y-7 justify-between items-start z-5 fixed sm:static md:relative overflow-auto'>
+    <div className='overFlow loginForm w-[220px] h-[93vh] py-8 px-2 flex flex-col gap-y-7 justify-between items-start z-5 fixed sm:static bg-white md:relative overflow-auto'>
 
       <div className='w-full flex flex-col cursor-pointer flex-2 justify-between gap-2'>
-        <div className='flex items-center gap-x-5 px-3 py-2 hover:bg-gray-100 hover:text-black rounded-md' onClick={() => { navigate("/home") }}>
+        <div className='flex items-center gap-x-5 px-3 py-2 hover:bg-gray-100 rounded-md' onClick={() => { navigate("/home") }}>
           <img src={home} alt="" className='w-6 h-6 ' />
           <span>Home</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={() => { navigate("/profilelayout") }}>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={() => { navigate("/profilelayout") }}>
           <img src={user} alt="" className='w-6 h-6 ' />
           <span>Profile</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md'>
           <img src={search} alt="" className='w-6 h-6 ' />
           <span>Search</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={()=>{navigate("/story")}}>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={()=>{navigate("/story")}}>
           <img src={reels} alt="" className='w-6 h-6 ' />
           <span>Stories</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={() => { navigate("/chatbox") }}>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={() => { navigate("/chatbox") }}>
           <img src={chat} alt="" className='w-6 h-6 ' />
           <span>Message</span>
         </div>
-
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={handleclick}>
+        
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={handleclick}>
           <img src={heart} alt="" className='w-6 h-6 ' />
           <span>{isBusiness?"Admin" : "Instruction"}</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md'>
           <img src={bookmark} alt="" className='w-6 h-6 ' />
           <span>Bookmarks</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={()=>{navigate("/store")}}>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={()=>{navigate("/store")}}>
           <img src={store} alt="" className='w-6 h-6 ' />
           <span>Store</span>
         </div>
@@ -101,12 +100,12 @@ const Iconswithname = ({userID}) => {
 
       <div className="w-full flex flex-1 items-end">
         <div className="w-full flex flex-col cursor-pointer gap-2">
-          <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md'>
+          <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md'>
             <img src={settings} alt="" className='w-6 h-6 ' />
             <span>Settings</span>
           </div>
 
-          <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 hover:text-black rounded-md' onClick={handlelogout}>
+          <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={handlelogout}>
             <img src={exit} alt="" className='w-6 h-6 ' />
             <span>Logout</span>
           </div>
