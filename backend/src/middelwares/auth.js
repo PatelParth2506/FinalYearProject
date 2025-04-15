@@ -5,6 +5,7 @@ import { User } from "../models/UserModel.js";
 
 
 export const auth=asyncHandler(async(req,res,next)=>{
+    console.log(req.cookies)
     try {
         const token=req.cookies.AccessToken || req.header("auth").replace("Bearer","");
         if(!token){

@@ -216,7 +216,7 @@ const emptyCart = asyncHandler(async(req,res)=>{
 
 const getCart = asyncHandler(async(req,res)=>{
     const cart = await Cart.find({buyer:req.user._id})
-                            .populate("productinfo","photo price description")
+                            .populate("productinfo","photo price description seller")
                             .populate("buyer","username profilePhoto")
                             .sort({createdAt:-1})
     if(!cart){ throw new ApiError(404,"No Product Found") }

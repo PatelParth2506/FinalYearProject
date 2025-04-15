@@ -24,7 +24,7 @@ const CartPage = () => {
   );
 
   const makePayment = async()=>{
-    const stripe=await loadStripe("pk_test_51R83AcJtik0TUV9rI3uvUj6qSHVoVx4RrX8Y4UuHo1MJIVoTVuCLSSOTFXfpKZCJ4xF4DDu5mjdtGd94uEN4qxTv00X42nePHw")
+    const stripe=await loadStripe("pk_test_51R83AxFQJFwT0MWobvjOOBo8yHXSoFGzSTxaq5N3uNS466Zx2FViMT2h1X1oYi4cuMvhMkk36x00rKw98ws4CAkl00kqCV3F7e")
     
     const response = await axios.post("/api/payment/checkout",cartItems,{
       withCredentials:true,
@@ -36,19 +36,12 @@ const CartPage = () => {
 
     const result = await stripe.redirectToCheckout({
       sessionId:session.data.id
-    })
-
-    if(result){
-      const resp= await axios.post("/api/product/createorder",{
-        
-      })
-    }
-
+    })     
+    console.log(result)
     if(result.error){
       console.log(result.error.message)
     }
   }
-
 
   if (cartItems.length === 0) {
     return (

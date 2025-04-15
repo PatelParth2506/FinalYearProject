@@ -11,6 +11,7 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { addUser, removeUser, getReceiverSocketId } from './utils/Scokets.js';
 import { Message } from './models/MessageModel.js';
+import { handleStripeWebhook } from './controllers/PaymentController.js';
 
 const app = express();
 const server = createServer(app);
@@ -22,22 +23,23 @@ const io = new Server(server, {
 });
 
 app.use(cors({
-    origin:'*',
+    origin: ['http://localhost:5173', 'https://cuddly-geese-guess.loca.lt'],
     credentials: true
 }));
+
+app.post('/api/payment/webhook',express.raw({type:'application/json'}),handleStripeWebhook)
 
 app.use(express.static("public"));
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(cookieParser());
 
+app.use("/api/payment", PaymentRoutes)
 app.use("/api/user", UserRoutes);
 app.use("/api/post", PostRoutes);
 app.use("/api/story", StoryRoutes);
 app.use("/api/message", MessageRoutes);
 app.use("/api/product", ProductRoutes);
-app.use("/api/payment", PaymentRoutes)
-
 
 io.on('connection', (socket) => {
     console.log('a user connected',socket.id);
