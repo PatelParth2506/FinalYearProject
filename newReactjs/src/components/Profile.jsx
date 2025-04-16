@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Chatbox from './Chatbox'
 import { useNavigate, useParams } from 'react-router-dom'
-import Iconswithname from './Iconswithname'
 import axios from 'axios'
 import emptyuser2 from '../../emptyuser2.jpeg'
 const Profile = ({userID}) => {
@@ -44,7 +43,7 @@ const Profile = ({userID}) => {
   return (
     <div className="overFlow w-full min-h-screen flex flex-col bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe]">
       <div className="overFlow w-full h-screen overflow-y-scroll">
-        <div className="bgEdit flex flex-col md:flex-row items-center justify-center gap-4 px-8 py-1 w-full h-auto md:h-[350px]">
+        <div className="BgEdit bg-gradient-to-tr from-blue-300 to-purple-400  flex flex-col md:flex-row items-center justify-center gap-4 px-8 py-1 w-full h-auto md:h-[350px]">
           <div
             id="inner"
             className="flex flex-col md:flex-row gap-2 md:gap-10 items-center md:bg-slate-100 rounded-xl px-8 py-6 w-full md:w-[500px]"
@@ -61,7 +60,7 @@ const Profile = ({userID}) => {
               <div className="flex flex-col md:flex-row gap-4 md:gap-9 items-center">
                 <h2 className="font-semibold">{profiledata.username}</h2>
                 {!userID && <button
-                  className="editProfile text-white hover:bg-blue-700 px-9 py-2 rounded-md bg-blue-500 transition duration-300"
+                  className="editProfile text-white hover:bg-blue-800 px-9 py-2 rounded-md bg-blue-600 transition duration-300"
                   onClick={() => navigate('/editprofilelayout')}
                 >
                   Edit profile
@@ -71,15 +70,15 @@ const Profile = ({userID}) => {
               {/* Stats */}
               <div className="flex justify-center md:justify-start gap-16 md:gap-16">
                 <div className="text-center">
-                  <h2 className="text-gray-500 font-semibold">Posts</h2>
-                  <h1 className="font-semibold">{post?.length}</h1>
+                  <h2 className="text-gray-900 font-normal">Posts</h2>
+                  <h1 className="font-semibold ">{post?.length}</h1>
                 </div>
                 <div className="text-center">
-                  <h2 className="text-gray-500 font-semibold">Followers</h2>
+                  <h2 className="text-gray-900 font-normal">Followers</h2>
                   <h1 className="font-semibold">{profiledata.followers?.length}</h1>
                 </div>
                 <div className="text-center">
-                  <h2 className="text-gray-500 font-semibold">Following</h2>
+                  <h2 className="text-gray-900 font-normal">Following</h2>
                   <h1 className="font-semibold">{profiledata.following?.length}</h1>
                 </div>
               </div>
