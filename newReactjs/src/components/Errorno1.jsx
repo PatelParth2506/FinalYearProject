@@ -23,7 +23,7 @@ const Errorno1 = () => {
         </div>
 
         <div className="text-sm sm:text-base text-gray-800 leading-snug">
-          <strong className="text-red-600">Password Alert:</strong> Must include <span className="font-semibold text-red-500">letters, digits, underscores</span> and <span className="font-semibold text-red-500">special characters</span>.
+          <strong className="text-red-600">Password Alert:</strong> Must include <span className="font-semibold text-red-500">letters, digits, underscores</span> and <span className="font-semibold text-red-500">special characters</span>..
         </div>
       </div>
     </div>
