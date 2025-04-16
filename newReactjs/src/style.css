@@ -493,11 +493,6 @@ body::-webkit-scrollbar {
     background-size: cover;
 }
 
-.bgEdit{
-    background-image: url('bg5.jpg');
-    background-size: cover;
-}
-
 .bio-text {
     display: -webkit-box;
     /* -webkit-line-clamp: 2; */
@@ -511,10 +506,13 @@ body::-webkit-scrollbar {
     cursor: pointer;
 }
 
-@media(max-width:768px){
-    .bgEdit{
-         background:rgb(190, 235, 255,0.3); 
-    }
+@media(min-width:768px){
+    
+.BgEdit{
+    background-image: url('bg5.jpg');
+    background-size: cover;
+}
+
 }
 
 /* 
@@ -533,4 +531,3 @@ body::-webkit-scrollbar {
     animation: fade-slide 0.4s ease-out; 
   } 
    */
-
