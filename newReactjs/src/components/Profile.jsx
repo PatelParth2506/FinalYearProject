@@ -48,7 +48,7 @@ const Profile = ({userID}) => {
             id="inner"
             className="flex flex-col md:flex-row gap-2 md:gap-10 items-center md:bg-slate-100 rounded-xl px-8 py-6 w-full md:w-[500px]"
           >
-            <div className="md:ml-[-150px] w-40 h-40 rounded-full overflow-hidden border-4 border-blue-900 ">
+            <div className="md:ml-[-150px] w-36 h-36 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-blue-900 ">
               <img
                 src={profiledata.profilePhoto || emptyuser2}
                 alt="Profile"
@@ -68,36 +68,43 @@ const Profile = ({userID}) => {
               </div>
 
               {/* Stats */}
-              <div className="flex justify-center md:justify-start gap-16 md:gap-16">
-                <div className="text-center">
-                  <h2 className="text-gray-900 font-normal">Posts</h2>
-                  <h1 className="font-semibold ">{post?.length}</h1>
-                </div>
-                <div className="text-center">
-                  <h2 className="text-gray-900 font-normal">Followers</h2>
-                  <h1 className="font-semibold">{profiledata.followers?.length}</h1>
-                </div>
-                <div className="text-center">
-                  <h2 className="text-gray-900 font-normal">Following</h2>
-                  <h1 className="font-semibold">{profiledata.following?.length}</h1>
-                </div>
-              </div>
+              <div className="flex justify-center md:justify-start gap-8 md:gap-16">
+  <div className="text-center">
+    <h2 className="text-gray-900 font-normal text-sm md:text-base">Posts</h2>
+    <h1 className="font-semibold text-base md:text-lg">{post?.length}</h1>
+  </div>
+  <div className="text-center">
+    <h2 className="text-gray-900 font-normal text-sm md:text-base">Followers</h2>
+    <h1 className="font-semibold text-base md:text-lg">{profiledata.followers?.length}</h1>
+  </div>
+  <div className="text-center">
+    <h2 className="text-gray-900 font-normal text-sm md:text-base">Following</h2>
+    <h1 className="font-semibold text-base md:text-lg">{profiledata.following?.length}</h1>
+  </div>
+</div>
 
-                <div>
-                  <h1 className='font-semibold'>DISHANT</h1>
 
-                  <div>
-                          {showFullBio ? (
-                             <p>{profiledata.bio}</p>
-                            ) : (
-                              <p className="bio-text whitespace-pre-wrap">{profiledata.bio}</p>
-                            )}
+              <div className="px-4 md:px-0">
+  <h1 className="font-semibold text-lg md:text-xl">DISHANT</h1>
 
-                         <button className="read-more-btn" onClick={() => setShowFullBio(!showFullBio)}>
-                         {showFullBio ? 'Show less' : 'Read more'}
-                          </button>
-                      </div>
-                    </div>
+  <div className="mt-1 md:mt-2">
+    {showFullBio ? (
+      <p className="text-sm md:text-base whitespace-pre-wrap">{profiledata.bio}</p>
+    ) : (
+      <p className="text-sm md:text-base bio-text whitespace-pre-wrap line-clamp-2">{profiledata.bio}</p>
+    )}
+
+    <button
+      className="mt-1 text-gray-500 text-sm md:text-base font-medium focus:outline-none"
+      onClick={() => setShowFullBio(!showFullBio)}
+    >
+      {showFullBio ? 'Show less' : 'Read more'}
+    </button>
+  </div>
+</div>
+
+
+
                 </div>
               </div>
             </div>
