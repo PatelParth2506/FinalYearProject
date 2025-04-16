@@ -4,10 +4,9 @@ import axios from "axios";
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
   const response = await axios.get("/api/product/getAllProduct");
   console.log(response.data.data)
-  return response.data.data;
+  const ramndomproducts = response.data.data.sort(()=>Math.random()-0.5)
+  return ramndomproducts;
 });
-
-
 const initialState = {
   items: [],
   filteredItems: [],

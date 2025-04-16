@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Iconswithname from './Iconswithname';
+import { FaCamera, FaSave } from 'react-icons/fa';
 
-const Editprofile = () => {
-  const [name,setName]= useState("");
-  const [username,setUsername]= useState("")
-  const [bio, setBio] = useState("");
+const EditProfile = () => {
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [bio, setBio] = useState('');
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handlesubmit=async()=>{
     if(!name && !username && !bio){
@@ -32,69 +32,93 @@ const Editprofile = () => {
   }
 
   return (
-    <div className='flex'>
-      <Iconswithname />
+    <div className="min-h-screen bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe] flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-y-auto">
+      <div className="w-full max-w-md bg-white border border-blue-100 rounded-3xl shadow-2xl p-6 relative transition-all duration-300">
 
-    <div className='bgimage2 w-screen h-screen p-10 flex flex-col justify-center items-center '>
-    <div className='relative w-auto h-auto bg-white p-6 rounded-3xl loginForm'>
-    <h1 className='absolute top-[-25px] text-2xl font-medium bg-sky-200 px-14 py-2 rounded-lg text-blue-950'>Edit profile</h1>
-
-
-    <div className='flex items-center flex-col gap-3 py-5'>
-        <div className='w-20 h-20 rounded-full overflow-hidden'>
-            <img src="man2.jpg" alt="" className='w-full h-full object-cover'/>     
+        {/* Profile Image */}
+        <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">
+          <div className="relative w-28 h-28 rounded-full overflow-hidden border-4 border-white shadow-md">
+            <img
+              src="man2.jpg"
+              alt="Profile"
+              className="w-full h-full object-cover"
+            />
+            <button
+              onClick={() => { navigate('/photo', { state: { from: 'editprofile' } }) }}
+              className="absolute bottom-0 right-0 bg-blue-600 text-white p-1.5 rounded-full shadow-md hover:scale-110 transition"
+              title="Change Photo"
+            >
+              <FaCamera className="text-xl" />
+            </button>
+          </div>
         </div>
-        <h2 className='text-lg font-semibold text-blue-900' onClick={()=>{ navigate("/photo",{state:{from:"editprofile"}})  }}>Edit picture or profile</h2>
-     </div>
 
- <div className='flex flex-col gap-5'>
-   <div className='relative'>
-     <input type="text" value={name} onChange={(e)=>setName(e.target.value)} className="px-4 pt-6 pb-2 w-[400px] rounded-md bg-transparent border-[1px] border-gray-400"/>
-     <label className='absolute top-1 left-4 text-gray-500'>Name</label>
-   </div>
+        {/* Header */}
+        <div className="mt-14 text-center">
+          <h2 className="text-2xl font-bold text-blue-600">Edit Profile</h2>
+          <p className="text-sm text-gray-500">Keep your info up to date</p>
+        </div>
 
-          <div className='relative'>
-            <input type="text"  value={username} onChange={(e)=>setUsername(e.target.value)} className="px-3 pt-5 pb-1 w-full rounded-md bg-transparent border border-gray-400 text-md" />
-            <label className='absolute top-1 left-3 text-gray-500 text-sm'>Username</label>
+        {/* Form */}
+        <div className="mt-6 space-y-3 text-sm">
+          <div>
+            <label className="block text-gray-700 mb-1">Full Name</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Your name"
+              className="w-full px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
+            />
           </div>
 
-          <div className='relative'>
+          <div>
+            <label className="block text-gray-700 mb-1">Username</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="@username"
+              className="w-full px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-700 mb-1">Bio</label>
             <textarea
-              maxLength={150}
-              className="resize-none px-3 pt-5 pb-1 w-full rounded-md bg-transparent border border-gray-400 text-md"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               value={bio}
               onChange={(e) => setBio(e.target.value)}
+              maxLength={150}
+              rows={3}
+              placeholder="Write a short bio..."
+              className="w-full resize-none px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
             />
-            <p className="text-gray-500 z-10 text-sm absolute top-1 right-[-1px]">{bio.length} / 150</p>
-            <label className='absolute top-1 left-3 text-gray-500 text-sm bg-white block w-full'>Bio</label>
+            <p className="text-xs text-right text-gray-400">{bio.length}/150</p>
           </div>
-   <div className='relative'>
-   <textarea maxLength={150}
-     type="text" value={bio} onChange={(e)=>setBio(e.target.value)} className="resize-none px-4 pt-6 pb-2 w-[400px] rounded-md bg-transparent border-[1px] border-gray-400" style={{scrollbarWidth: 'none',msOverflowStyle: 'none'}}/>
-  <p className="text-gray-500 text-sm absolute top-1 z-20 right-3">{bio.length} / 150</p>
 
-  <label className='w-[380px] absolute top-1 left-4 z-10 text-gray-500 bg-white'>Bio</label>
-  </div>
+          <div>
+            <label className="block text-gray-700 mb-1">Gender</label>
+            <select className="w-full px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin">
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Custom">Custom</option>
+              <option value="Not">Prefer not to say</option>
+            </select>
+          </div>
 
-  <div className='relative'>
-     <select className='px-4 pt-7 pb-2 w-[400px] rounded-md  bg-transparent border-[1px] border-gray-400'>
-         <option value="Male">Male</option>
-         <option value="Female">Female</option>
-         <option value="Custom">Custom</option>
-         <option value="Not">Prefer not to say</option>
-     </select>
-     <label className='absolute top-1 left-4 text-gray-500'>Gender</label>
-   </div>
-
-
-
-     <input className='bg-blue-500 text-white px-4 py-4 rounded-md text-xl font-bold' type="submit" value="Save"  onClick={handlesubmit}/>
-        </div>    
+          <button
+            onClick={handlesubmit}
+            className="w-full flex items-center justify-center gap-2 mt-2 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition shadow-md"
+            title="Save your changes"
+          >
+            <FaSave />
+            Save Changes
+          </button>
+        </div>
       </div>
     </div>
-  </div>
   );
-}
+};
 
-export default Editprofile;
+export default EditProfile;
