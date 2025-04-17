@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import Chatbox from './Chatbox'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import emptyuser2 from '../../emptyuser2.jpeg'
 import profile from "../assets/profile.png"
@@ -57,10 +58,13 @@ const Profile = ({ userID }) => {
   }
 
   return (
-    <div className="overFlow w-full h-screen flex flex-col bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe]">
+    <div className="overFlow w-full min-h-screen flex flex-col bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe]">
       <div className="overFlow w-full h-screen overflow-y-scroll">
-        <div className="bgEdit flex flex-col md:flex-row items-center justify-center gap-4 px-8 py-1 w-full h-auto md:h-[350px]">
-          <div className="flex flex-col md:flex-row gap-2 md:gap-10 items-center md:bg-slate-100 rounded-xl px-8 py-6 w-full md:w-[500px]">
+        <div className="BgEdit bg-gradient-to-tr from-blue-300 to-purple-400  flex flex-col md:flex-row items-center justify-center gap-4 px-8 py-1 w-full h-auto md:h-[350px]">
+          <div
+            id="inner"
+            className="flex flex-col md:flex-row gap-2 md:gap-10 items-center md:bg-slate-100 rounded-xl px-8 py-6 w-full md:w-[500px]"
+          >
             <div className="md:ml-[-150px] w-40 h-40 rounded-full overflow-hidden border-4 border-blue-900 ">
               <img
                 src={profiledata.profilePhoto || emptyuser2}
@@ -80,12 +84,13 @@ const Profile = ({ userID }) => {
                     Edit profile
                   </button>
                 )}
+
               </div>
 
               <div className="flex justify-center md:justify-start gap-16 md:gap-16">
                 <div className="text-center">
-                  <h2 className="text-gray-500 font-semibold">Posts</h2>
-                  <h1 className="font-semibold">{post?.length}</h1>
+                  <h2 className="text-gray-900 font-normal">Posts</h2>
+                  <h1 className="font-semibold ">{post?.length}</h1>
                 </div>
                 <div className="text-center cursor-pointer" onClick={() => handleShowUserList('followers')}>
                   <h2 className="text-gray-500 font-semibold">Followers</h2>
@@ -93,6 +98,7 @@ const Profile = ({ userID }) => {
                 </div>
                 <div className="text-center cursor-pointer" onClick={() => handleShowUserList('following')}>
                   <h2 className="text-gray-500 font-semibold">Following</h2>
+
                   <h1 className="font-semibold">{profiledata.following?.length}</h1>
                 </div>
               </div>

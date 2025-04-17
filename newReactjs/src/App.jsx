@@ -21,7 +21,7 @@ import ProfileLayout from "./components/ProfileLayout.jsx"
 import Navbar from "./components/Navbar.jsx"
 import StoryLayout from "./components/StoryLayout.jsx"
 import EditprofileLayout from "./components/EditprofileLayout.jsx"
-import Home from"./components/AdminComponent/Home.jsx"
+import Home from "./components/AdminComponent/Home.jsx"
 import Inventory from "./components/AdminComponent/Inventory.jsx"
 import CURD from "./components/AdminComponent/CURD.jsx"
 import AddProduct from "./components/AdminComponent/AddProduct.jsx"
@@ -56,43 +56,43 @@ const Layout = ({ children }) => {
 const App = () => {
   return (
     <Provider store={store}>
-   <BrowserRouter>
-      <Layout>
-      <Routes>
-          <Route path="/"  element={<Signup />} />
-          <Route path="/login"  element={<Login />} />
-          <Route path="/home"  element={<HomeLayout />} />
-          <Route path="/chatleftpart"  element={<ChatLeft />} />
-          <Route path="/chatrightempty"  element={<Chatrightempty />} />
-          <Route path="/story"  element={<StoryLayout />} />
-          <Route path="/chatbox"  element={<Chatbox />} />
-          <Route path="/chatrightpart"  element={<ChatRight />} />
-          <Route path="/profilelayout/:userID?"  element={<ProfileLayout />} />
-          <Route path="/editprofilelayout"  element={<EditprofileLayout />} />
-          <Route path="/photo"  element={<Photo />} />
-          <Route path="/loader"  element={<Loader />} />
-          <Route path="/store" element={<StoreHome />} />
-          <Route path="/store/product/:id" element={<ProductDetails />} />
-          <Route path="/store/cart" element={<CartPage />} />
-          <Route path="/success" element={<PaymentSuccess/>}/>
-          <Route path="/cancel" element={<PaymentCancel/>}/>
-          <Route path="/getallpost/:userID/:postID" element={<HomeLayout/>}/>
-          <Route path="/storeadmin/home" element={<Home/>}/>
-          <Route path="/storeadmin/inventory" element={<Inventory/>}/>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/home" element={<HomeLayout />} />
+            <Route path="/chatleftpart" element={<ChatLeft />} />
+            <Route path="/chatrightempty" element={<Chatrightempty />} />
+            <Route path="/story" element={<StoryLayout />} />
+            <Route path="/chatbox" element={<Chatbox />} />
+            <Route path="/chatrightpart" element={<ChatRight />} />
+            <Route path="/profilelayout/:userID?" element={<ProfileLayout />} />
+            <Route path="/editprofilelayout" element={<EditprofileLayout />} />
+            <Route path="/photo" element={<Photo />} />
+            <Route path="/loader" element={<Loader />} />
+            <Route path="/store" element={<StoreHome />} />
+            <Route path="/store/product/:id" element={<ProductDetails />} />
+            <Route path="/store/cart" element={<CartPage />} />
+            <Route path="/success" element={<PaymentSuccess />} />
+            <Route path="/cancel" element={<PaymentCancel />} />
+            <Route path="/getallpost/:userID/:postID" element={<HomeLayout />} />
+            <Route path="/storeadmin/home" element={<Home />} />
+            <Route path="/storeadmin/inventory" element={<Inventory />} />
 
-          <Route path="/admin" element={<Home/>}/>
-          <Route path="/admin/inventory" element={<Inventory/>}/>
-          <Route path="/admin/Customers" element={<Customers/>}/>
-          <Route path="/admin/Orders" element={<Orders/>}/>
-          <Route path="/admin/updateProducts" element={<AddProducts/>}/>
-          <Route path="/admin/updateProducts/product" element={<CURD/>}/>
-          <Route path="/admin/addProduct" element={<AddProduct/>}/>
+            <Route path="/admin" element={<Home />} />
+            <Route path="/admin/inventory" element={<Inventory />} />
+            <Route path="/admin/Customers" element={<Customers />} />
+            <Route path="/admin/Orders" element={<Orders />} />
+            <Route path="/admin/updateProducts" element={<AddProducts />} />
+            <Route path="/admin/updateProducts/product" element={<CURD />} />
+            <Route path="/admin/addProduct" element={<AddProduct />} />
 
-       </Routes>
-      </Layout>
-       
-   </BrowserRouter>
-  </Provider>
+          </Routes>
+        </Layout>
+
+      </BrowserRouter>
+    </Provider>
   );
 }
 
