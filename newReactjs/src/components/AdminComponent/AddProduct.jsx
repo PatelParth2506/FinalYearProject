@@ -87,9 +87,9 @@ const AddProduct = () => {
 
   return (
     // <div className="w-full flex justify-center min-h-full bg-gray-900 mt-2">
-    <div className="w-full mt-5 h-[90vh] flex justify-between items-start gap-4">
-      <RightSideNavigation />
-      <div className="w-[620px] min-h-fit px-10 pt-7 pb-5 rounded-lg bg-white mb-5">
+     <div className="w-full mt-5 h-[90vh] flex justify-between items-start gap-4">
+       <RightSideNavigation />
+      <div className="w-[620px] min-h-fit px-10 pt-7 pb-5 rounded-lg bg-white mb-5  ">
         <div className="flex justify-center items-center mb-2">
           <h1 className="text-2xl font-medium text-gray-700">Add Product</h1>
         </div>

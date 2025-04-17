@@ -67,8 +67,7 @@ const register=asyncHandler(async(req,res)=>{
 const login=asyncHandler(async(req,res)=>{
     console.log(req.body)
     const { username, password } = req.body;
-    console.log(req.body)
-    if(!username) throw new ApiError(404,"UserName Is Empty")
+    if(!username) throw new ApiError(404,"Username Is Empty")
     if(!password) throw new ApiError(404,"Password Is Empty")
     const usercheck=await User.findOne({username})
     console.log(usercheck)

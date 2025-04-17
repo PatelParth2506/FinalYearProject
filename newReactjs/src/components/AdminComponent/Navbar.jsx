@@ -28,33 +28,38 @@ const Navbar = () => {
           </button>
         </div>
         <ul className="w-full h-auto px-1 mt-5">
-          <Link to={"/"} onClick={() => setIsOpen(false)}>
+          <Link to={"/admin"} onClick={() => setIsOpen(false)}>
             <li className="h-14 w-full flex items-center pl-4 hover:bg-gray-600 cursor-pointer border my-2 rounded-md font-sbold text-xl transition-all hover:text-white">
               Dashboard
             </li>
           </Link>
-          <Link to={"/Customers"} className="w-full" onClick={() => setIsOpen(false)}>
+          <Link to={"/admin/Customers"} className="w-full" onClick={() => setIsOpen(false)}>
             <li className="h-14 w-full flex items-center pl-4 hover:bg-gray-600 cursor-pointer border my-2 rounded-md font-sbold text-xl transition-all hover:text-white">
               Customers
             </li>
           </Link>
-          <Link to={"/UpdateProducts"} className="w-full" onClick={() => setIsOpen(false)}>
+          <Link to={"/home"} className="w-full" onClick={() => setIsOpen(false)}>
+            <li className="h-14 w-full flex items-center pl-4 hover:bg-gray-600 cursor-pointer border my-2 rounded-md font-sbold text-xl transition-all hover:text-white">
+              Home
+            </li>
+          </Link>
+          <Link to={"/admin/UpdateProducts"} className="w-full" onClick={() => setIsOpen(false)}>
             <li className="h-14 w-full flex items-center pl-4 hover:bg-gray-600 cursor-pointer border my-2 rounded-md font-sbold text-xl transition-all hover:text-white">
               Update Products
             </li>
           </Link>
-          <Link to={"/addProducts"} className="w-full" onClick={() => setIsOpen(false)}>
+          <Link to={"/admin/addProduct"} className="w-full" onClick={() => setIsOpen(false)}>
             <li className="h-14 w-full flex items-center pl-4 hover:bg-gray-600 cursor-pointer border my-2 rounded-md font-sbold text-xl transition-all hover:text-white">
               Add Products
             </li>
           </Link>
-          <Link to={"/Inventory"} className="w-full" onClick={() => setIsOpen(false)}>
+          <Link to={"/admin/Inventory"} className="w-full" onClick={() => setIsOpen(false)}>
             <li className="h-14 w-full flex items-center pl-4 hover:bg-gray-600 cursor-pointer border my-2 rounded-md font-sbold text-xl transition-all hover:text-white">
               Inventory
             </li>
           </Link>
 
-          <Link to={"/Orders"} className="w-full" onClick={() => setIsOpen(false)}>
+          <Link to={"/admin/Orders"} className="w-full" onClick={() => setIsOpen(false)}>
             <li className="h-14 w-full flex items-center pl-4 hover:bg-gray-600 cursor-pointer border my-2 rounded-md font-sbold text-xl transition-all hover:text-white">
               Orders
             </li>

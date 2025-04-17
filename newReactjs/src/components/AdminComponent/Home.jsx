@@ -10,7 +10,6 @@ import RightSideNavigation from "./RightSideNavigation";
 const Home = () => {
   return (
     <>
-      <Navbar />
       <div className=" mt-5 h-[90vh] flex w-screen items-start gap-4">
         {/* Left-Section */}
         <RightSideNavigation />

@@ -67,9 +67,20 @@ const getViewersofStory=asyncHandler(async(req,res)=>{
     )
 })
 
+const getCurrentUserStory = asyncHandler(async(req,res)=>{
+    const user = await Story.find({owner:req.user._id})
+    .populate("owner","username profilePhoto")  
+    .sort({createdAt:-1})
+    if(!user){ throw new ApiError(404,"User Not Found") }
+    res.status(200).json(
+        new ApiResponse(200,user,"User Story Fetched Successfully")
+    )
+})
+
 export {
     createStory,
     getFolloingStory,
     deleteStory,
-    getViewersofStory
+    getViewersofStory,
+    getCurrentUserStory
 }
