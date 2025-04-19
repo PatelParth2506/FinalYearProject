@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Chatbox from './Chatbox'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
-import emptyuser2 from '../../emptyuser2.jpeg'
 import profile from "../assets/profile.png"
 import bookmark from "../assets/bookmark.png"
 
 const Profile = ({ userID }) => {
-
   const navigate = useNavigate()
   const [profiledata, setProfileData] = useState({})
   const [post, setPost] = useState([])
@@ -67,7 +65,7 @@ const Profile = ({ userID }) => {
           >
             <div className="md:ml-[-150px] w-40 h-40 rounded-full overflow-hidden border-4 border-blue-900 ">
               <img
-                src={profiledata.profilePhoto || emptyuser2}
+                src={profiledata.profilePhoto}
                 alt="Profile"
                 className="object-cover w-full h-full"
               />
@@ -158,7 +156,7 @@ const Profile = ({ userID }) => {
               {userList.map((user) => (
                 <div key={user._id} className="flex items-center justify-between gap-3 py-2 border-b">
                   <div className="flex gap-3 items-center">
-                    <img src={user.profilePhoto || emptyuser2} alt="user" className="w-10 h-10 rounded-full object-cover" />
+                    <img src={user.profilePhoto} alt="user" className="w-10 h-10 rounded-full object-cover" />
                     <div>
                       <h3 className="font-semibold">{user.username}</h3>
                       <p className="text-sm text-gray-500">{user.fullname}</p>
