@@ -75,7 +75,7 @@ const Login = () => {
               }}
               type="text"
               placeholder="Email or username"
-              className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
+              className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400  text-black placeholder:font-thin"
             />
 
             <input
@@ -88,7 +88,7 @@ const Login = () => {
               }}
               type="password"
               placeholder="Password"
-              className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
+              className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 text-black placeholder:font-thin"
             />
 
             <input
