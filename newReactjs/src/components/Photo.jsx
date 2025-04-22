@@ -4,13 +4,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { UploadCloud } from "lucide-react";
 import { gsap } from "gsap";
 import image from "../assets/beech.jpg"
+import emptyUser from "../assets/emptyuser2.jpeg"
 
 const Photo = () => {
     const navigate = useNavigate();
     const location = useLocation();
     console.log(location.state)
     const [selectedFile, setSelectedFile] = useState(null);
-    const [imageUrl, setImageUrl] = useState("emptyuser2.jpeg");
+    const [imageUrl, setImageUrl] = useState(emptyUser);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
