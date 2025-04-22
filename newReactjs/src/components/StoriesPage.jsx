@@ -116,7 +116,7 @@ export default function StoriesPage() {
           <p className="text-[15px] text-gray-900 font-semibold mb-2 hidden sm:block">Your story</p>
           <div className="min-w-[120px] flex items-center justify-between gap-x-3 sm:mb-1 sm:hover:bg-gray-100 p-1 px-2 rounded flex-col sm:flex-row">
             <div className="w-full flex items-center gap-x-3 flex-col sm:flex-row text-center sm:text-left">
-              <img src={CurrentUser?.profilePhoto} alt="" className="w-[60px] h-[60px] rounded-full object-cover border-2 border-[#2B6EA0] p-[2px]" />
+              <img src={CurrentUser?.profilePhoto} alt="" className="w-[60px] h-[60px] rounded-full object-cover aspect-square border-2 border-[#2B6EA0] p-[2px]" />
               <div className="w-full overflow-hidden">
                 <p className="font-medium truncate text-[#1d4f75] max-w-[140px] sm:max-w-[200px]">{CurrentUser?.username}</p>
                 <p className="text-xs text-gray-500 truncate max-w-[100px] sm:max-w-[160px] hidden sm:block">Add your story</p>
@@ -148,7 +148,7 @@ export default function StoriesPage() {
               {/* dynamic this div  */}
               {storiesData.map((story, index) => (
                 <div key={story._id} className={`min-w-[88px] sm:min-w-full flex items-center gap-x-3 sm:mb-1 cursor-pointer p-1 px-2 rounded flex-col sm:flex-row text-center sm:text-left transition-all duration-200 ${currentIndex === index ? 'sm:bg-[#e5f3ff] sm:border-l-4 sm:border-[#2B6EA0]' : 'hover:bg-gray-100'}`} onClick={() => setCurrentIndex(index)}>
-                  <img src={story.owner?.profilePhoto || dp1} alt="" className="w-[60px] h-[60px] sm:w-[65px] sm:h-[65px] object-cover rounded-full border-2 border-[#2B6EA0] p-[2px] flex-shrink-0" />
+                  <img src={story.owner?.profilePhoto || dp1} alt="" className="w-[60px] h-[60px] sm:w-[65px] sm:h-[65px] object-cover aspect-square rounded-full border-2 border-[#2B6EA0] p-[2px] flex-shrink-0" />
                   <div className="w-full overflow-hidden">
                     <p className="font-medium truncate">{story.owner?.username || "Unknown User"}</p>
                     <p className="text-xs text-gray-500 truncate">{dayjs(story.createdAt).fromNow()}</p>
@@ -198,7 +198,7 @@ export default function StoriesPage() {
               <img src={storiesData[currentIndex]?.photo} alt="current" className="w-full h-full object-cover rounded-xl" />
               <div className="gradientBgStory absolute top-0 left-0 w-full flex justify-between items-center p-4">
                 <div className="flex items-center gap-x-3">
-                  <img src={storiesData[currentIndex]?.owner.profilePhoto} alt="user" className="w-12 h-12 rounded-full border border-white" />
+                  <img src={storiesData[currentIndex]?.owner.profilePhoto} alt="user" className="w-14 h-14 rounded-full object-cover aspect-square border-2 border-white" />
                   <div>
                     <p className="text-white font-medium">{storiesData[currentIndex]?.owner.username}</p>
                     <p className="text-xs text-gray-200">{dayjs(storiesData[currentIndex]?.createdAt).fromNow()}</p>
