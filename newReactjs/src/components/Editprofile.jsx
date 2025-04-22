@@ -32,7 +32,7 @@ const EditProfile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe] flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-y-auto">
+    <div className="min-h-screen bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe] flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-y-auto py-20">
       <div className="w-full max-w-md bg-white border border-blue-100 rounded-3xl shadow-2xl p-6 relative transition-all duration-300">
 
         {/* Profile Image */}
@@ -40,7 +40,6 @@ const EditProfile = () => {
           <div className="relative w-28 h-28 rounded-full overflow-hidden border-4 border-white shadow-md">
             <img
               src="man2.jpg"
-              alt="Profile"
               className="w-full h-full object-cover"
             />
             <button
@@ -68,7 +67,7 @@ const EditProfile = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your name"
-              className="w-full px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
+              className="w-full px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 placeholder:font-normal"
             />
           </div>
 
@@ -79,7 +78,7 @@ const EditProfile = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="@username"
-              className="w-full px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
+              className="w-full px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 placeholder:font-normal"
             />
           </div>
 
@@ -91,14 +90,14 @@ const EditProfile = () => {
               maxLength={150}
               rows={3}
               placeholder="Write a short bio..."
-              className="w-full resize-none px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
+              className="w-full resize-none px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 placeholder:font-normal"
             />
             <p className="text-xs text-right text-gray-400">{bio.length}/150</p>
           </div>
 
           <div>
             <label className="block text-gray-700 mb-1">Gender</label>
-            <select className="w-full px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin">
+            <select className="w-full px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 placeholder:font-normal">
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -109,7 +108,7 @@ const EditProfile = () => {
 
           <button
             onClick={handlesubmit}
-            className="w-full flex items-center justify-center gap-2 mt-2 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition shadow-md"
+            className="w-full flex items-center justify-center gap-2 mt-2 py-3 bg-blue-600 text-white font-normal rounded-xl hover:bg-blue-700 transition shadow-md"
             title="Save your changes"
           >
             <FaSave />
