@@ -94,12 +94,12 @@ const Login = () => {
             <input
               type="submit"
               value="Log in"
-              className="bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-200 shadow-lg w-full"
+              className="bg-blue-600 text-white py-3 rounded-xl font-normal hover:bg-blue-700 transition-all duration-200 shadow-lg w-full"
             />
 
             <p className="text-sm text-center text-gray-500">
               Don’t have an account?{" "}
-              <Link to="/" className="text-blue-600 font-semibold hover:underline">
+              <Link to="/" className="text-blue-600 font-normal hover:underline">
                 Sign up
               </Link>
             </p>
