@@ -15,6 +15,7 @@
     "@tailwindcss/vite": "^4.0.3",
     "axios": "^1.7.9",
     "chart.js": "^4.4.9",
+    "dayjs": "^1.11.13",
     "gsap": "^3.12.7",
     "lucide": "^0.485.0",
     "lucide-react": "^0.486.0",
