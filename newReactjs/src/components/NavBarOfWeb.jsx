@@ -81,7 +81,7 @@ function NavBarOfWeb({ toggleMenu }) {
       <nav className="w-full bg-white p-2 flex justify-between items-center px-[1%]">
         <div className="flex-[2] flex justify-start items-center">
           <button onClick={() => setShowHamburger(!showHamburger)} className="outline-none">
-            <img src={instagram} alt="Logo" className="w-8 h-8"/>
+            <img src={instagram} alt="Logo" className="w-8 h-8" />
           </button>
           <p className="text-[#2B6EA0] font-medium text-xl pl-2 font-sans">ConnectMe</p>
         </div>
@@ -129,7 +129,9 @@ function NavBarOfWeb({ toggleMenu }) {
 
       {/* Conditionally render the Hamburger Menu */}
       {showHamburger && (
-        <Iconswithname/>
+        <div className="fixed top-11 left-0 sm:hidden"> 
+          <Iconswithname />
+        </div>
       )}
     </div>
   );
