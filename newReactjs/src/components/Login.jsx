@@ -59,13 +59,13 @@ const Login = () => {
 
       <div className="max-w-4xl md:h-[450px] min-h-[400px] bg-white/30 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 transition-all">
        
-        <div className="w-full p-8 md:p-7 flex flex-col justify-center gap-4 sm:gap-5 bg-white/70">
+        <div className="w-full p-5 md:p-7 flex flex-col justify-center gap-4 sm:gap-5 bg-white/70">
           <h2 className="text-3xl sm:text-4xl font-bold text-blue-600 text-center">Login</h2>
-          <p className="text-sm sm:text-base text-center text-gray-500 mb-4">Glad to see you again!</p>
+          <p className="text-sm sm:text-base text-center text-gray-500 md:mb-4 mb-2">Glad to see you again!</p>
 
           <form onSubmit={(e)=>{
             loginData(e)
-          }} className="space-y-4">
+          }} className="md:space-y-4 space-y-3.5">
             <input value={logindata.username}
               onChange={(e) => {
                 setloginData({ 
@@ -94,12 +94,12 @@ const Login = () => {
             <input
               type="submit"
               value="Log in"
-              className="bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-200 shadow-lg w-full"
+              className="bg-blue-600 text-white py-3 rounded-xl font-normal hover:bg-blue-700 transition-all duration-200 shadow-lg w-full"
             />
 
             <p className="text-sm text-center text-gray-500">
               Don’t have an account?{" "}
-              <Link to="/" className="text-blue-600 font-semibold hover:underline">
+              <Link to="/" className="text-blue-600 font-normal hover:underline">
                 Sign up
               </Link>
             </p>

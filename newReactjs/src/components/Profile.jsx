@@ -89,7 +89,7 @@ const Profile = ({ userID }) => {
               </div>
 
                 <div>
-                  <h1 className='font-semibold'>DISHANT</h1>
+                  <h1 className='font-semibold'></h1>
 
                   <div>
                           {showFullBio ? (

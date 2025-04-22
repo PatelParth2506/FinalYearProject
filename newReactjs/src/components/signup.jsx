@@ -122,10 +122,10 @@ const Signup = () => {
      
         <form onSubmit={(e)=>{
                 signUpData(e)
-            }}  className="w-full p-8 md:p-7 flex flex-col justify-center gap-4 sm:gap-5 bg-white/70"
+            }}  className="w-full p-5 md:p-7 flex flex-col justify-center gap-y-3.5 sm:gap-5 bg-white/70"
         >
          <h2 className="text-3xl sm:text-4xl font-bold text-blue-600 text-center">Create Your Account</h2>
-         <p className="text-sm sm:text-base text-center text-gray-500 mb-4">Welcome! Join us and start your journey.</p>
+         <p className="text-sm sm:text-base text-center text-gray-500 md:mb-4 mb-2">Welcome! Join us and start your journey.</p>
 
           <input
             value={email}
@@ -198,12 +198,12 @@ const Signup = () => {
 
           <input
             type="submit" value="Sign Up"
-            className="mt-2 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-200 shadow-lg"
+            className="mt-2 bg-blue-600 text-white py-3 rounded-xl font-normal hover:bg-blue-700 transition-all duration-200 shadow-lg"
           />
           
           <p className="text-sm text-center text-gray-500 mt-2">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-600 font-semibold hover:underline">Login</Link>
+            <Link to="/login" className="text-blue-600 font-normal hover:underline">Login</Link>
           </p>
 
           <p className="text-sm text-center text-gray-400 mt-4">
