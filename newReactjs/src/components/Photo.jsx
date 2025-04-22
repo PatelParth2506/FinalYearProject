@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UploadCloud } from "lucide-react";
 import { gsap } from "gsap";
+import image from "../assets/beech.jpg"
 
 const Photo = () => {
     const navigate = useNavigate();
@@ -85,7 +86,7 @@ const Photo = () => {
 
                 <div className="z-10 text-center px-10 animate-fade-in-up text-anim">
                     <img
-                        src="beech.jpg"
+                        src={image}
                         alt="Foreigners on a Beach with Goggles"
                         className="w-64 mx-auto mb-6 rounded-lg shadow-lg"
                     />
