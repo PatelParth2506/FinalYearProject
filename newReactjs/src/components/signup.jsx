@@ -132,7 +132,7 @@ const Signup = () => {
             onChange={(e) => {
               setEmail(e.target.value)
             }}
-            className="px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
+            className="px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400  text-black placeholder:font-thin"
             type="email"
             placeholder="Email"
           />
@@ -142,7 +142,7 @@ const Signup = () => {
             onChange={(e) => {
               setName(e.target.value)
             }}
-            className="px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
+            className="px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 text-black placeholder:font-thin"
             type="text"
             placeholder="Name"
           />
@@ -152,7 +152,7 @@ const Signup = () => {
             onChange={(e) => {
                setUser(e.target.value)
               }}
-            className="px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
+            className="px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400  text-black placeholder:font-thin"
             type="text"
             placeholder="Username"
           />
@@ -163,7 +163,7 @@ const Signup = () => {
             onChange={(e) => {
                setPassword(e.target.value)
             }}
-            className="w-full px-4 py-3 pr-10 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 font-thin"
+            className="w-full px-4 py-3 pr-10 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400  text-black placeholder:font-thin"
             type={showPassword ? "text" : "password"}
             placeholder="Password"
           />

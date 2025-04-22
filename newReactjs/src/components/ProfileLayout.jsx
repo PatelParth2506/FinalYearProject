@@ -27,7 +27,7 @@ function ProfileLayout() {
         <>
             <div className="w-full h-[93vh] font-sans">
                 <div className="w-full h-[93vh] flex">
-                    <div className={`${showMenu ? 'block' : 'hidden'} md:block `} onMouseLeave={handleMouseLeave} >
+                    <div className={`${showMenu ? 'block' : 'hidden'} md:block`} onMouseLeave={handleMouseLeave} >
                         <Iconswithname userID={userID}/>
                     </div>
                     <div className="overFlow w-full overflow-auto">

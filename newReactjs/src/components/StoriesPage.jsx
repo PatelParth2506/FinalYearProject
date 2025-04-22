@@ -9,18 +9,19 @@ import send from '../assets/send.png'
 export default function StoriesPage() {
     const [storiesData, setStoriesData] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [currentUserStory, setCurrentUserStory] = useState(null);
     const intervalRef = useRef(null);
 
     useEffect(() => {
-    console.log("Fetching stories data...");
         const fetchdata = async () => {
-            try {
                 const res = await axios.get("/api/story/getFollowingStory");
                 console.log(res.data.data);
                 setStoriesData(res.data.data);
-            } catch (error) {
-                console.error("Error fetching stories:", error);
-            }
+                const currentuser=await axios.get("/api/story/getCurrentUserStory",{
+                    withCredentials:true
+                })
+                setCurrentUserStory(currentuser.data.data);
+                console.log(currentuser.data.data);
         };
         fetchdata();
     }, []);
@@ -51,13 +52,72 @@ export default function StoriesPage() {
         startAutoPlay();
     };
 
-    if(storiesData.length === 0) {
+    const uploadstory = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+    
+        try {
+            const formData = new FormData();
+            formData.append("photo", file);
+    
+            const res = await axios.post("/api/story/createStory", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+                withCredentials: true,
+            });
+    
+            console.log("Story uploaded:", res.data);
+            // Optional: Refresh stories after upload
+            window.location.reload();
+        } catch (err) {
+            console.error("Failed to upload story:", err);
+        }
+    };
+    
+    if (storiesData.length === 0) {
         return (
-            <div className="flex justify-center items-center h-screen">
-                <h1 className="text-2xl font-semibold text-gray-800">No stories available</h1>
+            <div className="flex h-[93vh] flex-col sm:flex-row font-sans">
+                {/* Sidebar */}
+                <div className="sm:border-r sm:border-gray-300 flex sm:flex-[2] flex-col sm:px-6 sm:py-6 p-2 lg:flex-[1] mt-5 sm:mt-0">
+                    <div className="hidden sm:block">
+                        <h2 className="text-4xl font-semibold mb-3 text-gray-900">Stories</h2>
+                        <div className="flex gap-x-2">
+                            <button className="text-[13px] border border-gray-400 text-gray-500 hover:bg-gray-100 px-4 py-1 rounded-full">Settings</button>
+                            <button className="text-[13px] border border-gray-400 text-gray-500 hover:bg-gray-100 px-4 py-1 rounded-full">Archive</button>
+                        </div>
+                        <div className="h-[0.5px] bg-gray-500 my-4"></div>
+                    </div>
+    
+                    {/* Add Story Option */}
+                    <div className="flex flex-col items-center justify-center mt-10 gap-4">
+                        <img src={dp1} alt="profile" className="w-[60px] h-[60px] rounded-full border-2 border-[#2B6EA0] p-[2px]" />
+                        <p className="text-base text-gray-800 font-semibold">You haven't posted a story yet</p>
+                        <button
+    onClick={() => document.getElementById("storyUploadInput").click()}
+    className="text-sm bg-[#2B6EA0] text-white px-4 py-2 rounded-full hover:bg-[#1e4d74] transition-all duration-200"
+>
+    + Add Story
+</button>
+<input
+    type="file"
+    accept="image/*"
+    id="storyUploadInput"
+    onChange={uploadstory}
+    className="hidden"
+/>
+
+                    </div>
+                </div>
+    
+                {/* Main content area */}
+                <div className="flex-1 flex items-center justify-center">
+                    <h1 className="text-2xl font-semibold text-gray-800">No stories available</h1>
+                </div>
             </div>
         );
     }
+    
 
     return (
         <div className="flex h-[93vh] flex-col sm:flex-row font-sans">

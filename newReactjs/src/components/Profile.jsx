@@ -1,17 +1,22 @@
+
+
+
 import React, { useEffect, useState } from 'react'
 import Chatbox from './Chatbox'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
-import emptyuser2 from '../../emptyuser2.jpeg'
-const Profile = ({userID}) => {
-  
-  const navigate=useNavigate()
-  const [profiledata,setProfileData]=useState({})
-  const [post,setPost]=useState([])
-  const [comments,setComments]=useState([])
+import profile from "../assets/profile.png"
+import bookmark from "../assets/bookmark.png"
 
-  const [showFullBio, setShowFullBio] = useState(false);
+const Profile = ({ userID }) => {
+  const navigate = useNavigate()
+  const [profiledata, setProfileData] = useState({})
+  const [post, setPost] = useState([])
+  const [comments, setComments] = useState([])
+  const [showFullBio, setShowFullBio] = useState(false)
 
+  const [showUserList, setShowUserList] = useState(null) 
+  const [userList, setUserList] = useState([])
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -50,7 +55,7 @@ const Profile = ({userID}) => {
           >
             <div className="md:ml-[-150px] w-40 h-40 rounded-full overflow-hidden border-4 border-blue-900 ">
               <img
-                src={profiledata.profilePhoto || emptyuser2}
+                src={profiledata.profilePhoto}
                 alt="Profile"
                 className="object-cover w-full h-full"
               />
@@ -68,7 +73,7 @@ const Profile = ({userID}) => {
               </div>
 
               {/* Stats */}
-              <div className="flex justify-center md:justify-start gap-16 md:gap-16">
+              <div className="flex justify-center md:justify-start gap-8 md:gap-16">
                 <div className="text-center">
                   <h2 className="text-gray-900 font-normal">Posts</h2>
                   <h1 className="font-semibold ">{post?.length}</h1>
@@ -131,6 +136,33 @@ const Profile = ({userID}) => {
             <div>No posts available</div>
           )}
         </div>
+
+        {showUserList && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white w-96 max-h-[80vh] overflow-y-auto rounded-lg p-4">
+              <div className="flex justify-between items-center border-b pb-2 mb-2">
+                <h2 className="text-xl font-semibold capitalize">{showUserList}</h2>
+                <button onClick={() => setShowUserList(null)} className="text-red-500">Close</button>
+              </div>
+              {userList.map((user) => (
+                <div key={user._id} className="flex items-center justify-between gap-3 py-2 border-b">
+                  <div className="flex gap-3 items-center">
+                    <img src={user.profilePhoto} alt="user" className="w-10 h-10 rounded-full object-cover" />
+                    <div>
+                      <h3 className="font-semibold">{user.username}</h3>
+                      <p className="text-sm text-gray-500">{user.fullname}</p>
+                    </div>
+                  </div>
+                  {!userID && (
+                    <button className="px-3 py-1 rounded-md bg-blue-500 text-white hover:bg-blue-600 text-sm">
+                      {profiledata.following?.includes(user._id) ? 'Following' : 'Follow'}
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

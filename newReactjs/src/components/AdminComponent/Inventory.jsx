@@ -6,9 +6,9 @@ const Inventory = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const fetchProducts = async() =>{
-      const res= await axios.get('/api/product/getBusinessProduct',{
-        withCredentials:true
+    const fetchProducts = async () => {
+      const res = await axios.get('/api/product/getBusinessProduct', {
+        withCredentials: true
       })
       console.log(res.data.data)
       setProducts(res.data.data)
@@ -37,15 +37,16 @@ const Inventory = () => {
                 <h3 className="text-lg font-semibold truncate">
                   {product.title}
                 </h3>
+                <p className="text-gray-600 text-xl font-bold mt-2 line-clamp-3">
+                  {product.description}
+                </p>
                 <p className="text-gray-500 text-sm truncate">
                   {product.category}
                 </p>
                 <p className="text-gray-700 font-medium mt-1">
                   ₹{product.price}
                 </p>
-                <p className="text-gray-600 text-sm mt-2 line-clamp-3">
-                  {product.description}
-                </p>
+
               </div>
             ))}
           </div>

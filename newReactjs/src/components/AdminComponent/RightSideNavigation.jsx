@@ -12,6 +12,11 @@ const RightSideNavigation = () => {
               Dashboard
             </li>
           </Link>
+          <Link to={"/home"}>
+            <li className="h-14 w-full flex items-center pl-4 hover:bg-gray-600 cursor-pointer border my-2 rounded-md font-sbold text-xl transition-all hover:text-white">
+              Home
+            </li>
+          </Link>
           <Link to={"/admin/Customers"} className="w-full">
             <li className="h-14 w-full flex items-center pl-4 hover:bg-gray-600 cursor-pointer border my-2 rounded-md font-sbold text-xl transition-all hover:text-white">
               Customers

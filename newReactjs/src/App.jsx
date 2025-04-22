@@ -6,7 +6,6 @@ import ChatLeft from "./components/ChatLeft"
 import Chatrightempty from "./components/Chatrightempty"
 import Chatbox from "./components/Chatbox"
 import ChatRight from "./components/ChatRight"
-import Editprofile from "./components/Editprofile"
 import StoreHome from "./components/StoreHome"
 import ProductDetails from "./components/ProductDetails"
 import CartPage from "./components/CartPage"
@@ -21,7 +20,6 @@ import NavBarOfWeb from "./components/NavBarOfWeb.jsx"
 import ProfileLayout from "./components/ProfileLayout.jsx"
 import Navbar from "./components/Navbar.jsx"
 import StoryLayout from "./components/StoryLayout.jsx"
-import AdminLayout from "./components/AdminLayout.jsx"
 import EditprofileLayout from "./components/EditprofileLayout.jsx"
 import Home from "./components/AdminComponent/Home.jsx"
 import Inventory from "./components/AdminComponent/Inventory.jsx"
@@ -30,18 +28,29 @@ import AddProduct from "./components/AdminComponent/AddProduct.jsx"
 import AddProducts from "./components/AdminComponent/AddProducts.jsx"
 import Orders from "./components/AdminComponent/Orders.jsx"
 import Customers from "./components/AdminComponent/Customers.jsx"
+import Adminnavbar from "./components/AdminComponent/Navbar.jsx"
 
 const Layout = ({ children }) => {
   const location = useLocation()
 
   const showStoreNavbar = location.pathname.startsWith("/store")
-  const hidenavbar = location.pathname.startsWith("/login") || location.pathname === "/"
+  const hidenavbar= location.pathname.startsWith("/login") || location.pathname === "/"
+  const showadminnavbar = location.pathname.startsWith("/admin")
   return (
     <>
-      {!hidenavbar && (showStoreNavbar ? <Navbar /> : <NavBarOfWeb />)}
+      {!hidenavbar && (
+        showadminnavbar ? (
+          <Adminnavbar/>
+        ) : showStoreNavbar ? (
+          <Navbar />
+        ) : (
+          <NavBarOfWeb />
+        )
+      )}
       {children}
     </>
-  )
+  );
+  
 }
 
 const App = () => {
