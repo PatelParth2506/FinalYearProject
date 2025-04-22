@@ -6,15 +6,16 @@ import { Story } from "../models/StoryModel.js";
 import { fileuploder } from "../utils/cloudinary.js";
 
 const createStory=asyncHandler(async(req,res)=>{
-    console.log(req.file.path)
+    console.log(req.file)
     const photopath = req.file.path;
     if(!photopath){ throw new ApiError(401,"Photo Is Required") }
     const photo=await fileuploder(photopath)
     if(!photo){ throw new ApiError(501,"Photo Can't Upload To Cloudinary") }
-    const story=await Story.create({
+    const ustory=await Story.create({
         photo:photo.url,
         owner:req.user._id
     })
+    const story=await ustory.populate("owner","username profilePhoto")
     res.status(200)
     .json(new ApiResponse(200,story,"Story Created Successfully"))  
 })
@@ -44,6 +45,7 @@ const getFolloingStory=asyncHandler(async(req,res)=>{
 
 const deleteStory=asyncHandler(async(req,res)=>{
     const { storyid } = req.params;
+    console.log(storyid)
     if(!storyid){ throw new ApiError(401,"Story Id Is Required") }
     const story=await Story.findById(storyid)
     if(!story){ throw new ApiError(404,"Story Not Found") }
