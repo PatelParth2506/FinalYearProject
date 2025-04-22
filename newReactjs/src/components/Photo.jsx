@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import image from "../assets/beech.jpg"
 import emptyUser from "../assets/emptyuser2.jpeg"
 
+
 const Photo = () => {
     const navigate = useNavigate();
     const location = useLocation();
