@@ -101,7 +101,7 @@ export default function StoriesPage() {
 
   return (
     <div className="flex h-[93vh] flex-col sm:flex-row pb-10 mb-10 sm:mb-0 sm:pb-0">
-      {/* left sidebar */}
+      {/* left sidebar  */}
       <div className="sm:border-r sm:border-gray-300 flex sm:flex-[2] flex-col sm:px-6 sm:py-6 p-2 lg:flex-1 mt-2 sm:mt-0">
         <div className="hidden sm:block">
           <h2 className="text-4xl font-semibold mb-3 text-[#2B6EA0]">Stories</h2>
