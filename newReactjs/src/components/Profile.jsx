@@ -43,25 +43,13 @@ const Profile = ({ userID }) => {
     fetchdata()
   }, [])
 
-  const handlelistclick= async(type,ids)=>{
-    const res=await axios.post('/api/user/getuserbyids',{ids})
-    setUserList(res.data.data)
-    setShowUserList(type)
-  }
-
   return (
-    <div className="overFlow w-full min-h-screen flex flex-col bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe]">
-      <div className="overFlow w-full h-screen overflow-y-scroll">
-        <div className="BgEdit bg-gradient-to-tr from-blue-300 to-purple-400  flex flex-col md:flex-row items-center justify-center gap-4 px-8 py-1 w-full h-auto md:h-[350px]">
-          <div
-            id="inner"
-            className="flex flex-col md:flex-row gap-2 md:gap-10 items-center md:bg-slate-100 rounded-xl px-8 py-6 w-full md:w-[500px]"
-          >
-            <div className="md:ml-[-150px] w-40 h-40 rounded-full overflow-hidden border-4 border-white-900 ">
-              <img
-                src={profiledata.profilePhoto}
-                className="object-cover w-full h-full"
-              />
+    <div className="w-full min-h-screen flex flex-col bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe]">
+      <div className="w-full h-full overflow-y-auto">
+        <div className="bg-gradient-to-tr from-blue-300 to-purple-400 flex flex-col lg:flex-row items-center justify-center gap-6 px-4 lg:px-12 py-8 w-full">
+          <div className="flex flex-col lg:flex-row items-center lg:bg-white lg:shadow-xl rounded-2xl p-6 lg:gap-10 gap-3 max-w-xl w-full">
+            <div className="w-28 sm:w-32 lg:w-40 h-28 sm:h-32 lg:h-40 rounded-full overflow-hidden border-4 border-white">
+              <img src={profiledata.profilePhoto} className="object-cover w-full h-full" />
             </div>
             <div className="flex flex-col gap-4 w-full">
               <div className="flex flex-col lg:flex-row justify-between items-center gap-2">
@@ -79,13 +67,13 @@ const Profile = ({ userID }) => {
                   <p className="text-sm text-gray-900">Posts</p>
                   <p className="font-semibold text-lg">{post?.length}</p>
                 </div>
-                <div className="text-center">
-                  <h2 className="text-gray-900 font-normal">Followers</h2>
-                  <h1 className="font-semibold">{profiledata.followers?.length}</h1>
+                <div>
+                  <p className="text-sm text-gray-900">Followers</p>
+                  <p className="font-semibold text-lg">{profiledata.followers?.length}</p>
                 </div>
-                <div className="text-center">
-                  <h2 className="text-gray-900 font-normal">Following</h2>
-                  <h1 className="font-semibold">{profiledata.following?.length}</h1>
+                <div>
+                  <p className="text-sm text-gray-900">Following</p>
+                  <p className="font-semibold text-lg">{profiledata.following?.length}</p>
                 </div>
               </div>
 
@@ -113,16 +101,14 @@ const Profile = ({ userID }) => {
           </div>
         </div>
 
-
-    
-        <div className='flex gap-16 pt-3 justify-center'>
-          <div className='flex gap-2 items-center font-semibold'>
-            <img src="profile.png" alt=""  className='w-5 h-5'/>
-            <h3 className='cursor-pointer'>POSTS</h3>
-            </div>
-          <div className='flex gap-2 items-center font-semibold'>
-            <img src="bookmark.png" alt=""  className='w-5 h-5'/>
-            <h3 className='cursor-pointer'>SAVED</h3>
+        <div className='flex flex-wrap gap-10 justify-center py-4'>
+          <div className='flex gap-2 items-center text-sm font-semibold cursor-pointer'>
+            <img src={profile} alt="Posts" className='w-5 h-5' />
+            <span>POSTS</span>
+          </div>
+          <div className='flex gap-2 items-center text-sm font-semibold cursor-pointer'>
+            <img src={bookmark} alt="Saved" className='w-5 h-5' />
+            <span>SAVED</span>
           </div>
         </div>
 
