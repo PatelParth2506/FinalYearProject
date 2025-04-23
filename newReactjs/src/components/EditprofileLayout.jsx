@@ -24,7 +24,7 @@ function EditprofileLayout() {
         <>
             <div className="w-full h-[93vh]">
                 <div className="w-full h-[93vh] flex">
-                    <div className={`${showMenu ? 'block' : 'hidden'} md:block z-20`} onMouseLeave={handleMouseLeave}>
+                    <div className={`${showMenu ? 'block' : 'hidden'} md:block z-10`} onMouseLeave={handleMouseLeave}>
                         <Iconswithname/>
                     </div>
                     <div className="overFlow w-full overflow-auto">
@@ -37,3 +37,4 @@ function EditprofileLayout() {
 }
 
 export default EditprofileLayout
+
