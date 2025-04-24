@@ -67,7 +67,7 @@ const Login = () => {
 
           <form onSubmit={(e)=>{
             loginData(e)
-          }} className="md:space-y-4 space-y-3.5">
+          }} className="md:space-y-5 space-y-3.5">
             
             <input value={logindata.username}
               onChange={(e) => {
