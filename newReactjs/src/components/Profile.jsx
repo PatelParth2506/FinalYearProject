@@ -48,7 +48,7 @@ const Profile = ({ userID }) => {
       <div className="w-full h-full overflow-y-auto">
         <div className="bg-gradient-to-tr from-blue-200 via-pink-200 to-purple-100 flex flex-col lg:flex-row items-center justify-center gap-6 px-4 lg:px-12 py-8 w-full">
           <div className="flex flex-col lg:flex-row items-center lg:bg-white lg:shadow-xl rounded-2xl p-6 lg:gap-10 gap-3 max-w-xl w-full">
-            <div className="w-28 sm:w-32 lg:w-40 h-28 sm:h-32 lg:h-40 rounded-full overflow-hidden border-4 border-white">
+            <div className="w-28 sm:w-32 lg:w-36 h-28 sm:h-32 lg:h-36 rounded-full overflow-hidden border-4 border-white shadow-md">
               <img src={profiledata.profilePhoto} className="object-cover w-full h-full" />
             </div>
             <div className="flex flex-col gap-4 w-full">
