@@ -11,10 +11,8 @@ const Profile = ({ userID }) => {
   const [post, setPost] = useState([])
   const [comments, setComments] = useState([])
   const [showFullBio, setShowFullBio] = useState(false)
-
   const [showUserList, setShowUserList] = useState(null) 
   const [userList, setUserList] = useState([])
-
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -62,7 +60,7 @@ const Profile = ({ userID }) => {
                 </button>}
 
               </div>
-              <div className="flex justify-center gap-20 lg:justify-around text-center">
+              <div className="flex justify-center gap-20 lg:justify-start text-center">
                 <div>
                   <p className="text-sm text-gray-900">Posts</p>
                   <p className="font-semibold text-lg">{post?.length}</p>
