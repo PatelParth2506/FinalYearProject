@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState } from 'react'
 import Chatbox from './Chatbox'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -17,6 +14,7 @@ const Profile = ({ userID }) => {
 
   const [showUserList, setShowUserList] = useState(null) 
   const [userList, setUserList] = useState([])
+
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -46,114 +44,109 @@ const Profile = ({ userID }) => {
   }, [])
 
   return (
-    <div className="overFlow w-full min-h-screen flex flex-col bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe]">
-      <div className="overFlow w-full h-screen overflow-y-scroll">
-        <div className="BgEdit bg-gradient-to-tr from-blue-300 to-purple-400  flex flex-col md:flex-row items-center justify-center gap-4 px-8 py-1 w-full h-auto md:h-[350px]">
-          <div
-            id="inner"
-            className="flex flex-col md:flex-row gap-2 md:gap-10 items-center md:bg-slate-100 rounded-xl px-8 py-6 w-full md:w-[500px]"
-          >
-            <div className="md:ml-[-150px] w-40 h-40 rounded-full overflow-hidden border-4 border-white-900 ">
-              <img
-                src={profiledata.profilePhoto}
-                className="object-cover w-full h-full"
-              />
+    <div className="w-full min-h-screen flex flex-col bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe]">
+      <div className="w-full h-full overflow-y-auto">
+        <div className="bg-gradient-to-tr from-blue-200 via-pink-200 to-purple-100 flex flex-col lg:flex-row items-center justify-center gap-6 px-4 lg:px-12 py-8 w-full">
+          <div className="flex flex-col lg:flex-row items-center lg:bg-white lg:shadow-xl rounded-2xl p-6 lg:gap-10 gap-3 max-w-xl w-full">
+            <div className="w-28 sm:w-32 lg:w-36 h-28 sm:h-32 lg:h-36 rounded-full overflow-hidden border-4 border-white shadow-md">
+              <img src={profiledata.profilePhoto} className="object-cover w-full h-full" />
             </div>
-
-            <div className="max-h-80 flex flex-col gap-y-3 w-full md:w-[400px] overflow-y-auto">
-              <div className="flex flex-col md:flex-row gap-4 md:gap-9 items-center">
-                <h2 className="font-semibold">{profiledata.username}</h2>
+            <div className="flex flex-col gap-4 w-full">
+              <div className="flex flex-col lg:flex-row justify-between items-center gap-2">
+                <h2 className="font-normal text-lg lg:text-xl">{profiledata.username}</h2>
                 {!userID && <button
                   className="editProfile text-white hover:bg-blue-800 px-9 py-2 rounded-md bg-blue-600 transition duration-300"
                   onClick={() => navigate('/editprofilelayout')}
                 >
                   Edit profile
                 </button>}
-              </div>
 
-              {/* Stats */}
-              <div className="flex justify-center md:justify-start gap-8 md:gap-16">
-                <div className="text-center">
-                  <h2 className="text-gray-900 font-normal">Posts</h2>
-                  <h1 className="font-semibold ">{post?.length}</h1>
-                </div>
-                <div className="text-center">
-                  <h2 className="text-gray-900 font-normal">Followers</h2>
-                  <h1 className="font-semibold">{profiledata.followers?.length}</h1>
-                </div>
-                <div className="text-center">
-                  <h2 className="text-gray-900 font-normal">Following</h2>
-                  <h1 className="font-semibold">{profiledata.following?.length}</h1>
-                </div>
               </div>
-
+              <div className="flex justify-center gap-20 lg:justify-around text-center">
                 <div>
-                  <h1 className='font-semibold'></h1>
-
-                  <div>
-                          {showFullBio ? (
-                             <p>{profiledata.bio}</p>
-                            ) : (
-                              <p className="bio-text whitespace-pre-wrap">{profiledata.bio}</p>
-                            )}
-
-                         <button className="read-more-btn" onClick={() => setShowFullBio(!showFullBio)}>
-                         {showFullBio ? 'Show less' : 'Read more'}
-                          </button>
-                      </div>
-                    </div>
+                  <p className="text-sm text-gray-900">Posts</p>
+                  <p className="font-semibold text-lg">{post?.length}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-900">Followers</p>
+                  <p className="font-semibold text-lg">{profiledata.followers?.length}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-900">Following</p>
+                  <p className="font-semibold text-lg">{profiledata.following?.length}</p>
                 </div>
               </div>
-            </div>
 
 
-    
-        <div className='flex gap-16 pt-3 justify-center'>
-          <div className='flex gap-2 items-center font-semibold'>
-            <img src="profile.png" alt=""  className='w-5 h-5'/>
-            <h3 className='cursor-pointer'>POSTS</h3>
+              <div>
+                  <h1 className='font-semibold'>
+                     {/* username goes here */}
+                  </h1>
+
+              <div className="text-sm text-gray-900">
+                {showFullBio ? (
+                  <p>{profiledata.bio}</p>
+                ) : (
+                  <p className="line-clamp-3 whitespace-pre-wrap">{profiledata.bio}</p>
+                )}
+                <button
+                  onClick={() => setShowFullBio(!showFullBio)}
+                  className="text-gray-600 text-sm mt-1"
+                >
+                  {showFullBio ? 'Show less' : 'Read more'}
+                </button>
+              </div>
+              </div>
             </div>
-          <div className='flex gap-2 items-center font-semibold'>
-            <img src="bookmark.png" alt=""  className='w-5 h-5'/>
-            <h3 className='cursor-pointer'>SAVED</h3>
           </div>
         </div>
 
-        <div id="posts" className="grid grid-cols-2 md:grid-cols-3 gap-4 p-6">
+        <div className='flex flex-wrap gap-10 justify-center py-4'>
+          <div className='flex gap-2 items-center text-sm font-semibold cursor-pointer'>
+            <img src={profile} alt="Posts" className='w-5 h-5' />
+            <span>POSTS</span>
+          </div>
+          <div className='flex gap-2 items-center text-sm font-semibold cursor-pointer'>
+            <img src={bookmark} alt="Saved" className='w-5 h-5' />
+            <span>SAVED</span>
+          </div>
+        </div>
+
+        <div id="posts" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 px-4 sm:px-6 pb-12">
           {Array.isArray(post) && post.length > 0 ? (
             post.map((p, index) => (
-              <div key={index} className="relative">
+              <div key={index} className="relative group overflow-hidden rounded-xl shadow-md">
                 <img
                   src={p.photo}
                   alt="Post"
-                  onClick={()=>navigate(`/getallpost/${profiledata._id}/${p._id}`,)}
-                  className="w-full h-full object-cover rounded-lg shadow-md"
+                  onClick={() => navigate(`/getallpost/${profiledata._id}/${p._id}`,)}
+                  className="w-full h-60 object-cover cursor-pointer transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
             ))
           ) : (
-            <div>No posts available</div>
+            <div className="col-span-full text-center text-gray-500">No posts available</div>
           )}
         </div>
 
         {showUserList && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white w-96 max-h-[80vh] overflow-y-auto rounded-lg p-4">
-              <div className="flex justify-between items-center border-b pb-2 mb-2">
+            <div className="bg-white w-11/12 sm:w-96 max-h-[80vh] overflow-y-auto rounded-lg p-5">
+              <div className="flex justify-between items-center border-b pb-2 mb-4">
                 <h2 className="text-xl font-semibold capitalize">{showUserList}</h2>
                 <button onClick={() => setShowUserList(null)} className="text-red-500">Close</button>
               </div>
               {userList.map((user) => (
-                <div key={user._id} className="flex items-center justify-between gap-3 py-2 border-b">
-                  <div className="flex gap-3 items-center">
+                <div key={user._id} className="flex items-center justify-between gap-3 py-3 border-b">
+                  <div className="flex items-center gap-3">
                     <img src={user.profilePhoto} alt="user" className="w-10 h-10 rounded-full object-cover" />
                     <div>
-                      <h3 className="font-semibold">{user.username}</h3>
-                      <p className="text-sm text-gray-500">{user.fullname}</p>
+                      <p className="font-semibold text-sm">{user.username}</p>
+                      <p className="text-xs text-gray-500">{user.fullname}</p>
                     </div>
                   </div>
                   {!userID && (
-                    <button className="px-3 py-1 rounded-md bg-blue-500 text-white hover:bg-blue-600 text-sm">
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded-md">
                       {profiledata.following?.includes(user._id) ? 'Following' : 'Follow'}
                     </button>
                   )}

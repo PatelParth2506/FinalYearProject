@@ -12,7 +12,8 @@ import { register,
          unfollowUser,
          getUserByID,
          ToggleFollow,
-         getalluser
+         getalluser,
+         getUsersByIds
  } from '../controllers/RegisterControllers.js';
 import { auth } from "../middelwares/auth.js"
 
@@ -37,6 +38,7 @@ router.route("/getuser/:userid").get(auth,getUserByID)
 router.route("/follow/:userid").post(auth,FollowUser)
 router.route("/unfollow/:userid").post(auth,unfollowUser)
 router.route("/togglefollow/:userid").post(auth,ToggleFollow)
+router.route("/getuserbyids").post(getUsersByIds)
 
 router.route("/getalluser").post(getalluser)
 

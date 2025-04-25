@@ -65,7 +65,7 @@
 // export default NavBarOfWeb;
 
 import React, { useState } from 'react';
-import instagram from '../assets/img/stories/instagram.png';
+import logo from '../assets/C.jpg';
 import notification from '../assets/img/stories/notification.png';
 import search from '../assets/img/stories/search.png';
 import chat from '../assets/img/stories/chat.png';
@@ -81,9 +81,9 @@ function NavBarOfWeb({ toggleMenu }) {
       <nav className="w-full bg-white p-2 flex justify-between items-center px-[1%]">
         <div className="flex-[2] flex justify-start items-center">
           <button onClick={() => setShowHamburger(!showHamburger)} className="outline-none">
-            <img src={instagram} alt="Logo" className="w-8 h-8" />
+            <img src={logo} alt="Logo" className="w-8 h-8" />
           </button>
-          <p className="text-[#2B6EA0] font-medium text-xl pl-2 font-sans">ConnectMe</p>
+          <h2 className="text-[#2B6EA0] font-medium text-xl pl-1 font-sans">ConnectMe</h2>
         </div>
 
         <div className="flex-[3] hidden md:block">

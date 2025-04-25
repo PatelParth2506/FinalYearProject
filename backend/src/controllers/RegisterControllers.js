@@ -292,6 +292,17 @@ const getalluser= asyncHandler(async(req,res)=>{
     )
 })
 
+const getUsersByIds = asyncHandler(async (req, res) => {
+    const { ids } = req.body;
+    if (!ids || !Array.isArray(ids)) {
+      throw new ApiError(400, "Invalid user IDs array");
+    }
+  
+    const users = await User.find({ _id: { $in: ids } }).select('username fullname profilePhoto');
+    res.status(200).json(new ApiResponse(200, users, "Users fetched successfully"));
+  });
+  
+
 export {
     register,
     login,
@@ -305,5 +316,6 @@ export {
     unfollowUser,
     getUserByID,
     ToggleFollow,
-    getalluser
+    getalluser,
+    getUsersByIds
 }

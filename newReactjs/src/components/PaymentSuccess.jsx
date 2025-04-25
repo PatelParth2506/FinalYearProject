@@ -45,7 +45,7 @@ const PaymentSuccess = () => {
           Payment Successful
         </h1>
         <p className="text-gray-600 text-sm sm:text-base mb-6 px-3">
-          Your transaction is complete and confirmed.
+          Thank you for your purchase. Your order has been confirmed.
         </p>
 
         <a
