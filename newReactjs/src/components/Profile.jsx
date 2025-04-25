@@ -76,10 +76,10 @@ const Profile = ({ userID }) => {
 
           {showPreview && (
             <div
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-md"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-md w-screen h-screen"
               onClick={handleClosePreview}
             >
-              <img src={profiledata.profilePhoto} alt="Preview" className="h-64 w-64 rounded-full shadow-xl object-cover" />
+              <img src={profiledata.profilePhoto} alt="Preview" className="md:h-64 md:w-64 w-52 h-52 rounded-full shadow-xl object-cover" />
             </div>
           )}
 
@@ -94,7 +94,7 @@ const Profile = ({ userID }) => {
                 </button>}
 
               </div>
-              <div className="flex justify-center gap-20 lg:justify-start text-center">
+              <div className="flex justify-center gap-16 lg:justify-start text-center">
                 <div>
                   <p className="text-sm text-gray-900">Posts</p>
                   <p className="font-semibold text-lg">{post?.length}</p>
