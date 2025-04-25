@@ -65,7 +65,7 @@
 // export default NavBarOfWeb;
 
 import React, { useState } from 'react';
-import instagram from '../assets/zeelc.png';
+import instagram from '../assets/C.jpg';
 import notification from '../assets/img/stories/notification.png';
 import search from '../assets/img/stories/search.png';
 import chat from '../assets/img/stories/chat.png';
