@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import gallery from '../assets/gallery.png'
 import axios from 'axios';
+import { href, Link, Navigate, useNavigate } from 'react-router-dom';
 
 function Post({ user, postText, setPostText }) {
     // const [bio, setBio] = useState('');
     const [image, setImage] = useState(null);
     const [previewImage, setPreviewImage] = useState('');
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState('');    
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -47,7 +48,7 @@ function Post({ user, postText, setPostText }) {
         <div className="bg-white rounded-2xl px-6 py-3 hover:shadow-xl hover:shadow-[#2b6da018] transition duration-300">
             <h2 className="text-xl font-semibold text-[#2B6EA0] mb-4">What's on your mind?</h2>
             <div className="flex items-center gap-x-3">
-                <img src={user.profilePhoto ?? "userPro.png"} alt="User Profile" className="w-10 h-10 rounded-full" />
+                <Link to="/profilelayout"><img src={user.profilePhoto ?? "userPro.png"} alt="User Profile" className="w-10 h-10 rounded-full object-cover mx-1" /></Link>
                 <textarea
                     type="text"
                     value={postText}
@@ -84,3 +85,4 @@ function Post({ user, postText, setPostText }) {
 }
 
 export default Post;
+
