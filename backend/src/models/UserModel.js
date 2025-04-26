@@ -43,6 +43,11 @@ const userSchema=new mongoose.Schema({
     refreshToken:{
         type:String,
     },
+    role: {
+        type: String,
+        enum: ["user", "creator", "admin"],
+        default: "user"
+      },      
     followers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -104,4 +109,5 @@ userSchema.methods.genrateRefreshToken=async function(){
 )
 }
 
-export const User=mongoose.model("User",userSchema)
+// export const User=mongoose.model("User",userSchema)
+export const User = mongoose.models.User || mongoose.model('User', userSchema);
