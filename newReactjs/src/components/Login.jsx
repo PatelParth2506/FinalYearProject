@@ -4,7 +4,6 @@ import Errorno5 from "./Errorno5";
 import Success2 from "./Success2";
 import axios from "axios";
 import loginImage from '../assets/loginImage.jpg';
-
 import Cookies from "js-cookie"; 
 
 const Login = () => {

@@ -13,8 +13,6 @@ const Profile = ({ userID }) => {
   const [showFullBio, setShowFullBio] = useState(false)
   const [showUserList, setShowUserList] = useState(null) 
   const [userList, setUserList] = useState([])
-
-
   const [showPreview, setShowPreview] = useState(false)
   const pressTimerRef = useRef(null)
 
@@ -59,6 +57,17 @@ const Profile = ({ userID }) => {
     fetchdata()
   }, [])
 
+  const handleShowUserList = async(type)=>{
+    setShowUserList(type)
+    const userids= profiledata[type] || []
+
+    const users = await Promise.all(userids.map(async(id)=>{
+      const res= await axios.get(`/api/user/getuser/${id}`)
+      return res.data.data
+    }))
+    setUserList(users)
+  }
+
   return (
     <div className="w-full min-h-screen flex flex-col bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe]">
       <div className="w-full h-full overflow-y-auto">
@@ -99,11 +108,11 @@ const Profile = ({ userID }) => {
                   <p className="text-sm text-gray-900">Posts</p>
                   <p className="font-semibold text-lg">{post?.length}</p>
                 </div>
-                <div>
+                <div  onClick={() => handleShowUserList('followers')} className="cursor-pointer">
                   <p className="text-sm text-gray-900">Followers</p>
                   <p className="font-semibold text-lg">{profiledata.followers?.length}</p>
                 </div>
-                <div>
+                <div onClick={() => handleShowUserList('following')} className="cursor-pointer">
                   <p className="text-sm text-gray-900">Following</p>
                   <p className="font-semibold text-lg">{profiledata.following?.length}</p>
                 </div>
@@ -112,7 +121,7 @@ const Profile = ({ userID }) => {
 
               <div>
                   <h1 className='font-semibold'>
-                     {/* username goes here */}
+                     {profiledata.fullname}
                   </h1>
 
               <div className="text-sm text-gray-900">
