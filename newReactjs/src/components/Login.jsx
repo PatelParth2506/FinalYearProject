@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Errorno5 from "./Errorno5";
 import Success2 from "./Success2";
 import axios from "axios";
+import Cookies from "js-cookie"; 
 
 const Login = () => {
   const [logindata, setloginData] = useState({ 
@@ -14,8 +15,17 @@ const Login = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log(document.cookie)
+    const isAuthenticated = Cookies.get("accesstoken"); 
+    console.log(isAuthenticated)
+    if (isAuthenticated) {
+      navigate("/home"); 
+    }
+  }, [navigate]);
   const loginData = async (e) => {
     e.preventDefault();
+
 
      if(!logindata.username || !logindata.password)
             {
@@ -30,10 +40,14 @@ const Login = () => {
         try {
             const response=await axios.post("/api/user/login",logindata)
                 setShowSuccess(true); 
+                console.log(response.data.data);
+                Cookies.set("refreshtoken",response.data.data.user.refreshToken,{ expires: 7 })
+                Cookies.set("accesstoken",response.data.data.accessToken,{ expires: 7 })
+                Cookies.set("role",response.data.data.user.role,{ expires: 7 })
                 setTimeout(() => {
                   setShowSuccess(false);
                 }, 3000);
-            navigate("/home")
+                navigate("/home")
         } catch (error) {
             console.log(error)
             setShowError(true)    

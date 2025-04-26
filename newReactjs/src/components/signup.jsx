@@ -5,7 +5,7 @@ import Errorno2 from "./Errorno2";
 import Errorno3 from "./Errorno3";
 import Errorno4 from "./Errorno4";
 import Success from "./Success";
-// import Loader from "./Loader";
+import Cookies from "js-cookie";
 import axios from "axios";
 
 const Signup = () => {
@@ -27,6 +27,15 @@ const Signup = () => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(document.cookie)
+    const isAuthenticated = Cookies.get("accesstoken");
+    console.log(isAuthenticated)
+    if (isAuthenticated) {
+      navigate("/home"); 
+    }
+  }, [navigate]);
 
   const handleCheckboxChange = (e) => {
     setIsChecked(e.target.checked);

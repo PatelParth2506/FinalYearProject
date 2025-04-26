@@ -286,7 +286,7 @@ const ToggleFollow= asyncHandler(async(req,res)=>{
 })
 
 const getalluser= asyncHandler(async(req,res)=>{
-    const user=await User.find().select("_id")
+    const user=await User.find().select("-password -refreshToken")
     res.status(200).json(
         new ApiResponse(200,user,"All User Fetched SuccessFully")
     )
