@@ -47,7 +47,7 @@ function Post({ user, postText, setPostText }) {
         <div className="bg-white rounded-2xl px-6 py-3 hover:shadow-xl hover:shadow-[#2b6da018] transition duration-300">
             <h2 className="text-xl font-semibold text-[#2B6EA0] mb-4">What's on your mind?</h2>
             <div className="flex items-center gap-x-3">
-                <img src={user.profilePhoto ?? "userPro.png"} alt="User Profile" className="w-10 h-10 rounded-full" />
+                <img src={user.profilePhoto ?? "userPro.png"} alt="User Profile" className="w-10 h-10 object-cover rounded-full" />
                 <textarea
                     type="text"
                     value={postText}

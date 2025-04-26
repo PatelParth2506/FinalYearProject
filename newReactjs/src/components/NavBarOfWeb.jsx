@@ -113,7 +113,7 @@ function NavBarOfWeb({ toggleMenu }) {
             <img src={notification} alt="notification" className="w-5" />
           </button>
 
-          <img src={avatar} alt="userPro" className="w-10 h-10 p-1 bg-white rounded-full border-2 border-[#2B6EA0]" />
+          <img src={avatar} alt="userPro" className="w-10 h-10 p-1 bg-white rounded-full aspect-square border-2 border-[#2B6EA0]" />
         </div>
       </nav>
 
