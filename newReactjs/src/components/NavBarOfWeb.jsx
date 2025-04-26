@@ -99,20 +99,23 @@ function NavBarOfWeb({ toggleMenu }) {
         </div>
 
         <div className="flex-[2] flex justify-end items-center">
+
           <button
             onClick={() => setShowSearch(!showSearch)}
-            className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-3"
+            className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-3 md:hidden"
           >
             <img src={search} alt="search" className="w-5" title='Search'/>
           </button>
 
-          <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-3 hidden lg:flex">
+          <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-3 hidden md:flex">
             <img src={chat} alt="chat" className="w-5" title='Message'/>
           </button>
 
-          <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-3  hidden lg:flex">
+          <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-3  hidden md:flex">
             <img src={notification} alt="notification" title='Notification' className="w-5" />
           </button>
+
+          <img src={avatar} alt="userPro" className="w-10 h-10 p-1 bg-white rounded-full aspect-square border-2 border-[#2B6EA0]  hidden md:flex" />
 
           <img src={menu} alt="Menu" className="w-9 h-10 p-[5px] bg-white rounded-full md:hidden" onClick={() => setShowHamburger(!showHamburger)}/>
         </div>
