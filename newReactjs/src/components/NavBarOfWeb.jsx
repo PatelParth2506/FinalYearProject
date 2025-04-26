@@ -102,15 +102,15 @@ function NavBarOfWeb({ toggleMenu }) {
             onClick={() => setShowSearch(!showSearch)}
             className="md:hidden p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-4"
           >
-            <img src={search} alt="search" className="w-5" />
+            <img src={search} alt="search" className="w-5" title='Search'/>
           </button>
 
           <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-4">
-            <img src={chat} alt="chat" className="w-5" />
+            <img src={chat} alt="chat" className="w-5" title='Message'/>
           </button>
 
           <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-4">
-            <img src={notification} alt="notification" className="w-5" />
+            <img src={notification} alt="notification" title='Notification' className="w-5" />
           </button>
 
           <img src={avatar} alt="userPro" className="w-10 h-10 p-1 bg-white rounded-full aspect-square border-2 border-[#2B6EA0]" />

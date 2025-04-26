@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useRef } from 'react'
 import Chatbox from './Chatbox'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
@@ -11,10 +11,26 @@ const Profile = ({ userID }) => {
   const [post, setPost] = useState([])
   const [comments, setComments] = useState([])
   const [showFullBio, setShowFullBio] = useState(false)
-
   const [showUserList, setShowUserList] = useState(null) 
   const [userList, setUserList] = useState([])
 
+
+  const [showPreview, setShowPreview] = useState(false)
+  const pressTimerRef = useRef(null)
+
+  const handleMouseDown = () => {
+     pressTimerRef.current = setTimeout(() => {
+     setShowPreview(true)
+     }, 600)
+  }
+
+  const handleMouseUp = () => {
+     clearTimeout(pressTimerRef.current)
+  }
+
+  const handleClosePreview = () => {
+     setShowPreview(false)
+  }
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -47,13 +63,29 @@ const Profile = ({ userID }) => {
     <div className="w-full min-h-screen flex flex-col bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe]">
       <div className="w-full h-full overflow-y-auto">
         <div className="bg-gradient-to-tr from-blue-200 via-pink-200 to-purple-100 flex flex-col lg:flex-row items-center justify-center gap-6 px-4 lg:px-12 py-8 w-full">
-          <div className="flex flex-col lg:flex-row items-center lg:bg-white lg:shadow-xl rounded-2xl p-6 lg:gap-10 gap-3 max-w-xl w-full">
-            <div className="w-28 sm:w-32 lg:w-36 h-28 sm:h-32 lg:h-36 rounded-full overflow-hidden border-4 border-white shadow-md">
-              <img src={profiledata.profilePhoto} className="object-cover w-full h-full" />
+          <div className="flex flex-col lg:flex-row items-center lg:bg-white lg:shadow-xl rounded-2xl p-6 lg:gap-10 gap-3 max-w-2xl w-full">
+          <div className="w-28 sm:w-32 lg:w-48 h-28 sm:h-32 lg:h-36 rounded-full overflow-hidden border-4 border-white shadow-md cursor-pointer"
+                  onMouseDown={handleMouseDown}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseUp}
+                  onTouchStart={handleMouseDown}
+                  onTouchEnd={handleMouseUp} 
+                >
+              <img src={profiledata.profilePhoto} className="object-cover w-full h-full" alt="Profile" />
+          </div>
+
+          {showPreview && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-md w-screen h-screen"
+              onClick={handleClosePreview}
+            >
+              <img src={profiledata.profilePhoto} alt="Preview" className="md:h-64 md:w-64 w-52 h-52 rounded-full shadow-xl object-cover" />
             </div>
-            <div className="flex flex-col gap-4 w-full">
+          )}
+
+            <div className="flex flex-col gap-4 lg:gap-3 w-full">
               <div className="flex flex-col lg:flex-row justify-between items-center gap-2">
-                <h2 className="font-normal text-lg lg:text-xl">{profiledata.username}</h2>
+                <h2 className="font-bold text-lg lg:text-xl">{profiledata.username}</h2>
                 {!userID && <button
                   className="editProfile text-white hover:bg-blue-800 px-9 py-2 rounded-md bg-blue-600 transition duration-300"
                   onClick={() => navigate('/editprofilelayout')}
@@ -62,7 +94,7 @@ const Profile = ({ userID }) => {
                 </button>}
 
               </div>
-              <div className="flex justify-center gap-20 lg:justify-around text-center">
+              <div className="flex justify-center gap-16 lg:justify-start text-center">
                 <div>
                   <p className="text-sm text-gray-900">Posts</p>
                   <p className="font-semibold text-lg">{post?.length}</p>
