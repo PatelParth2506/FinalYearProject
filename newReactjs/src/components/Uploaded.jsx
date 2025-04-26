@@ -156,7 +156,7 @@ function Uploaded() {
 
                 <div className="w-full h-[350px] flex justify-center items-center mt-3 sm:h-[420px]">
                     <div className="h-full w-full mx-5 p-1">
-                        <img src={post.photo} alt="post" className='w-full h-full rounded-2xl' />
+                        <img src={post.photo} alt="post" className='w-full h-full rounded-xl object-cover' />
                     </div>
                 </div>
 
