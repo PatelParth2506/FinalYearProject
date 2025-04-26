@@ -76,7 +76,7 @@ const Profile = ({ userID }) => {
 
           {showPreview && (
             <div
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-md w-screen h-screen"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-lg w-screen h-screen"
               onClick={handleClosePreview}
             >
               <img src={profiledata.profilePhoto} alt="Preview" className="md:h-64 md:w-64 w-52 h-52 rounded-full shadow-xl object-cover" />
