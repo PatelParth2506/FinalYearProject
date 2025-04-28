@@ -9,7 +9,7 @@ import heratfill from '../assets/heartFill.png';
 import send from '../assets/send.png';
 import { useParams, useNavigate } from 'react-router-dom';
 import { connect } from 'socket.io-client';
-import dot from "../assets/threedot.png"
+import dot from "../assets/dots.png"
 
 function Uploaded() {
     const postRefs = useRef({})

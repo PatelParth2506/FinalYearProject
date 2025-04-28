@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import logos from '../assets/logos.png';
-import menu from '../assets/menu.png';
+import dot from '../assets/dots.png';
 import back from '../assets/back.png';
 import { FaTrashAlt } from 'react-icons/fa'
 
@@ -107,7 +107,7 @@ const ChatRight = ({ userData, selectedUser, socket, setSelectedUser }) => {
           </div>
         </div>
         <div>
-          <img src={menu} alt="menu" className='w-7 h-7 cursor-pointer' onClick={() => setShowMenu((prev) => !prev)} />
+          <img src={dot} alt="menu" className='w-6 cursor-pointer' onClick={() => setShowMenu((prev) => !prev)} />
         </div>
       </div>
 
