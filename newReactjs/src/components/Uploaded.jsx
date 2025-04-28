@@ -155,27 +155,27 @@ function Uploaded() {
                             </button>
 
                         </div>
-{/* ///////////.... */}
-<div className="relative">
-    <img
-        src={dot}
-        alt=""
-        className='w-6 cursor-pointer'
-        onClick={() => setActivePostId(activePostId === post._id ? null : post._id)}
-    />
 
-    {activePostId === post._id && (
-        <div className="absolute right-0 top-8 bg-white shadow-lg rounded-md z-10 w-32 p-2">
-            <div
-                className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
-                onClick={() => handleDeletePost(post._id)}
-            >
-                <img src={deletePost} alt="Delete" className="w-4 h-4" />
-                <span className="text-red-600 text-sm font-medium">Delete</span>
+           <div className="relative">
+               <img
+                   src={dot}
+                   alt=""
+                   className='w-6 cursor-pointer'
+                   onClick={() => setActivePostId(activePostId === post._id ? null : post._id)}
+               />
+           
+               {activePostId === post._id && (
+                   <div className="absolute right-0 top-8 bg-white shadow-lg rounded-md z-10 w-32 p-2">
+                       <div
+                           className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
+                           onClick={() => handleDeletePost(post._id)}
+                       >
+                           <img src={deletePost} alt="Delete" className="w-4 h-4" />
+                           <span className="text-red-600 text-sm font-medium">Delete</span>
+                       </div>
+                   </div>
+               )}
             </div>
-        </div>
-    )}
-</div>
 
 
                     </div>
