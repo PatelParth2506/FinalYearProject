@@ -36,7 +36,7 @@ const ChatRight = ({ userData, selectedUser, socket, setSelectedUser }) => {
   
     const timeoutId = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 700);
   
     return () => clearTimeout(timeoutId);
   }, [selectedUser, userData]);
