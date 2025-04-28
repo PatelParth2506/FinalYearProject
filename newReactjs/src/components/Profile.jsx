@@ -13,8 +13,6 @@ const Profile = ({ userID }) => {
   const [showFullBio, setShowFullBio] = useState(false)
   const [showUserList, setShowUserList] = useState(null) 
   const [userList, setUserList] = useState([])
-
-
   const [showPreview, setShowPreview] = useState(false)
   const pressTimerRef = useRef(null)
 
@@ -59,12 +57,23 @@ const Profile = ({ userID }) => {
     fetchdata()
   }, [])
 
+  const handleShowUserList = async(type)=>{
+    setShowUserList(type)
+    const userids= profiledata[type] || []
+
+    const users = await Promise.all(userids.map(async(id)=>{
+      const res= await axios.get(`/api/user/getuser/${id}`)
+      return res.data.data
+    }))
+    setUserList(users)
+  }
+
   return (
     <div className="w-full min-h-screen flex flex-col bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe]">
       <div className="w-full h-full overflow-y-auto">
         <div className="bg-gradient-to-tr from-blue-200 via-pink-200 to-purple-100 flex flex-col lg:flex-row items-center justify-center gap-6 px-4 lg:px-12 py-8 w-full">
           <div className="flex flex-col lg:flex-row items-center lg:bg-white lg:shadow-xl rounded-2xl p-6 lg:gap-10 gap-3 max-w-2xl w-full">
-          <div className="w-28 sm:w-32 lg:w-48 h-28 sm:h-32 lg:h-36 rounded-full overflow-hidden border-4 border-white shadow-md cursor-pointer"
+          <div className="w-32 sm:w-36 lg:w-48 h-32 sm:h-36 lg:h-36 rounded-full overflow-hidden border-4 border-white shadow-md cursor-pointer"
                   onMouseDown={handleMouseDown}
                   onMouseUp={handleMouseUp}
                   onMouseLeave={handleMouseUp}
@@ -76,7 +85,7 @@ const Profile = ({ userID }) => {
 
           {showPreview && (
             <div
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-md w-screen h-screen"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-lg w-screen h-screen"
               onClick={handleClosePreview}
             >
               <img src={profiledata.profilePhoto} alt="Preview" className="md:h-64 md:w-64 w-52 h-52 rounded-full shadow-xl object-cover" />
@@ -99,11 +108,11 @@ const Profile = ({ userID }) => {
                   <p className="text-sm text-gray-900">Posts</p>
                   <p className="font-semibold text-lg">{post?.length}</p>
                 </div>
-                <div>
+                <div  onClick={() => handleShowUserList('followers')} className="cursor-pointer">
                   <p className="text-sm text-gray-900">Followers</p>
                   <p className="font-semibold text-lg">{profiledata.followers?.length}</p>
                 </div>
-                <div>
+                <div onClick={() => handleShowUserList('following')} className="cursor-pointer">
                   <p className="text-sm text-gray-900">Following</p>
                   <p className="font-semibold text-lg">{profiledata.following?.length}</p>
                 </div>
@@ -112,7 +121,7 @@ const Profile = ({ userID }) => {
 
               <div>
                   <h1 className='font-semibold'>
-                     {/* username goes here */}
+                     {profiledata.fullname}
                   </h1>
 
               <div className="text-sm text-gray-900">

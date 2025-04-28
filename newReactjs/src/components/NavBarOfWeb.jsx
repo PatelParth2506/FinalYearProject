@@ -71,6 +71,7 @@ import search from '../assets/img/stories/search.png';
 import chat from '../assets/img/stories/chat.png';
 import avatar from '../assets/img/stories/avatar.jpg';
 import Iconswithname from './Iconswithname'; // Import the Iconswithname component
+import menu from '../assets/menu.png'
 
 function NavBarOfWeb({ toggleMenu }) {
   const [showSearch, setShowSearch] = useState(false);
@@ -80,8 +81,8 @@ function NavBarOfWeb({ toggleMenu }) {
     <div className="top-0 z-20 w-full h-[7vh] sticky bg-white shadow-md shadow-[#56a1c41d] flex justify-center px-3">
       <nav className="w-full bg-white p-2 flex justify-between items-center px-[1%]">
         <div className="flex-[2] flex justify-start items-center">
-          <button onClick={() => setShowHamburger(!showHamburger)} className="outline-none">
-            <img src={logo} alt="Logo" className="w-8 h-8" />
+          <button className="outline-none">
+            <img src={logo} alt="Logo" className="w-8 h-8"/>
           </button>
           <h2 className="text-[#2B6EA0] font-medium text-xl pl-1 font-sans">ConnectMe</h2>
         </div>
@@ -98,22 +99,29 @@ function NavBarOfWeb({ toggleMenu }) {
         </div>
 
         <div className="flex-[2] flex justify-end items-center">
+
           <button
             onClick={() => setShowSearch(!showSearch)}
-            className="md:hidden p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-4"
+            className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-3 md:hidden"
           >
             <img src={search} alt="search" className="w-5" title='Search'/>
           </button>
 
-          <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-4">
+          <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-3 hidden md:flex">
             <img src={chat} alt="chat" className="w-5" title='Message'/>
           </button>
 
-          <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-4">
+          <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-3  hidden md:flex">
             <img src={notification} alt="notification" title='Notification' className="w-5" />
           </button>
 
+<<<<<<< HEAD
           <img src={avatar} alt="userPro" className="w-10 h-10 p-1 bg-white rounded-full aspect-square border-2 border-[#2B6EA0]" />
+=======
+          <img src={avatar} alt="userPro" className="w-10 h-10 p-1 bg-white rounded-full aspect-square border-2 border-[#2B6EA0]  hidden md:flex" />
+
+          <img src={menu} alt="Menu" className="w-9 h-10 p-[5px] bg-white rounded-full md:hidden" onClick={() => setShowHamburger(!showHamburger)}/>
+>>>>>>> a57d79a33565560091123b5316496efdc4c2b678
         </div>
       </nav>
 

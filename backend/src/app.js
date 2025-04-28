@@ -12,6 +12,7 @@ import { Server } from 'socket.io';
 import { addUser, removeUser, getReceiverSocketId } from './utils/Scokets.js';
 import { Message } from './models/MessageModel.js';
 import { handleStripeWebhook } from './controllers/PaymentController.js';
+import { User } from './models/UserModel.js';
 
 const app = express();
 const server = createServer(app);
@@ -64,6 +65,5 @@ io.on('connection', (socket) => {
         removeUser(socket.id)
     });
 });
-
 
 export { app, server, io };

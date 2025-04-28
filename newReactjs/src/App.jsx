@@ -29,16 +29,17 @@ import Adminnavbar from "./components/AdminComponent/Navbar.jsx"
 import Mainchat from "./components/Mainchat.jsx"
 
 const Layout = ({ children }) => {
-  const location = useLocation()
+  const location = useLocation();
 
-  const showStoreNavbar = location.pathname.startsWith("/store")
-  const hidenavbar= location.pathname.startsWith("/login") || location.pathname === "/"
-  const showadminnavbar = location.pathname.startsWith("/admin")
+  const showStoreNavbar = location.pathname.startsWith("/store");
+  const hideNavbar = location.pathname.startsWith("/login") || location.pathname === "/";
+  const showAdminNavbar = location.pathname.startsWith("/admin");
+
   return (
     <>
-      {!hidenavbar && (
-        showadminnavbar ? (
-          <Adminnavbar/>
+      {!hideNavbar && (
+        showAdminNavbar ? (
+          <AdminNavbar />
         ) : showStoreNavbar ? (
           <Navbar />
         ) : (
@@ -48,8 +49,7 @@ const Layout = ({ children }) => {
       {children}
     </>
   );
-  
-}
+};
 
 const App = () => {
   return (
@@ -58,38 +58,43 @@ const App = () => {
         <Layout>
           <Routes>
             <Route path="/" element={<Signup />} />
+            <Route path="/home" element={<PrivateRoute><HomeLayout /></PrivateRoute>} />
             <Route path="/login" element={<Login />} />
-            <Route path="/home" element={<HomeLayout />} />
-            <Route path="/chatbox" element={<Mainchat />} />
-            <Route path="/chatrightpart" element={<ChatRight />} />
-            <Route path="/story" element={<StoryLayout />} />
-            <Route path="/profilelayout/:userID?" element={<ProfileLayout />} />
-            <Route path="/editprofilelayout" element={<EditprofileLayout />} />
-            <Route path="/photo" element={<Photo />} />
-            <Route path="/loader" element={<Loader />} />
-            <Route path="/store" element={<StoreHome />} />
-            <Route path="/store/product/:id" element={<ProductDetails />} />
-            <Route path="/store/cart" element={<CartPage />} />
-            <Route path="/success" element={<PaymentSuccess />} />
-            <Route path="/cancel" element={<PaymentCancel />} />
-            <Route path="/getallpost/:userID/:postID" element={<HomeLayout />} />
-            <Route path="/storeadmin/home" element={<Home />} />
-            <Route path="/storeadmin/inventory" element={<Inventory />} />
+            <Route path="/chatleftpart" element={<PrivateRoute><ChatLeft /></PrivateRoute>} />
+            <Route path="/chatrightempty" element={<PrivateRoute><ChatRightEmpty /></PrivateRoute>} />
+            <Route path="/story" element={<PrivateRoute><StoryLayout /></PrivateRoute>} />
+            <Route path="/chatrightpart" element={<PrivateRoute><ChatRight /></PrivateRoute>} />
+            <Route path="/chatbox" element={<PrivateRoute><ChatBox /></PrivateRoute>} />
+            <Route path="/profilelayout/:userID?" element={<PrivateRoute><ProfileLayout /></PrivateRoute>} />
+            <Route path="/editprofilelayout" element={<PrivateRoute><EditProfileLayout /></PrivateRoute>} />
+            <Route path="/photo" element={<PrivateRoute><Photo /></PrivateRoute>} />
+            <Route path="/loader" element={<PrivateRoute><Loader /></PrivateRoute>} />
+            <Route path="/store" element={<PrivateRoute><StoreHome /></PrivateRoute>} />
+            <Route path="/store/product/:id" element={<PrivateRoute><ProductDetails /></PrivateRoute>} />
+            <Route path="/store/cart" element={<PrivateRoute><CartPage /></PrivateRoute>} />
+            <Route path="/success" element={<PrivateRoute><PaymentSuccess /></PrivateRoute>} />
+            <Route path="/cancel" element={<PrivateRoute><PaymentCancel /></PrivateRoute>} />
+            <Route path="/getallpost/:userID/:postID" element={<PrivateRoute><HomeLayout /></PrivateRoute>} />
+            <Route path="/home" element={<PrivateRoute><HomeLayout /></PrivateRoute>} />
 
-            <Route path="/admin" element={<Home />} />
-            <Route path="/admin/inventory" element={<Inventory />} />
-            <Route path="/admin/Customers" element={<Customers />} />
-            <Route path="/admin/Orders" element={<Orders />} />
-            <Route path="/admin/updateProducts" element={<AddProducts />} />
-            <Route path="/admin/updateProducts/product" element={<CURD />} />
-            <Route path="/admin/addProduct" element={<AddProduct />} />
 
+            <Route path="/admin" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><Home /></RoleProtectedRoute>} />
+            <Route path="/admin/inventory" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><Inventory /></RoleProtectedRoute>} />
+            <Route path="/admin/Customers" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><Customers /></RoleProtectedRoute>} />
+            <Route path="/admin/Orders" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><Orders /></RoleProtectedRoute>} />
+            <Route path="/admin/updateProducts" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><AddProducts /></RoleProtectedRoute>} />
+            <Route path="/admin/updateProducts/product" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><CURD /></RoleProtectedRoute>} />
+            <Route path="/admin/addProduct" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><AddProduct /></RoleProtectedRoute>} />
+
+            <Route path="/devadmin" element={<AdminLayout />}>
+              <Route path="dashboard" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><Dashboard /></RoleProtectedRoute>} />
+              <Route path="users" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><UserList /></RoleProtectedRoute>} />
+            </Route>
           </Routes>
         </Layout>
-
       </BrowserRouter>
     </Provider>
   );
-}
+};
 
-export default App
+export default App;

@@ -9,7 +9,7 @@ import heratfill from '../assets/heartFill.png';
 import send from '../assets/send.png';
 import { useParams, useNavigate } from 'react-router-dom';
 import { connect } from 'socket.io-client';
-
+import dot from "../assets/threedot.png"
 
 function Uploaded() {
     const postRefs = useRef({})
@@ -142,7 +142,7 @@ function Uploaded() {
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
-                        <div className={`px-7 py-[7px] ml-2 border text-[16px] rounded-2xl
+                        <div className={`px-7 py-[7px] ml-2 mr-1 border text-[16px] rounded-2xl
                              ${user.following?.includes(post.owner._id)
                                 ? "bg-[#2B6EA0] text-white border-[#2B6EA0]"
                                 : "bg-white text-[#2B6EA0] border-[#2B6EA0]"
@@ -150,7 +150,9 @@ function Uploaded() {
                             <button onClick={() => toggolefollow(post.owner._id)}>
                                 {user.following?.includes(post.owner._id) ? "Following" : "Follow"}
                             </button>
+
                         </div>
+                        <img src={dot} alt="" className='w-6 cursor-pointer'/>
                     </div>
                 </div>
 
