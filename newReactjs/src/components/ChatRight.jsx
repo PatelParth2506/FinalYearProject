@@ -154,18 +154,17 @@ const ChatRight = ({ userData, selectedUser, socket, setSelectedUser }) => {
                 onMouseLeave={() => setShowDelete(null)}
               >
                 <div
-                  className={`max-w-[60%] h-auto px-4 py-1 text-[16px] rounded-xl mr-1 ${isOwn
-                      ? 'bg-gradient-to-tr from-[#497597] via-[#428cc4] to-[#85b5da] text-white'
-                      : 'bg-gray-200 text-black'
-                    } break-words overflow-hidden flex flex-col`}
+                  className={`max-w-[60%] sm:max-w-[40%] h-auto px-4 py-1 text-[16px] rounded-xl mr-1 ${
+                    isOwn? 'bg-gradient-to-tr from-[#497597] via-[#428cc4] to-[#85b5da] text-white': 'bg-gray-200 text-black'
+                  } break-words overflow-hidden flex flex-col`} style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}
                 >
                   <span className="w-full break-words">{msg.text}</span>
-
+          
                   <div className="flex justify-end mt-1">
                     <p className="text-[10px]">7:30 am</p>
                   </div>
                 </div>
-
+          
                 {isOwn && showDelete === msg._id && (
                   <button
                     onClick={() => handleDeleteMessage(msg._id)}
@@ -177,6 +176,7 @@ const ChatRight = ({ userData, selectedUser, socket, setSelectedUser }) => {
               </div>
             );
           })
+          
         )}
       </div>
 
