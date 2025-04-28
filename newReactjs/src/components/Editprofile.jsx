@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaCamera, FaSave } from 'react-icons/fa';
+import emptyuser2 from '../assets/emptyuser2.jpeg'
 
 const EditProfile = () => {
   const [name, setName] = useState('');
@@ -35,11 +36,11 @@ const EditProfile = () => {
     <div className="min-h-screen bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe] flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-y-auto py-20">
       <div className="w-full max-w-md bg-white border border-blue-100 rounded-3xl shadow-2xl p-6 relative transition-all duration-300">
 
-        {/* Profile Image */}
+      
         <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">
           <div className="relative w-28 h-28 rounded-full overflow-hidden border-4 border-white shadow-md">
             <img
-              src="man2.jpg"
+              src={emptyuser2}
               className="w-full h-full object-cover"
             />
             <button
