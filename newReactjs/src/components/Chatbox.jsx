@@ -1,111 +1,63 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ChatLeft from './ChatLeft';
 import Chatrightempty from './Chatrightempty';
-import { useNavigate } from 'react-router-dom';
+import ChatRight from './ChatRight';
 import axios from 'axios';
-import {io} from 'socket.io-client';
+import { io } from 'socket.io-client';
 
 const Chatbox = () => {
   const [userData, setUserData] = useState({});
   const [followers, setFollowers] = useState([]);
-  const [message,setMessage]=useState([])
-  const [newMessage,setNewMessage]=useState('')
-  const [socket,setSocket]=useState(null)
-  const [selectedFollower,setSelectedFollower]=useState(null)
-  const navigate = useNavigate();
-
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io('http://localhost:8000', {
-      withCredentials: true,
-    });
+    const newSocket = io('http://localhost:8000', { withCredentials: true });
     setSocket(newSocket);
-
     return () => newSocket.close();
   }, []);
 
   useEffect(() => {
-    if (socket) {
-      socket.emit('addUser', userData._id);
-      socket.on('getMessage', (data) => {
-        setMessage((prev) => [...prev, data]);
-      });
-    }
-  }, [socket, userData]);
-
-  useEffect(() => {
-    const fetchdata = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('/api/user/getUserProfile', {
-          withCredentials: true
-        });
-        setUserData(response.data.data);
-        const followerID = response.data.data.followers;
+        const res = await axios.get('/api/user/getUserProfile', { withCredentials: true });
+        setUserData(res.data.data);
+
         const followerDetails = await Promise.all(
-          followerID.map(async (id) => {
-            const followerres = await axios.get(`/api/user/getuser/${id}`, {
-              withCredentials: true
-            });
-            return followerres.data.data;
+          res.data.data.followers.map(async (id) => {
+            const followerRes = await axios.get(`/api/user/getuser/${id}`, { withCredentials: true });
+            return followerRes.data.data;
           })
         );
         setFollowers(followerDetails);
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        console.log(err);
       }
     };
-    fetchdata();
+    fetchData();
   }, []);
 
-  const openProfile = (followerData) => {
-    setSelectedFollower(followerData)
-    navigate("/chatrightpart", { state: { followerData, userData, followers } });
-  };
-
-  const handleSendMessage = async() => {
-    if (!selectedFollower) {
-      alert('Please select a follower to chat with.');
-      return;
-    }
-    const receiverId = selectedFollower._id; 
-    const message={
-      senderId:userData.id,
-      receiverId,
-      text:newMessage,
-    }
-
-    try {
-      const res=await axios.post(`/api/message/getmessage/${receiverId}`)
-      setNewMessage((prev)=>[...prev,res.data])
-      socket.emit('sendMessage',message)
-      setNewMessage('')
-    } catch (error) {
-      console.log(error)
-    }
+  const handleSelectUser = (user) => {
+    setSelectedUser(user);
   };
 
   return (
-    <div className='flex'>
-      <ChatLeft userData={userData} followers={followers} openProfile={openProfile} />
-      <Chatrightempty />
-      <div className='chatbox'>
-        <div className='messages'>
-          {message.map((msg, index) => (
-            <div key={index} className={msg.senderId === userData._id ? 'my-message' : 'other-message'}>
-              {msg.text}
-            </div>
-          ))}
-        </div>
-        <div className='input'>
-          <input
-            type='text'
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            placeholder='Type a message...'
-          />
-          <button onClick={handleSendMessage}>Send</button>
-        </div>
+    <div className="w-full h-full flex">
+      <div className={`flex-[1.2] ${selectedUser ? "sm:block hidden" : "block"}`}>
+        <ChatLeft userData={userData} followers={followers} onSelectUser={handleSelectUser} selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
       </div>
+
+      {selectedUser ? (
+        <div className={`flex-[3] bg-gradient-to-tr from-[#e3e8fb] via-[#fcf3f3] to-[#dbeafe]`}>
+          <ChatRight userData={userData} selectedUser={selectedUser}
+            socket={socket}
+            setSelectedUser={setSelectedUser}
+          />
+        </div>) : 
+        (<div className={`flex-[3] bg-gradient-to-tr from-[#e3e8fb] via-[#fcf3f3] to-[#dbeafe] sm:block hidden`}>
+          <Chatrightempty />
+        </div>
+      )}
     </div>
   );
 };

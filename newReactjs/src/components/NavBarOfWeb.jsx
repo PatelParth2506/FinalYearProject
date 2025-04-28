@@ -77,7 +77,7 @@ function NavBarOfWeb({ toggleMenu }) {
   const [showHamburger, setShowHamburger] = useState(false); // New state for the hamburger menu
 
   return (
-    <div className="top-0 z-10 w-full h-[7vh] sticky bg-white shadow-md shadow-[#56a1c41d] flex justify-center px-3">
+    <div className="top-0 z-20 w-full h-[7vh] sticky bg-white shadow-md shadow-[#56a1c41d] flex justify-center px-3">
       <nav className="w-full bg-white p-2 flex justify-between items-center px-[1%]">
         <div className="flex-[2] flex justify-start items-center">
           <button onClick={() => setShowHamburger(!showHamburger)} className="outline-none">

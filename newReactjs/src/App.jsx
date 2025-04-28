@@ -2,9 +2,6 @@ import React from "react"
 import Signup from "./components/signup"
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
 import Login from "./components/Login"
-import ChatLeft from "./components/ChatLeft"
-import Chatrightempty from "./components/Chatrightempty"
-import Chatbox from "./components/Chatbox"
 import ChatRight from "./components/ChatRight"
 import StoreHome from "./components/StoreHome"
 import ProductDetails from "./components/ProductDetails"
@@ -29,6 +26,7 @@ import AddProducts from "./components/AdminComponent/AddProducts.jsx"
 import Orders from "./components/AdminComponent/Orders.jsx"
 import Customers from "./components/AdminComponent/Customers.jsx"
 import Adminnavbar from "./components/AdminComponent/Navbar.jsx"
+import Mainchat from "./components/Mainchat.jsx"
 
 const Layout = ({ children }) => {
   const location = useLocation()
@@ -62,11 +60,9 @@ const App = () => {
             <Route path="/" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<HomeLayout />} />
-            <Route path="/chatleftpart" element={<ChatLeft />} />
-            <Route path="/chatrightempty" element={<Chatrightempty />} />
-            <Route path="/story" element={<StoryLayout />} />
-            <Route path="/chatbox" element={<Chatbox />} />
+            <Route path="/chatbox" element={<Mainchat />} />
             <Route path="/chatrightpart" element={<ChatRight />} />
+            <Route path="/story" element={<StoryLayout />} />
             <Route path="/profilelayout/:userID?" element={<ProfileLayout />} />
             <Route path="/editprofilelayout" element={<EditprofileLayout />} />
             <Route path="/photo" element={<Photo />} />

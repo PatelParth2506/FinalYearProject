@@ -1,30 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import ChatLeft from './ChatLeft';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { io } from 'socket.io-client';
 import axios from 'axios';
+import logos from '../assets/logos.png';
+import menu from '../assets/menu.png';
+import back from '../assets/back.png';
+import { FaTrashAlt } from 'react-icons/fa'; // Clean Trash Icon from react-icons
 
-const ChatRight = () => {
-  const location = useLocation();
-  const { followerData, userData, followers } = location.state || {};
-  console.log(followerData)
+const ChatRight = ({ userData, selectedUser, socket, setSelectedUser }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const [socket, setSocket] = useState(null);
-  const [selectedMessageId,setSelectedMessageId]=useState(null)
-  const navigate = useNavigate()
+  const [showDelete, setShowDelete] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
-    const newSocket = io('http://localhost:8000', {
-      withCredentials: true,
-    });
-    setSocket(newSocket);
+    if (!userData._id || !selectedUser._id) return;
 
-    return () => newSocket.close();
-  }, []);
+    const fetchMessages = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`/api/message/getmessage/${selectedUser._id}`, {
+          withCredentials: true,
+        });
+        setMessages(res.data.data);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+      }
+    };
+
+    fetchMessages();
+  }, [userData, selectedUser]);
 
   useEffect(() => {
-    if (socket) {
+    if (socket && userData._id) {
       socket.emit('addUser', userData._id);
       socket.on('getMessage', (data) => {
         setMessages((prev) => [...prev, data]);
@@ -32,121 +41,168 @@ const ChatRight = () => {
     }
   }, [socket, userData]);
 
-  useEffect(()=>{
-    const fetchmessage=async()=>{
-      try {
-        const res=await axios.get(`/api/message/getmessage/${followerData._id}`)
-        setMessages(res.data.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    if(userData?._id && followerData?._id){
-      fetchmessage()
-    }
-  },[userData,followerData])
-
   const handleSendMessage = async () => {
-    const receiverId = followerData._id;
-    console.log(receiverId);
-    const message = {
-      senderId: userData._id,
-      receiverId,
-      text: newMessage,
-    };
+    if (newMessage.trim() === '') return;
 
     try {
-      const res = await axios.post(`/api/message/sendmessage/${receiverId}`, {text:newMessage, sender:userData._id, receiver:receiverId}, {
-        withCredentials: true
-      });
-      console.log(res);
+      const res = await axios.post(
+        `/api/message/sendmessage/${selectedUser._id}`,
+        {
+          text: newMessage,
+          sender: userData._id,
+          receiver: selectedUser._id,
+        },
+        { withCredentials: true }
+      );
+
       setMessages((prev) => [...prev, res.data.data]);
-      socket.emit('sendMessage', message);
-      setNewMessage('');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleDeleteMessage = async (messageId) => {
-    try {
-      await axios.delete(`/api/message/deletemessage/${messageId}`, {
-        withCredentials: true
+      socket.emit('sendMessage', {
+        senderId: userData._id,
+        receiverId: selectedUser._id,
+        text: newMessage,
       });
-      setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
-      setSelectedMessageId(null)
-    } catch (error) {
-      console.error(error);
+      setNewMessage('');
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  const handleMessageClick=(messageID)=>{
-    setSelectedMessageId((prev)=>(prev === messageID ? null : messageID))
-  }
-
-  const openProfile = (f) => {
-    console.log(f)
-    navigate("/chatrightpart", { state: { followerData:f, userData, followers } });
+  const handleDeleteMessage = async (id) => {
+    try {
+      await axios.delete(`/api/message/deletemessage/${id}`, {
+        withCredentials: true,
+      });
+      setMessages((prev) => prev.filter((msg) => msg._id !== id));
+      setShowDelete(null);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  const handleDeleteAll = () => {
+    setMessages((prev) => prev.filter((msg) => msg.sender !== userData._id && msg.receiver !== userData._id));
+    setShowMenu(false);
+  };
+
+  const handleDeleteOnlyMine = () => {
+    setMessages((prev) => prev.filter((msg) => msg.sender !== userData._id));
+    setShowMenu(false);
+  };
+
   return (
-    <div className='flex'>
-      <ChatLeft userData={userData} followers={followers} openProfile={openProfile}/>
+    <div className="relative flex flex-col h-full sm:mx-3">
+      {/* Logo in the center */}
+      <div className="absolute inset-0 flex justify-center items-center">
+        <img src={logos} alt="Logo" className="w-36 h-36 opacity-40 transition-all duration-300 ease-in-out" />
+      </div>
 
-      <div className='w-screen flex flex-col'>
-        {followerData ? (
-          <div className='flex items-center gap-2 border-b-2 px-6 py-3'>
-            <div className='w-16 h-16 rounded-full overflow-hidden'>
-              <img src={followerData.profilePhoto} alt="" className='object-cover w-full h-full' />
+      {/* Header */}
+      <div className="pr-6 py-1 sm:py-3 border-b border-[#4a8bbe] z-10 flex justify-between items-center">
+        <div className="flex items-center ">
+          <img src={back} alt="back" className={`w-10 h-10 ${selectedUser ? "sm:hidden block" : "hidden"}`} onClick={() => setSelectedUser(null)} />
+          <div className="flex items-center gap-2 sm:pl-4">
+            <img src={selectedUser.profilePhoto} alt="" className="w-12 h-12 border-2 border-[#4f7c9f] p-[2px] rounded-full object-cover" />
+            <div>
+              <h2 className="font-bold text-[18px] text-[#245b85]">{selectedUser.username}</h2>
+              <p className="text-xs text-gray-500">Last seen 5 ago</p>
             </div>
-            <h2 className='font-semibold'>{followerData.username}</h2>
           </div>
-        ) : (
-          <div className='flex items-center gap-2 border-b-2 px-6 py-3'>
-            <p>No follower data available</p>
-          </div>
-        )}
-
-        <div className='flex-grow overflow-y-scroll p-4'>
-          {messages.map((msg) => (
-            
-            <div
-              key={msg._id}
-              className={`p-2 my-2 rounded-lg max-w-xs ${
-                msg.sender === userData._id ? 'bg-blue-500 text-white self-end ml-auto' : 'bg-gray-200 text-black self-start mr-auto'
-              }`}
-             onClick={()=>handleMessageClick(msg._id)}>
-              {msg.text}
-              {selectedMessageId === msg._id && msg.sender === userData._id && (
-                <button
-                  onClick={() => handleDeleteMessage(msg._id)}
-                  className='ml-2 text-red-500'
-                >
-                  Delete
-                </button>
-              )}
-            </div>
-          ))}
         </div>
-
-        <div className='input flex items-center border-t-2 px-6 py-3 sticky bottom-0'>
-          <input
-            type='text'
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            onKeyDown={(e)=>{
-              if(e.key === 'Enter'){
-                handleSendMessage()
-              }
-            }}
-            placeholder='Type a message...'
-            className='flex-grow px-4 py-2 border rounded-md'
-          />
-          <button onClick={handleSendMessage} className='ml-4 px-4 py-2 bg-blue-500 text-white rounded-md'>
-            Send
-          </button>
+        <div>
+          <img src={menu} alt="menu" className='w-7 h-7 cursor-pointer' onClick={() => setShowMenu((prev) => !prev)} />
         </div>
       </div>
+
+      {showMenu && (
+        <div className="absolute right-6 top-16 bg-white shadow-lg rounded-lg py-2 w-48 z-50">
+          <button
+            onClick={handleDeleteAll}
+            className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+          >
+            Delete All
+          </button>
+          <button
+            onClick={handleDeleteOnlyMine}
+            className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+          >
+            Delete Only My Messages
+          </button>
+        </div>
+      )}
+
+
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 z-10 overFlow">
+        {loading ? (
+          <div className="flex flex-col items-center justify-end h-full space-y-4">
+          <div className="flex space-x-2">
+            <div className="w-2 h-2 rounded-full bg-[#2B6EA0] animate-bounce"></div>
+            <div className="w-2 h-2 rounded-full bg-[#2B6EA0] animate-bounce [animation-delay:0.2s]"></div>
+            <div className="w-2 h-2 rounded-full bg-[#2B6EA0] animate-bounce [animation-delay:0.4s]"></div>
+          </div>
+          <p className="text-gray-500 font-semibold text-[16px]">Loading messages...</p>
+        </div>
+        ) : messages.length === 0 ? (
+          <div className="flex flex-col items-center h-full">
+            <p className="text-lg font-semibold text-[#2B6EA0]">No messages yet</p>
+            <p className="text-sm text-gray-500">Start the conversation!</p>
+          </div>
+        ) : (
+          messages.map((msg) => {
+            const isOwn = msg.sender === userData._id;
+            return (
+              <div
+                key={msg._id}
+                className={`flex ${isOwn ? 'justify-end' : 'justify-start'} relative items-center`}
+                onMouseEnter={() => setShowDelete(msg._id)}
+                onMouseLeave={() => setShowDelete(null)}
+              >
+                <div
+                  className={`max-w-[60%] h-auto px-4 py-1 text-[16px] rounded-xl mr-1 ${isOwn
+                      ? 'bg-gradient-to-tr from-[#497597] via-[#428cc4] to-[#85b5da] text-white'
+                      : 'bg-gray-200 text-black'
+                    } break-words overflow-hidden flex flex-col`}
+                >
+                  <span className="w-full break-words">{msg.text}</span>
+
+                  <div className="flex justify-end mt-1">
+                    <p className="text-[10px]">7:30 am</p>
+                  </div>
+                </div>
+
+                {isOwn && showDelete === msg._id && (
+                  <button
+                    onClick={() => handleDeleteMessage(msg._id)}
+                    className="w-8 h-8 bg-white text-red-500 rounded-full p-1 hover:bg-red-100 transition-all flex justify-center items-center"
+                  >
+                    <FaTrashAlt size={16} />
+                  </button>
+                )}
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* Input */}
+      <div className="p-4 flex items-center gap-2 z-10">
+        <input
+          type="text"
+          className="flex-1 border rounded-lg px-4 py-2 focus:outline-none"
+          placeholder="Type your message..."
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+        />
+        <button
+          className="bg-[#2B6EA0] text-white px-4 py-2 rounded-lg hover:bg-[#245881] transition-all"
+          onClick={handleSendMessage}
+        >
+          Send
+        </button>
+      </div>
     </div>
+
   );
 };
 
