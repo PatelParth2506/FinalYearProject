@@ -25,7 +25,7 @@ function Uploaded() {
     const [loading, setLoading] = useState(true);
     const [activePostId, setActivePostId] = useState(null);
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
     
     const handleDeletePost = async (postid) => {
 
