@@ -62,7 +62,7 @@
 //   );
 // }
 
-// export default NavBarOfWeb; 
+// export default NavBarOfWeb;
 
 import React, { useState } from 'react';
 import logo from '../assets/C.jpg';
