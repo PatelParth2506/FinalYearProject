@@ -2,9 +2,7 @@ import React from "react";
 import Signup from "./components/signup";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Login from "./components/Login";
-import ChatLeft from "./components/ChatLeft";
-import ChatRightEmpty from "./components/Chatrightempty";
-import ChatBox from "./components/Chatbox";
+import Mainchat from "./components/Mainchat.jsx"
 import ChatRight from "./components/ChatRight";
 import StoreHome from "./components/StoreHome";
 import ProductDetails from "./components/ProductDetails";
@@ -67,11 +65,8 @@ const App = () => {
             <Route path="/" element={<Signup />} />
             <Route path="/home" element={<PrivateRoute><HomeLayout /></PrivateRoute>} />
             <Route path="/login" element={<Login />} />
-            <Route path="/chatleftpart" element={<PrivateRoute><ChatLeft /></PrivateRoute>} />
-            <Route path="/chatrightempty" element={<PrivateRoute><ChatRightEmpty /></PrivateRoute>} />
+            <Route path="/chatbox" element={<PrivateRoute><Mainchat /></PrivateRoute>} />
             <Route path="/story" element={<PrivateRoute><StoryLayout /></PrivateRoute>} />
-            <Route path="/chatrightpart" element={<PrivateRoute><ChatRight /></PrivateRoute>} />
-            <Route path="/chatbox" element={<PrivateRoute><ChatBox /></PrivateRoute>} />
             <Route path="/profilelayout/:userID?" element={<PrivateRoute><ProfileLayout /></PrivateRoute>} />
             <Route path="/editprofilelayout" element={<PrivateRoute><EditProfileLayout /></PrivateRoute>} />
             <Route path="/photo" element={<PrivateRoute><Photo /></PrivateRoute>} />
@@ -105,4 +100,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App;

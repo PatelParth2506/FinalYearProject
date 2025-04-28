@@ -78,7 +78,7 @@ function NavBarOfWeb({ toggleMenu }) {
   const [showHamburger, setShowHamburger] = useState(false); // New state for the hamburger menu
 
   return (
-    <div className="top-0 z-10 w-full h-[7vh] sticky bg-white shadow-md shadow-[#56a1c41d] flex justify-center px-3">
+    <div className="top-0 z-20 w-full h-[7vh] sticky bg-white shadow-md shadow-[#56a1c41d] flex justify-center px-3">
       <nav className="w-full bg-white p-2 flex justify-between items-center px-[1%]">
         <div className="flex-[2] flex justify-start items-center">
           <button className="outline-none">
@@ -111,7 +111,7 @@ function NavBarOfWeb({ toggleMenu }) {
             <img src={chat} alt="chat" className="w-5" title='Message'/>
           </button>
 
-          <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-3  hidden md:flex">
+          <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-3 hidden md:flex">
             <img src={notification} alt="notification" title='Notification' className="w-5" />
           </button>
 

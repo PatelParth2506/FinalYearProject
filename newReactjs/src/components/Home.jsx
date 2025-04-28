@@ -36,7 +36,7 @@ function Home() {
                         </div>
 
                         <div className="bg-white/90 shadow-md rounded-2xl p-6 block sm:hidden">
-                            <h3 className="text-lg font-medium text-[#1d4ed8] mb-2">Explore Tags</h3>
+                            <h3 className="text-lg font-medium text-[#2B6EA0] mb-2">Explore Tags</h3>
                             <div className="flex flex-wrap gap-3">
                                 {['#Design', '#Ideas', '#Inspire', '#DevTalk', '#React', '#Mindset'].map(tag => (
                                     <span key={tag} onClick={() => setPostText((prev) => prev + ' ' + tag)} className="bg-[#dbeafe] text-[#1e40af] px-3 py-1 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#bfdbfe] transition">{tag}</span>
@@ -73,10 +73,10 @@ function Home() {
                             </div>
 
                             <div className="bg-white/90 shadow-md rounded-2xl p-6">
-                                <h3 className="text-lg font-medium text-[#1d4ed8] mb-2">Explore Tags</h3>
+                                <h3 className="text-lg font-medium text-[#2B6EA0] mb-2">Explore Tags</h3>
                                 <div className="flex flex-wrap gap-3">
                                     {['#Design', '#Ideas', '#Inspire', '#DevTalk', '#React', '#Mindset'].map(tag => (
-                                        <span key={tag} onClick={() => setPostText((prev) => prev + ' ' + tag)} className="bg-[#dbeafe] text-[#1e40af] px-3 py-1 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#bfdbfe] transition">{tag}</span>
+                                        <span key={tag} onClick={() => setPostText((prev) => prev + ' ' + tag)} className="bg-[#dbeafe] text-[#22557b] px-3 py-1 rounded-full text-sm font-semibold cursor-pointer hover:bg-[#bfdbfe] transition">{tag}</span>
                                     ))}
                                 </div>
                             </div>

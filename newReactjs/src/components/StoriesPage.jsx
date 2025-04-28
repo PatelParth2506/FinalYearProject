@@ -198,7 +198,7 @@ export default function StoriesPage() {
               <img src={storiesData[currentIndex]?.photo} alt="current" className="w-full h-full object-cover rounded-xl" />
               <div className="gradientBgStory absolute top-0 left-0 w-full flex justify-between items-center p-4">
                 <div className="flex items-center gap-x-3">
-                  <img src={storiesData[currentIndex]?.owner.profilePhoto} alt="user" className="w-14 h-14 rounded-full object-cover aspect-square border-2 border-white" />
+                  <img src={storiesData[currentIndex]?.owner.profilePhoto} alt="user" className="w-12 h-12 rounded-full object-cover aspect-square border-2 border-white" />
                   <div>
                     <p className="text-white font-medium">{storiesData[currentIndex]?.owner.username}</p>
                     <p className="text-xs text-gray-200">{dayjs(storiesData[currentIndex]?.createdAt).fromNow()}</p>
