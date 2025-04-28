@@ -45,7 +45,7 @@ const EditProfile = () => {
             />
             <button
               onClick={() => { navigate('/photo', { state: { from: 'editprofile' } }) }}
-              className="absolute bottom-0 right-0 bg-blue-600 text-white p-1.5 rounded-full shadow-md hover:scale-110 transition"
+              className="absolute bottom-2 right-1 bg-blue-600 text-white p-1.5 rounded-full shadow-md hover:scale-110 transition"
               title="Change Photo"
             >
               <FaCamera className="text-xl" />
