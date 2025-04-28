@@ -111,7 +111,7 @@ function NavBarOfWeb({ toggleMenu }) {
             <img src={chat} alt="chat" className="w-5" title='Message'/>
           </button>
 
-          <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-3  hidden md:flex">
+          <button className="p-[5.5px] rounded-full shadow-md shadow-[#56a1c45d] flex items-center justify-center mr-3 hidden md:flex">
             <img src={notification} alt="notification" title='Notification' className="w-5" />
           </button>
 
