@@ -109,7 +109,7 @@ const EditProfile = () => {
 
           <button
             onClick={handlesubmit}
-            className="w-full flex items-center justify-center gap-2 mt-2 py-3 bg-blue-600 text-white font-normal rounded-xl hover:bg-blue-700 transition shadow-md"
+            className="w-full flex items-center justify-center gap-2 mt-2 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition shadow-md"
             title="Save your changes"
           >
             <FaSave />
