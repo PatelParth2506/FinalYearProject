@@ -158,7 +158,7 @@ function Uploaded() {
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
-                        <div className={`px-7 py-[7px] ml-2 mr-1 border text-[16px] rounded-2xl
+                        <div className={`px-7 py-[7px] ml-2 mr-1 border text-[16px] rounded-lg
                              ${user.following?.includes(post.owner._id)
                                 ? "bg-white text-[#2B6EA0] border-[#2B6EA0]"
                                 : "bg-[#2B6EA0] text-white border-[#2B6EA0]"
