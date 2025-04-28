@@ -115,13 +115,9 @@ function NavBarOfWeb({ toggleMenu }) {
             <img src={notification} alt="notification" title='Notification' className="w-5" />
           </button>
 
-<<<<<<< HEAD
-          <img src={avatar} alt="userPro" className="w-10 h-10 p-1 bg-white rounded-full aspect-square border-2 border-[#2B6EA0]" />
-=======
           <img src={avatar} alt="userPro" className="w-10 h-10 p-1 bg-white rounded-full aspect-square border-2 border-[#2B6EA0]  hidden md:flex" />
 
           <img src={menu} alt="Menu" className="w-9 h-10 p-[5px] bg-white rounded-full md:hidden" onClick={() => setShowHamburger(!showHamburger)}/>
->>>>>>> a57d79a33565560091123b5316496efdc4c2b678
         </div>
       </nav>
 

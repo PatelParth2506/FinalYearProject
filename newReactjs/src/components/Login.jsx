@@ -1,15 +1,15 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Errorno5 from "./Errorno5";
 import Success2 from "./Success2";
 import axios from "axios";
 import loginImage from '../assets/loginImage.jpg';
-import Cookies from "js-cookie"; 
+import Cookies from "js-cookie";
 
 const Login = () => {
-  const [logindata, setloginData] = useState({ 
+  const [logindata, setloginData] = useState({
     username: "",
-    password: "" 
+    password: ""
   });
 
   const [showError, setShowError] = useState(false);
@@ -18,54 +18,53 @@ const Login = () => {
 
   useEffect(() => {
     console.log(document.cookie)
-    const isAuthenticated = Cookies.get("accesstoken"); 
+    const isAuthenticated = Cookies.get("accesstoken");
     console.log(isAuthenticated)
     if (isAuthenticated) {
-      navigate("/home"); 
+      navigate("/home");
     }
   }, [navigate]);
   const loginData = async (e) => {
     e.preventDefault();
 
 
-     if(!logindata.username || !logindata.password)
-            {
-                setShowError(true); 
-                setTimeout(() => {
-                  setShowError(false); 
-                    console.log("showError Is False")
-                }, 3000);
-                return false;
-            }
+    if (!logindata.username || !logindata.password) {
+      setShowError(true);
+      setTimeout(() => {
+        setShowError(false);
+        console.log("showError Is False")
+      }, 3000);
+      return false;
+    }
 
-        try {
-            const response=await axios.post("/api/user/login",logindata)
-                setShowSuccess(true); 
-                console.log(response.data.data);
-                Cookies.set("refreshtoken",response.data.data.user.refreshToken,{ expires: 7 })
-                Cookies.set("accesstoken",response.data.data.accessToken,{ expires: 7 })
-                Cookies.set("role",response.data.data.user.role,{ expires: 7 })
-                setTimeout(() => {
-                  setShowSuccess(false);
-                }, 3000);
-                navigate("/home")
-        } catch (error) {
-            console.log(error)
-            setShowError(true)    
-            setTimeout(() => {     
-                setShowError(false);
-                console.log("showError is false");
-            }, 3000);
-        }           
-        
-        console.log(logindata)        
-              
-                setloginData({
-                    username:"",
-                    password:""
-                })
-            }
-    
+    try {
+      const response = await axios.post("/api/user/login", logindata)
+      setShowSuccess(true);
+      console.log(response.data.data);
+      Cookies.set("refreshtoken", response.data.data.user.refreshToken, { expires: 7 })
+      Cookies.set("accesstoken", response.data.data.accessToken, { expires: 7 })
+      Cookies.set("role", response.data.data.user.role, { expires: 7 })
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 3000);
+      navigate("/home")
+    } catch (error) {
+      console.log(error)
+      setShowError(true)
+      setTimeout(() => {
+        setShowError(false);
+        console.log("showError is false");
+      }, 3000);
+    }
+
+    console.log(logindata)
+
+    setloginData({
+      username: "",
+      password: ""
+    })
+  }
+
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 flex justify-center items-center px-6 sm:px-10 py-10 sm:py-2 relative">
@@ -73,20 +72,20 @@ const Login = () => {
       {showSuccess && <Success2 />}
 
       <div className="max-w-4xl md:h-[450px] min-h-[400px] bg-white backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 transition-all">
-       
+
         <div className="w-full p-5 md:p-7 flex flex-col justify-center gap-4 sm:gap-5 bg-white/70">
           <h2 className="text-3xl sm:text-4xl font-bold text-blue-600 text-center">Login</h2>
           <p className="text-sm sm:text-base text-center text-gray-500 md:mb-4 mb-2">Glad to see you again!</p>
 
-          <form onSubmit={(e)=>{
+          <form onSubmit={(e) => {
             loginData(e)
           }} className="md:space-y-5 space-y-3.5">
-            
+
             <input value={logindata.username}
               onChange={(e) => {
-                setloginData({ 
-                  ...logindata, 
-                  username: e.target.value 
+                setloginData({
+                  ...logindata,
+                  username: e.target.value
                 })
               }}
               type="text"
@@ -97,9 +96,9 @@ const Login = () => {
             <input
               value={logindata.password}
               onChange={(e) => {
-                setloginData({ 
-                  ...logindata, 
-                  password: e.target.value 
+                setloginData({
+                  ...logindata,
+                  password: e.target.value
                 })
               }}
               type="password"
@@ -123,13 +122,13 @@ const Login = () => {
         </div>
 
 
-{/* ==================== */}
-<div className="md:flex items-center justify-center p-6 md:p-8 bg-white">
-        <img 
-    src={loginImage}
-    alt="SignUp image"
-    className="w-80 md:w-96 object-contain animate-fade-in m-auto"
-  />
+        {/* ==================== */}
+        <div className="md:flex items-center justify-center p-6 md:p-8 bg-white">
+          <img
+            src={loginImage}
+            alt="SignUp image"
+            className="w-80 md:w-96 object-contain animate-fade-in m-auto"
+          />
         </div>
 
       </div>
