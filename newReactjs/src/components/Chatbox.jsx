@@ -46,7 +46,7 @@ const Chatbox = () => {
       <div className={`flex-[1.2] ${selectedUser ? "sm:block hidden" : "block"}`}>
         <ChatLeft userData={userData} followers={followers} onSelectUser={handleSelectUser} selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
       </div>
-
+ 
       {selectedUser ? (
         <div className={`flex-[3] bg-gradient-to-tr from-[#e3e8fb] via-[#fcf3f3] to-[#dbeafe]`}>
           <ChatRight userData={userData} selectedUser={selectedUser}

@@ -6,7 +6,7 @@ function Chat() {
     const [showMenu, setShowMenu] = useState(false);
     useEffect(() => {
         const handleMouseMove = (event) => {
-            if (event.clientX <= 1) {
+            if (event.clientX <= 1) { 
                 setShowMenu(true);
             }
         };

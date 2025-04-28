@@ -3,7 +3,7 @@ import axios from 'axios';
 import logos from '../assets/logos.png';
 import menu from '../assets/menu.png';
 import back from '../assets/back.png';
-import { FaTrashAlt } from 'react-icons/fa'; // Clean Trash Icon from react-icons
+import { FaTrashAlt } from 'react-icons/fa'
 
 const ChatRight = ({ userData, selectedUser, socket, setSelectedUser }) => {
   const [messages, setMessages] = useState([]);
@@ -91,12 +91,10 @@ const ChatRight = ({ userData, selectedUser, socket, setSelectedUser }) => {
 
   return (
     <div className="relative flex flex-col h-full sm:mx-3">
-      {/* Logo in the center */}
       <div className="absolute inset-0 flex justify-center items-center">
         <img src={logos} alt="Logo" className="w-36 h-36 opacity-40 transition-all duration-300 ease-in-out" />
       </div>
 
-      {/* Header */}
       <div className="pr-6 py-1 sm:py-3 border-b border-[#4a8bbe] z-10 flex justify-between items-center">
         <div className="flex items-center ">
           <img src={back} alt="back" className={`w-10 h-10 ${selectedUser ? "sm:hidden block" : "hidden"}`} onClick={() => setSelectedUser(null)} />
@@ -130,8 +128,6 @@ const ChatRight = ({ userData, selectedUser, socket, setSelectedUser }) => {
         </div>
       )}
 
-
-      {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 z-10 overFlow">
         {loading ? (
           <div className="flex flex-col items-center justify-end h-full space-y-4">

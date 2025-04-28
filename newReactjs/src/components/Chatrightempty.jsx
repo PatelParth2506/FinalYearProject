@@ -12,6 +12,6 @@ const Chatrightempty = () => {
         <button className=' px-4 py-2 bg-[#2B6EA0] rounded-lg text-white hover:bg-[#265e89]'>Send message</button>
     </div>
   )
-}
+} 
 
 export default Chatrightempty

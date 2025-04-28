@@ -1,5 +1,5 @@
 import React from 'react';
-import edit from '../assets/edit.png'
+import edit from '../assets/edit.png' 
 
 const ChatLeft = ({ userData, followers, onSelectUser, selectedUser }) => {
   return (
