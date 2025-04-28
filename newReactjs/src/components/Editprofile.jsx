@@ -53,13 +53,11 @@ const EditProfile = () => {
           </div>
         </div>
 
-        {/* Header */}
         <div className="mt-14 text-center">
           <h2 className="text-2xl font-bold text-blue-600">Edit Profile</h2>
           <p className="text-sm text-gray-500">Keep your info up to date</p>
         </div>
 
-        {/* Form */}
         <div className="mt-6 space-y-3 text-sm">
           <div>
             <label className="block text-gray-700 mb-1">Full Name</label>
@@ -68,7 +66,7 @@ const EditProfile = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your name"
-              className="w-full px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 placeholder:font-normal"
+              className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 placeholder:font-normal"
             />
           </div>
 
@@ -79,7 +77,7 @@ const EditProfile = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="@username"
-              className="w-full px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 placeholder:font-normal"
+              className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 placeholder:font-normal"
             />
           </div>
 
@@ -91,14 +89,14 @@ const EditProfile = () => {
               maxLength={150}
               rows={3}
               placeholder="Write a short bio..."
-              className="w-full resize-none px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 placeholder:font-normal"
+              className="w-full resize-none px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 placeholder:font-normal"
             />
             <p className="text-xs text-right text-gray-400">{bio.length}/150</p>
           </div>
-
+          
           <div>
             <label className="block text-gray-700 mb-1">Gender</label>
-            <select className="w-full px-4 py-3 rounded-xl bg-white border border-blue-200 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 placeholder:font-normal">
+            <select className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 placeholder:font-normal">
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
