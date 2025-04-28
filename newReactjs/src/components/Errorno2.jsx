@@ -23,7 +23,7 @@ const Errorno2 = () => {
         </div>
 
         <div className="text-sm sm:text-base text-gray-800 leading-snug">
-          <strong className="text-red-600">Username Alert: </strong> Only use <span className="font-semibold text-red-500">letters, digits ,</span> and <span className="font-semibold text-red-500">underscores</span>. Length must be between <span className="font-semibold text-red-500">5 to 18 characters</span>.
+          <strong className="text-red-600">Username Alert:</strong> Only use <span className="font-semibold text-red-500">letters, digits ,</span> and <span className="font-semibold text-red-500">underscores</span>. Length must be between <span className="font-semibold text-red-500">5 to 18 characters</span>.
         </div>
       </div>
     </div>
