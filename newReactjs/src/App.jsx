@@ -88,6 +88,7 @@ const App = () => {
             <Route path="/admin/updateProducts/product" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><CURD /></RoleProtectedRoute>} />
             <Route path="/admin/addProduct" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><AddProduct /></RoleProtectedRoute>} />
 
+
             <Route path="/devadmin" element={<AdminLayout />}>
               <Route path="dashboard" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><Dashboard /></RoleProtectedRoute>} />
               <Route path="users" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><UserList /></RoleProtectedRoute>} />
