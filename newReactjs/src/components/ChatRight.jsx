@@ -143,8 +143,7 @@ const ChatRight = ({ userData, selectedUser, socket, setSelectedUser }) => {
             <p className="text-lg font-semibold text-[#2B6EA0]">No messages yet</p>
             <p className="text-sm text-gray-500">Start the conversation!</p>
           </div>
-        ) : (
-          messages.map((msg) => {
+        ) : (messages.map((msg) => {
             const isOwn = msg.sender === userData._id;
             return (
               <div
