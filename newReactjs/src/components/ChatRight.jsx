@@ -14,23 +14,33 @@ const ChatRight = ({ userData, selectedUser, socket, setSelectedUser }) => {
 
   useEffect(() => {
     if (!userData._id || !selectedUser._id) return;
-
+  
     const fetchMessages = async () => {
       try {
-        setLoading(true);
         const res = await axios.get(`/api/message/getmessage/${selectedUser._id}`, {
           withCredentials: true,
         });
         setMessages(res.data.data);
-        setLoading(false);
       } catch (err) {
         console.log(err);
-        setLoading(false);
       }
     };
-
+  
     fetchMessages();
   }, [userData, selectedUser]);
+
+  useEffect(() => {
+    if (!userData._id || !selectedUser._id) return;
+  
+    setLoading(true);
+  
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  
+    return () => clearTimeout(timeoutId);
+  }, [selectedUser, userData]);
+  
 
   useEffect(() => {
     if (socket && userData._id) {
@@ -179,7 +189,6 @@ const ChatRight = ({ userData, selectedUser, socket, setSelectedUser }) => {
         )}
       </div>
 
-      {/* Input */}
       <div className="p-4 flex items-center gap-2 z-10">
         <input
           type="text"
