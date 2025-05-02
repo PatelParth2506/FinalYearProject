@@ -184,6 +184,7 @@ function Uploaded() {
                             </button>
                         </div>
 
+
                         {post.owner._id === user._id && (
                             <div className="relative">
                                 <img
