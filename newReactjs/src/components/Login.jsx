@@ -44,10 +44,16 @@ const Login = () => {
       Cookies.set("refreshtoken", response.data.data.user.refreshToken, { expires: 7 })
       Cookies.set("accesstoken", response.data.data.accessToken, { expires: 7 })
       Cookies.set("role", response.data.data.user.role, { expires: 7 })
+
       setTimeout(() => {
         setShowSuccess(false);
-      }, 3000);
-      navigate("/home")
+        navigate("/loader");
+      
+        setTimeout(() => {
+          navigate("/home");
+        }, 4000);
+      }, 2000);
+
     } catch (error) {
       console.log(error)
       setShowError(true)
