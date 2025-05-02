@@ -21,25 +21,26 @@ function Uploaded() {
     const [commentState, setCommentState] = useState({});
     const [posts, setPosts] = useState([]);
     const [newComment, setNewComment] = useState('');
+    const [showHeart, setShowHeart] = useState({});
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
     const [activePostId, setActivePostId] = useState(null);
 
-    const navigate = useNavigate(); 
-    
+    const navigate = useNavigate();
+
     const handleDeletePost = async (postid) => {
 
-                setTimeout(async () => {
-                    await axios.delete(`/api/post/deletepost/${postid}`, {
-                        withCredentials: true
-                    });
-                    setPosts((prev) => prev.filter((p) => p._id !== postid));
-                    setActivePostId(null); 
-                }, 1500);
+        setTimeout(async () => {
+            await axios.delete(`/api/post/deletepost/${postid}`, {
+                withCredentials: true
+            });
+            setPosts((prev) => prev.filter((p) => p._id !== postid));
+            setActivePostId(null);
+        }, 1500);
 
     };
-    
-    
+
+
     useEffect(() => {
         const fetchdata = async () => {
             try {
@@ -80,13 +81,28 @@ function Uploaded() {
     }, []);
 
     const toggleLike = async (postid) => {
-        const like = await axios.post(`/api/post/likepost/${postid}`, {}, {
-            withCredentials: true
-        });
         setPosts((prev) =>
-            prev.map((p) => (p._id === postid ? like.data.data : p))
+            prev.map((p) => {
+                if (p._id === postid) {
+                    const hasLiked = p.likes.includes(user._id);
+                    const updatedLikes = hasLiked
+                        ? p.likes.filter(id => id !== user._id)
+                        : [...p.likes, user._id];
+    
+                    return { ...p, likes: updatedLikes };
+                }
+                return p;
+            })
         );
+        try {
+            await axios.post(`/api/post/likepost/${postid}`, {}, {
+                withCredentials: true
+            });
+        } catch (err) {
+            console.error("Failed to update like:", err);
+        }
     };
+    
 
     const handlesendComment = async (postid) => {
         const addcom = await axios.post(`/api/post/addcomment/${postid}`, {
@@ -168,36 +184,43 @@ function Uploaded() {
                             </button>
                         </div>
 
-            {post.owner._id === user._id && (
-                <div className="relative">
-                  <img
-                    src={dot}
-                    alt=""
-                    className='w-6 cursor-pointer'
-                    onClick={() => setActivePostId(activePostId === post._id ? null : post._id)}
-                  />
-           
-                 {activePostId === post._id && (
-                   <div className="absolute right-0 top-8 bg-white shadow-lg rounded-md z-10 w-32 p-2">
-                     <div
-                       className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
-                      onClick={() => handleDeletePost(post._id)}
-                    >
-                      <img src={deletePost} alt="Delete" className="w-4 h-4" />
-                      <span className="text-red-600 text-sm font-medium">Delete</span>
-                    </div>
-                   </div>
-                 )}
-                </div>
-           )}
+                        {post.owner._id === user._id && (
+                            <div className="relative">
+                                <img
+                                    src={dot}
+                                    alt=""
+                                    className='w-6 cursor-pointer'
+                                    onClick={() => setActivePostId(activePostId === post._id ? null : post._id)}
+                                />
+
+                                {activePostId === post._id && (
+                                    <div className="absolute right-0 top-8 bg-white shadow-lg rounded-md z-10 w-32 p-2">
+                                        <div
+                                            className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
+                                            onClick={() => handleDeletePost(post._id)}
+                                        >
+                                            <img src={deletePost} alt="Delete" className="w-4 h-4" />
+                                            <span className="text-red-600 text-sm font-medium">Delete</span>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
 
 
                     </div>
                 </div>
 
                 <div className="w-full h-[350px] flex justify-center items-center mt-3 sm:h-[420px]">
-                    <div className="h-full w-full mx-5 p-1">
-                        <img src={post.photo} alt="post" className='w-full h-full rounded-xl object-cover' />
+                    <div
+                        className="h-full w-full mx-5 p-1 relative"
+                        onDoubleClick={() => { toggleLike(post._id); setShowHeart((prev) => ({ ...prev, [post._id]: true })); setTimeout(() => { setShowHeart((prev) => ({ ...prev, [post._id]: false })); }, 800);}}>
+                        <img src={post.photo} alt="post" className="w-full h-full rounded-xl object-cover cursor-pointer select-none"/>
+                        {showHeart[post._id] && (
+                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                <img src={heratfill} alt="liked" className="w-20 h-20 bg-opacity-100 animate-ping" />
+                            </div>
+                        )}
                     </div>
                 </div>
 
