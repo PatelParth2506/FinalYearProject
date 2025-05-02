@@ -48,7 +48,7 @@ const Chatbox = () => {
       </div>
  
       {selectedUser ? (
-        <div className={`flex-[3] bg-gradient-to-tr from-[#e3e8fb] via-[#fcf3f3] to-[#dbeafe]`}>
+        <div className={`flex-[3] -z-20 bg-gradient-to-tr from-[#e3e8fb] via-[#fcf3f3] to-[#dbeafe]`}>
           <ChatRight userData={userData} selectedUser={selectedUser}
             socket={socket}
             setSelectedUser={setSelectedUser}

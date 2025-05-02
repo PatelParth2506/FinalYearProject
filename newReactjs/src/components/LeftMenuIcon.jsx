@@ -25,7 +25,7 @@ function LeftMenuIcon() {
         <img src={chat} alt="" className='w-6 h-6' onClick={() => { navigate("/chatbox") }}/>
         <img src={love} alt="" className='w-6 h-6'/>
         <img src={bookmark} alt="" className='w-6 h-6'/>
-        <img src={store} alt="" className='w-6 h-6'/>
+        <img src={store} alt="" className='w-6 h-6' onClick={()=>{navigate("/store")}}/>
       </div>
       <div className="flex flex-col gap-y-8 items-center flex-[1] justify-end">
           <img src={settings} alt="" className='w-6 h-6 ' />
