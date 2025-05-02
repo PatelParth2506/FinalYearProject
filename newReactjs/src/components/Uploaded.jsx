@@ -154,11 +154,11 @@ function Uploaded() {
                         <img src={post.owner.profilePhoto} alt="userPro" className='w-12 h-12 rounded-full object-cover border-2 border-[#2B6EA0] p-[2px]' onClick={() => gotoProfile(post.owner._id)} />
                         <div className="flex justify-center items-start flex-col" onClick={() => gotoProfile(post.owner._id)}>
                             <p className="text-[#2B6EA0] text-[16px] font-semibold">{post.owner.username}</p>
-                            <p className="text-gray-500 text-sm">{user.fullname ?? "ConnectMe"}</p>
+                            <p className="text-gray-500 text-sm">{post.owner.fullname ?? "ConnectMe"}</p>
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
-                        <div className={`px-7 py-[7px] ml-2 mr-1 border text-[16px] rounded-2xl
+                        <div className={`px-7 py-[7px] ml-2 mr-1 border text-[16px] rounded-lg
                              ${user.following?.includes(post.owner._id)
                                 ? "bg-white text-[#2B6EA0] border-[#2B6EA0]"
                                 : "bg-[#2B6EA0] text-white border-[#2B6EA0]"
