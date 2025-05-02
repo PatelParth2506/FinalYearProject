@@ -9,6 +9,7 @@ import heratfill from '../assets/heartFill.png';
 import send from '../assets/send.png';
 import { useParams, useNavigate } from 'react-router-dom';
 import { connect } from 'socket.io-client';
+import hearts from "../assets/hearts.png";
 import dot from "../assets/dots.png"
 import deletePost from "../assets/delete (1).png";
 
@@ -218,7 +219,7 @@ function Uploaded() {
                         <img src={post.photo} alt="post" className="w-full h-full rounded-xl object-cover cursor-pointer select-none"/>
                         {showHeart[post._id] && (
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                <img src={heratfill} alt="liked" className="w-20 h-20 bg-opacity-100 animate-ping" />
+                                <img src={hearts} alt="liked" className="w-20 h-20 bg-opacity-100 animate-ping" />
                             </div>
                         )}
                     </div>
