@@ -63,22 +63,20 @@ const App = () => {
         <Layout>
           <Routes>
             <Route path="/" element={<Signup />} />
-            <Route path="/home" element={<PrivateRoute><HomeLayout /></PrivateRoute>} />
+            <Route path="/home" element={<HomeLayout />} />            
             <Route path="/login" element={<Login />} />
-            <Route path="/chatbox" element={<PrivateRoute><Mainchat /></PrivateRoute>} />
-            <Route path="/story" element={<PrivateRoute><StoryLayout /></PrivateRoute>} />
-            <Route path="/profilelayout/:userID?" element={<PrivateRoute><ProfileLayout /></PrivateRoute>} />
-            <Route path="/editprofilelayout" element={<PrivateRoute><EditProfileLayout /></PrivateRoute>} />
-            <Route path="/photo" element={<PrivateRoute><Photo /></PrivateRoute>} />
-            <Route path="/loader" element={<PrivateRoute><Loader /></PrivateRoute>} />
-            <Route path="/store" element={<PrivateRoute><StoreHome /></PrivateRoute>} />
-            <Route path="/store/product/:id" element={<PrivateRoute><ProductDetails /></PrivateRoute>} />
-            <Route path="/store/cart" element={<PrivateRoute><CartPage /></PrivateRoute>} />
-            <Route path="/success" element={<PrivateRoute><PaymentSuccess /></PrivateRoute>} />
-            <Route path="/cancel" element={<PrivateRoute><PaymentCancel /></PrivateRoute>} />
-            <Route path="/getallpost/:userID/:postID" element={<PrivateRoute><HomeLayout /></PrivateRoute>} />
-            <Route path="/home" element={<PrivateRoute><HomeLayout /></PrivateRoute>} />
-
+            <Route path="/chatbox" element={<Mainchat />} />
+            <Route path="/story" element={<StoryLayout />} />
+            <Route path="/profilelayout/:userID?" element={<ProfileLayout />} />
+            <Route path="/editprofilelayout" element={<EditProfileLayout />} />
+            <Route path="/photo" element={<Photo />} />
+            <Route path="/loader" element={<Loader />} />
+            <Route path="/store" element={<StoreHome />} />
+            <Route path="/store/product/:id" element={<ProductDetails />} />
+            <Route path="/store/cart" element={<CartPage />} />
+            <Route path="/success" element={<PaymentSuccess />} />
+            <Route path="/cancel" element={<PaymentCancel />} />
+            <Route path="/getallpost/:userID/:postID" element={<HomeLayout />} />
 
             <Route path="/admin" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><Home /></RoleProtectedRoute>} />
             <Route path="/admin/inventory" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><Inventory /></RoleProtectedRoute>} />
@@ -87,7 +85,6 @@ const App = () => {
             <Route path="/admin/updateProducts" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><AddProducts /></RoleProtectedRoute>} />
             <Route path="/admin/updateProducts/product" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><CURD /></RoleProtectedRoute>} />
             <Route path="/admin/addProduct" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><AddProduct /></RoleProtectedRoute>} />
-
 
             <Route path="/devadmin" element={<AdminLayout />}>
               <Route path="dashboard" element={<RoleProtectedRoute allowedRoles={['admin', 'creator']}><Dashboard /></RoleProtectedRoute>} />

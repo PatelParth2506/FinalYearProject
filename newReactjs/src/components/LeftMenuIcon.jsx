@@ -16,7 +16,7 @@ function LeftMenuIcon() {
   const navigate = useNavigate();
 
   return (
-    <div className='loginForm w-[60px] h-[93vh] flex justify-between flex-col items-center py-8 bg-white fixed font-sans z-[15] md:relative'>
+    <div className='loginForm w-[60px] h-[93vh] flex justify-between flex-col items-center py-8 bg-white fixed font-sans z-[10] md:relative'>
       <div className='flex flex-col items-center flex-[2] justify-between'>
         <img src={home} alt="" className='w-6 h-6' onClick={() => { navigate("/home") }}/>
         <img src={user} alt="" className='w-6 h-6' onClick={() => { navigate("/profilelayout") }}/>

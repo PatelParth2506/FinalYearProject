@@ -20,7 +20,8 @@ export default function StoriesPage() {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const res = await axios.get("/api/story/getFollowingStory");
+      try {
+        const res = await axios.get("/api/story/getFollowingStory");
       console.log(res.data.data);
       setStoriesData(res.data.data);
       const currentuser = await axios.get("/api/story/getCurrentUserStory", {
@@ -33,6 +34,10 @@ export default function StoriesPage() {
       setCurrentUser(userdetail.data.data)
       console.log(currentuser.data.data);
       setLoading(false)
+      } catch (error) {
+        console.log("Error fetching stories", error);
+        setLoading(false)
+      }
     };
     fetchdata();
     console.log(currentUserStory)
