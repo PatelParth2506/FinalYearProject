@@ -28,14 +28,6 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(document.cookie)
-    const isAuthenticated = Cookies.get("accesstoken");
-    console.log(isAuthenticated)
-    if (isAuthenticated) {
-      navigate("/home"); 
-    }
-  }, [navigate]);
 
   const handleCheckboxChange = (e) => {
     setIsChecked(e.target.checked);
