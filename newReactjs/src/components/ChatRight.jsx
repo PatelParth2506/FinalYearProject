@@ -5,6 +5,9 @@ import dot from '../assets/dots.png';
 import back from '../assets/back.png';
 import { FaTrashAlt } from 'react-icons/fa'
 import { href, Link } from 'react-router-dom';
+import dayjs from "dayjs";
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
 
 const ChatRight = ({ userData, selectedUser, socket, setSelectedUser }) => {
   const [messages, setMessages] = useState([]);
@@ -180,7 +183,7 @@ const ChatRight = ({ userData, selectedUser, socket, setSelectedUser }) => {
                   <span className="w-full break-words">{msg.text}</span>
           
                   <div className="flex justify-end mt-1">
-                    <p className="text-[10px]">7:30 am</p>
+                    <p className="text-[10px]">{dayjs(msg.createdAt).fromNow()}</p>
                   </div>
                 </div>
           

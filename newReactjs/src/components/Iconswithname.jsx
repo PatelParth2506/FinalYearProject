@@ -61,7 +61,7 @@ const Iconswithname = ({setshow}) => {
           <span>Home</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={() => { navigate("/profilelayout"); setshow() }}>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={() => { navigate("/profilelayout"); setshow()  }}>
           <img src={user} alt="" className='w-6 h-6 ' />
           <span>Profile</span>
         </div>
@@ -71,12 +71,12 @@ const Iconswithname = ({setshow}) => {
           <span>Search</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={()=>{navigate("/story"); setshow()}}>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={()=>{navigate("/story"); setshow() }}>
           <img src={reels} alt="" className='w-6 h-6 ' />
           <span>Stories</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={() => { navigate("/chatbox"); setshow() }}>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={() => { navigate("/chatbox"); setshow()  }}>
           <img src={chat} alt="" className='w-6 h-6 ' />
           <span>Message</span>
         </div>
@@ -91,7 +91,7 @@ const Iconswithname = ({setshow}) => {
           <span>Bookmarks</span>
         </div>
 
-        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={()=>{navigate("/store"); setshow()}}>
+        <div className='flex items-center gap-x-5 py-2 px-3 hover:bg-gray-100 rounded-md' onClick={()=>{navigate("/store"); setshow() }}>
           <img src={store} alt="" className='w-6 h-6 ' />
           <span>Store</span>
         </div>
