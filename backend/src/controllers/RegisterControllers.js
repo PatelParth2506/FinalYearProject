@@ -286,7 +286,7 @@ const ToggleFollow= asyncHandler(async(req,res)=>{
 })
 
 const getalluser= asyncHandler(async(req,res)=>{
-    const user=await User.find().select("-password -refreshToken")
+    const user=await User.find()
     res.status(200).json(
         new ApiResponse(200,user,"All User Fetched SuccessFully")
     )
@@ -302,6 +302,31 @@ const getUsersByIds = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, users, "Users fetched successfully"));
   });
   
+const adminlogin= async (req, res) => {
+    try {
+      const { userId } = req.body;
+  
+      // Optional: Check if requester is an admin
+      // const requester = await User.findById(req.user.id);
+      // if (!requester.isAdmin) return res.status(403).json({ message: "Not allowed" });
+  
+      const user = await User.findById(userId);
+      if (!user) return res.status(404).json({ message: "User not found" });
+  
+      // Generate token for that user
+      const token = jwt.sign(
+        { id: user._id, username: user.username },
+        process.env.JWT_SECRET,
+        { expiresIn: "7d" }
+      );
+  
+      res.json({ token });
+    } catch (err) {
+      res.status(500).json({ message: "Internal error" });
+    }
+  };
+    
+
 
 export {
     register,
@@ -317,5 +342,6 @@ export {
     getUserByID,
     ToggleFollow,
     getalluser,
-    getUsersByIds
+    getUsersByIds,
+    adminlogin
 }

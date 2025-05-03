@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { LogIn, ShieldOff, ShieldCheck, Eye, X, Axe } from "lucide-react";
 import userList from '../../assets/userList.png';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const UserList = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -10,6 +11,7 @@ const UserList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [users, setUsers] = useState([]);
   const usersPerPage = 6;
+  const navigate=useNavigate()
 
   const handleBlockToggle = (userId) => {
     const updatedUsers = users.map((user) =>
@@ -28,7 +30,12 @@ const UserList = () => {
   fetchdata()
   },[])
 
-  const handleLoginAsUser = (user) => {
+  const handleLoginAsUser = async(user) => {
+    console.log(user.password,"Password",user.username,"Username")
+    const res=await axios.post("/api/user/adminlogin",{
+      userId:user.username,
+    })
+    navigate("/home")
     console.log("Logging in as:", user.username);
     alert(`Pretending to log in as @${user.username}`);
   };

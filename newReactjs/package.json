@@ -14,6 +14,7 @@
     "@stripe/stripe-js": "^6.1.0",
     "@tailwindcss/vite": "^4.0.3",
     "axios": "^1.7.9",
+    "backend": "file:..",
     "chart.js": "^4.4.9",
     "dayjs": "^1.11.13",
     "gsap": "^3.12.7",

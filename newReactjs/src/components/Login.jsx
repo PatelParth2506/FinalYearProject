@@ -16,14 +16,6 @@ const Login = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(document.cookie)
-    const isAuthenticated = Cookies.get("accesstoken");
-    console.log(isAuthenticated)
-    if (isAuthenticated) {
-      navigate("/home");
-    }
-  }, [navigate]);
   const loginData = async (e) => {
     e.preventDefault();
 
@@ -38,22 +30,30 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post("/api/user/login", logindata)
-      setShowSuccess(true);
-      console.log(response.data.data);
-      Cookies.set("refreshtoken", response.data.data.user.refreshToken, { expires: 7 })
-      Cookies.set("accesstoken", response.data.data.accessToken, { expires: 7 })
-      Cookies.set("role", response.data.data.user.role, { expires: 7 })
-
-      setTimeout(() => {
+      try {
+        const response = await axios.post("/api/user/login", logindata);
+        
+        setShowSuccess(true);
+        
+        Cookies.set("refreshtoken", response.data.data.user.refreshToken, { expires: 7 });
+        Cookies.set("accesstoken", response.data.data.accessToken, { expires: 7 });
+        Cookies.set("role", response.data.data.user.role, { expires: 7 });
+        
         setShowSuccess(false);
-        navigate("/loader");
-      
+        navigate("/loader")
+        setTimeout(()=>{
+          navigate("/home")
+        },4000)
+        
+      } catch (error) {
+        console.log(error);
+        setShowError(true);
         setTimeout(() => {
-          navigate("/home");
-        }, 4000);
-      }, 2000);
-
+          setShowError(false);
+          console.log("showError is false");
+        }, 3000);
+      }
+      
     } catch (error) {
       console.log(error)
       setShowError(true)
@@ -128,7 +128,6 @@ const Login = () => {
         </div>
 
 
-        {/* ==================== */}
         <div className="md:flex items-center justify-center p-6 md:p-8 bg-white">
           <img
             src={loginImage}
@@ -143,6 +142,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
-
