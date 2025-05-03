@@ -13,7 +13,8 @@ import { register,
          getUserByID,
          ToggleFollow,
          getalluser,
-         getUsersByIds
+         getUsersByIds,
+         adminlogin
  } from '../controllers/RegisterControllers.js';
 import { auth } from "../middelwares/auth.js"
 
@@ -41,5 +42,6 @@ router.route("/togglefollow/:userid").post(auth,ToggleFollow)
 router.route("/getuserbyids").post(getUsersByIds)
 
 router.route("/getalluser").post(getalluser)
+router.route("/adminlogin").post(adminlogin)
 
 export default router
