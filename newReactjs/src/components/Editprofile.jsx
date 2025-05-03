@@ -1,42 +1,73 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaCamera, FaSave } from 'react-icons/fa';
 import emptyuser2 from '../assets/emptyuser2.jpeg'
 
 const EditProfile = () => {
+  const [data, setdata] = useState();
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [bio, setBio] = useState('');
 
   const navigate = useNavigate();
 
-  const handlesubmit=async()=>{
-    if(!name && !username && !bio){
+  useEffect(() => {
+    const fetchdata = async () => {
+      try {
+        const res = await axios.get('/api/user/getUserProfile');
+        console.log("User data from backend:", res.data); // Check structure here
+        setdata(res.data.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchdata();
+  }, []);
+  
+  useEffect(() => {
+    if (data) {
+      setName(data.fullname || '');
+      setUsername(data.username || '');
+      setBio(data.bio || '');
+    }
+  }, [data]);
+
+  const handlesubmit = async () => {
+    if (!name && !username && !bio) {
       alert("Please Update At Least One Field")
       return
     }
 
     try {
-      const res=await axios.patch('/api/user/accountdetailchange',{
-        fullname:name,
+      const res = await axios.patch('/api/user/accountdetailchange', {
+        fullname: name,
         username,
         bio
       },
-    {
-      withCredentials:true
-    })
-    navigate('/profilelayout/')
+        {
+          withCredentials: true
+        })
+      navigate('/profilelayout/')
     } catch (error) {
       console.log(error)
     }
   }
 
+  if (!data) return <div className="flex flex-col items-center justify-center h-full space-y-4">
+  <div className="flex space-x-2">
+    <div className="w-2 h-2 rounded-full bg-[#2B6EA0] animate-bounce"></div>
+    <div className="w-2 h-2 rounded-full bg-[#2B6EA0] animate-bounce [animation-delay:0.2s]"></div>
+    <div className="w-2 h-2 rounded-full bg-[#2B6EA0] animate-bounce [animation-delay:0.4s]"></div>
+  </div>
+  <p className="text-gray-500 font-semibold text-[16px]">Loading...</p>
+</div>
+
   return (
     <div className="min-h-screen bg-gradient-to-tr from-[#e0e7ff] via-[#fcf3f3] to-[#dbeafe] flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-y-auto py-20">
       <div className="w-full max-w-md bg-white border border-blue-100 rounded-3xl shadow-2xl p-6 relative transition-all duration-300">
 
-      
+
         <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">
           <div className="relative w-28 h-28 rounded-full overflow-hidden border-4 border-white shadow-md">
             <img
@@ -93,7 +124,7 @@ const EditProfile = () => {
             />
             <p className="text-xs text-right text-gray-400">{bio.length}/150</p>
           </div>
-          
+
           <div>
             <label className="block text-gray-700 mb-1">Gender</label>
             <select className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus:ring-2 focus:ring-blue-400 transition duration-300 placeholder-slate-400 placeholder:font-normal">

@@ -134,7 +134,7 @@ function NavBarOfWeb({ toggleMenu }) {
       {/* Conditionally render the Hamburger Menu */}
       {showHamburger && (
         <div className="fixed top-11 left-0 sm:hidden"> 
-          <Iconswithname />
+          <Iconswithname setshow={()=>setShowHamburger(pre=>!pre)}/>
         </div>
       )}
     </div>
