@@ -53,7 +53,7 @@ const Iconswithname = ({setshow}) => {
   }
 
   return (
-    <div className='overFlow loginForm w-[220px] h-[93vh] py-8 px-2 flex flex-col gap-y-7 justify-between items-start z-5 fixed sm:static bg-white md:relative overflow-auto'>
+    <div className='overFlow loginForm w-[220px] h-[93vh] py-8 px-2 flex flex-col gap-y-7 justify-between items-start z-10 fixed sm:static bg-white md:relative overflow-auto'>
 
       <div className='w-full flex flex-col cursor-pointer flex-2 justify-between gap-2'>
         <div className='flex items-center gap-x-5 px-3 py-2 hover:bg-gray-100 rounded-md' onClick={() => { navigate("/home"); setshow() }}>
