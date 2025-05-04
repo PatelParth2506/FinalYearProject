@@ -55,7 +55,7 @@ const Profile = ({ userID }) => {
       console.log(flattenedComments)
     }
     fetchdata()
-  }, [])
+  }, [userID])
 
   const handleShowUserList = async(type)=>{
     setShowUserList(type)
@@ -181,13 +181,18 @@ const Profile = ({ userID }) => {
               </div>
               {userList.map((user) => (
                 <div key={user._id} className="flex items-center justify-between gap-3 py-3 border-b">
-                  <div className="flex items-center gap-3">
-                    <img src={user.profilePhoto} alt="user" className="w-10 h-10 rounded-full object-cover" />
-                    <div>
-                      <p className="font-semibold text-sm">{user.username}</p>
-                      <p className="text-xs text-gray-500">{user.fullname}</p>
-                    </div>
-                  </div>
+
+                 
+              <div className="flex items-center gap-3 cursor-pointer" onClick={() =>{ 
+                setShowUserList(null)
+                navigate(`/profilelayout/${user._id}`)}}>
+                <img src={user.profilePhoto} alt="user" className="w-10 h-10 rounded-full object-cover" />
+                <div>
+                   <p className="font-semibold text-sm">{user.username}</p>
+                   <p className="text-xs text-gray-500">{user.fullname}</p>
+                </div>
+              </div>
+
                   {!userID && (
                     <button className="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded-md">
                       {profiledata.following?.includes(user._id) ? 'Following' : 'Follow'}
