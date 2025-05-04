@@ -71,7 +71,6 @@ import search from '../assets/img/stories/search.png';
 import chat from '../assets/img/stories/chat.png';
 import avatar from '../assets/img/stories/avatar.jpg';
 import Iconswithname from './Iconswithname'; // Import the Iconswithname component
-import humburge from '../assets/humburge.png'
 
 function NavBarOfWeb({ toggleMenu }) {
   const [showSearch, setShowSearch] = useState(false);
@@ -117,7 +116,23 @@ function NavBarOfWeb({ toggleMenu }) {
 
           <img src={avatar} alt="userPro" className="w-10 h-10 p-1 bg-white rounded-full aspect-square border-2 border-[#2B6EA0]  hidden md:flex" />
 
-          <img src={humburge} alt="Menu" className="w-9 h-10 p-[5px] bg-white rounded-full md:hidden" onClick={() => setShowHamburger(!showHamburger)}/>
+          <div
+             className="w-9 h-9 flex flex-col justify-center items-center gap-[6px] cursor-pointer md:hidden z-50"
+             onClick={() => setShowHamburger(!showHamburger)}
+           >
+             <span
+               className={`block w-6 h-0.5 bg-[#2B6EA0] transition-all duration-300 
+                 ${showHamburger ? 'rotate-45 absolute' : ''}`}
+             ></span>
+             <span
+               className={`block w-6 h-0.5 bg-[#2B6EA0] transition-all duration-300 
+                 ${showHamburger ? 'opacity-0' : ''}`}
+             ></span>
+             <span
+               className={`block w-6 h-0.5 bg-[#2B6EA0] transition-all duration-300 
+                 ${showHamburger ? '-rotate-45 absolute' : ''}`}
+             ></span>
+           </div>
         </div>
       </nav>
 
